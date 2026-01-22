@@ -76,8 +76,8 @@ document.addEventListener("click", (e) => {
   localStorage.setItem("bc_lang", targetLang);
 
   const pairs = {
-    "index": "-en",
-    "-en": "index",
+    "index": "index-en",
+    "index-en": "index",
 
     "personales": "personal",
     "personal": "personales",
