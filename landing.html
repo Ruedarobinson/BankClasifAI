@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KZZFBSD9');</script>
+<!-- End Google Tag Manager -->
+
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>BankClasifAI | Claridad financiera para Tax Season (USA)</title>
+  <meta name="description"
+    content="Convierte tus extractos bancarios en claridad financiera. Clasificación automática de ingresos y gastos con IA para tax season en Estados Unidos." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://bankclasifai.com/tax-season.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BankClasifAI" />
+  <meta property="og:title" content="BankClasifAI | Claridad financiera para Tax Season" />
+  <meta property="og:description"
+    content="Sube tu extracto bancario y deja que la IA clasifique ingresos y gastos en segundos. Diseñado para tax season en EE.UU." />
+  <meta property="og:url" content="https://bankclasifai.com/tax-season.html" />
+  <meta property="og:image" content="https://bankclasifai.com/img/og-cover.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BankClasifAI | Tax Season" />
+  <meta name="twitter:description"
+    content="Clasifica ingresos y gastos desde tu extracto bancario (PDF/imagen). Sin Excel, sin fórmulas." />
+  <meta name="twitter:image" content="https://bankclasifai.com/img/og-cover.jpg" />
+
+  <!-- Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- CSS global del proyecto -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+  <!-- CSS SOLO para esta landing (limpio, sin duplicados) -->
+  <style>
+    /* ===== Layout base ===== */
+    .lp-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .lp-area {
+      padding: 32px 0;
+      background: var(--color-bg);
+    }
+
+    /* ===== Topbar ===== */
+    .lp-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lp-topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .lp-logo img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    /* ===== HERO centrado ===== */
+    .lp-hero {
+      padding: 72px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lp-hero::before {
+      content: "";
+      position: absolute;
+      inset: -60px;
+      background:
+        radial-gradient(1100px 520px at 20% 20%, rgba(255, 38, 137, .14), transparent 55%),
+        radial-gradient(900px 520px at 85% 35%, rgba(254, 107, 176, .12), transparent 55%);
+      pointer-events: none;
+    }
+
+    .lp-hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .lp-hero-copy {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .lp-hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+    }
+
+    .lp-hero-features {
+      list-style: none;
+      padding: 0;
+      margin: 16px auto 0;
+      max-width: 920px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lp-hero-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      justify-content: center;
+      text-align: left;
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .lp-hero-points {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .lp-hero-actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Preview */
+    .lp-preview {
+      width: 100%;
+      max-width: 920px;
+      margin-top: 10px;
+    }
+
+    .lp-preview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .lp-preview-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(255, 38, 137, .22);
+      background: var(--brand-soft);
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(11, 18, 58, .78);
+      white-space: nowrap;
+    }
+
+    .lp-preview-badge i {
+      color: var(--color-logo);
+    }
+
+    .lp-preview-media {
+      width: 100%;
+      height: 490px;
+      border-radius: var(--r-18);
+      border: 1px solid var(--border);
+      background: rgba(11, 18, 58, .02);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lp-preview-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lp-preview-pills {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+
+
+    /* =========================
+   2) TODOS los títulos de secciones centrados
+========================= */
+    .lp-inner .seccion-titulo,
+    .lp-inner .seccion-subtitulo {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+    }
+
+    /* si tienes h2 dentro de lp-inner */
+    .lp-inner h2,
+    .lp-inner p.seccion-subtitulo {
+      text-align: center;
+    }
+
+
+
+
+    /* ===== Bancos (carrusel) ===== */
+    .bank-logos {
+      padding: 28px 0 44px;
+      background: var(--color-bg);
+      text-align: center;
+    }
+
+    .bank-logos .seccion-subtitulo {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 820px;
+    }
+
+    .bank-logos__wrap {
+      margin-top: 8px;
+
+      padding: 18px 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-row {
+      overflow: hidden;
+      width: 100%;
+      padding: 10px 0;
+    }
+
+    .logo-track {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .logo-slide {
+      width: 150px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .72);
+      border: 1px solid rgba(11, 18, 58, .10);
+    }
+
+    .logo-slide img {
+      max-height: 84px;
+      max-width: 120px;
+      width: auto;
+      height: auto;
+      opacity: .92;
+    }
+
+    @keyframes trackLeft {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .track-left {
+      animation: trackLeft 26s linear infinite;
+    }
+
+    .bank-logos__wrap:before,
+    .bank-logos__wrap:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 70px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .bank-logos__wrap:before {
+      left: 0;
+      background: linear-gradient(to right, var(--surface), rgba(255, 255, 255, 0));
+    }
+
+    .bank-logos__wrap:after {
+      right: 0;
+      background: linear-gradient(to left, var(--surface), rgba(255, 255, 255, 0));
+    }
+
+    .bank-logos__note {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(11, 18, 58, .62);
+    }
+
+    /* ===== Problem ===== */
+    .lp-problem-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .lp-mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-18);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      text-align: left;
+    }
+
+
+
+    .lp-mini-card p {
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .lp-mini-emoji {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== Steps ===== */
+    .lp-steps {
+      background: rgba(11, 18, 58, .02);
+    }
+
+    .lp-steps-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .lp-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-18);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .lp-step-media {
+      height: 190px;
+      background: rgba(11, 18, 58, .02);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .lp-step-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lp-step-body {
+      padding: 16px;
+      position: relative;
+    }
+
+    .lp-step-num {
+      position: absolute;
+      top: -18px;
+      left: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-logo);
+      color: #fff;
+      font-weight: 700;
+      border: 4px solid var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .lp-step-body h3 {
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-top: 10px;
+    }
+
+    .lp-step-body p {
+      font-size: 17px;
+      color: var(--ink);
+    }
+
+    /* ===== Roles ===== */
+    #roles {
+      scroll-margin-top: 90px;
+    }
+
+    .lp-role-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .lp-role-card {
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .lp-role-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .lp-role-card.is-selected {
+      border-color: rgba(255, 38, 137, .55) !important;
+      box-shadow: var(--shadow-brand) !important;
+    }
+
+
+
+
+
+    .lp-role-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .lp-role-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand-soft);
+      border: 1px solid rgba(255, 38, 137, .22);
+      flex: 0 0 auto;
+    }
+
+    .lp-role-ico i {
+      color: var(--color-logo);
+      font-size: 18px;
+    }
+
+    .lp-role-tag {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 300;
+      white-space: nowrap;
+    }
+
+    .lp-role-card h3 {
+      font-size: 24px;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    .lp-role-desc {
+      font-size: 19px;
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.45;
+    }
+
+    /* LISTA DE BENEFICIOS (cards) */
+    .lp-tarjetas-list {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0 0;
+
+      /* separa items verticalmente */
+      display: grid;
+      gap: 12px;
+    }
+
+    .lp-tarjetas-list li {
+      /* ✅ esto es lo que te falta */
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    /* icono/check */
+    .lp-tarjetas-list li i {
+      flex: 0 0 16px;
+      /* ancho fijo */
+      width: 16px;
+      margin: 0;
+      /* quita margin-right/margin-top */
+      margin-top: 2px;
+      /* micro ajuste vertical */
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    /* botón full */
+    .btn-dark.btn-full {
+      margin: 28px 0 0 0;
+      padding: 12px 16px 12px 16px;
+      width: 100%;
+      display: block;
+    }
+
+
+    /* ===== Modal ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(11, 18, 58, .55);
+      backdrop-filter: blur(6px);
+      padding: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 500px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-22);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      padding: 16px 18px 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 15px;
+      color: rgba(11, 18, 58, .70);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-family: "roboto", system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    .modal-footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: rgba(11, 18, 58, .65);
+      line-height: 1.6;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px) {
+      .lp-preview-media {
+        height: 240px;
+      }
+
+      .lp-problem-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .lp-steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lp-role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .lp-problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-slide {
+        width: 130px;
+        height: 50px;
+      }
+    }
+
+
+    /* ===== Banner oscuro CTA ===== */
+    .cta-dark {
+      padding: 34px 0;
+      background: radial-gradient(900px 280px at 18% 15%, rgba(250, 194, 219, 0.28), transparent 55%),
+        radial-gradient(900px 280px at 85% 30%, rgba(249, 206, 226, 0.2), transparent 55%),
+        #fbf8fb;
+      border-radius: 18px;
+      border-top: 1px solid rgba(255, 255, 255, .10);
+      border-bottom: 1px solid rgba(255, 255, 255, .10);
+    }
+
+    .cta-dark__inner {
+
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 38px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .cta-dark__content {
+      text-align: center;
+
+    }
+
+    .cta-dark__content h3 {
+      color: white;
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .cta-dark__content p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 960px;
+    }
+
+    .cta-dark__brand {
+      color: #fff;
+      font-weight: 600;
+      background: linear-gradient(135deg, #f997ae 3%, #e43486 45%, #e93b92 85%, #a4426b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+
+
+    @media (max-width: 900px) {
+      .cta-dark__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZZFBSD9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+  <!-- Topbar -->
+  <header class="lp-topbar">
+    <div class="lp-topbar-inner">
+      <a class="lp-logo" href="/index.html">
+        <img src="/img/logo.png" alt="BankClasifAI Logo" />
+      </a>
+      <a href="#roles" class="btn-signup" id="topCta">Probar Demo</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="lp-hero">
+      <div class="lp-inner">
+        <div class="lp-hero-inner">
+
+          <div class="lp-hero-copy">
+            <span class="eyebrow">🧾 Tax Season • 2026</span>
+
+            <h1 class="heading-hero">
+              Dile adiós al caos del <span class="text-destacado">tax season</span><br>
+              clasificando tus extractos bancarios con IA
+            </h1>
+
+            <h3 class="seccion-subtitulo lp-hero-subtitle">
+              Sube tu extracto bancario y deja que la inteligencia artificial clasifique automáticamente tus ingresos y
+              gastos en segundos.
+              Diseñado para tax season en Estados Unidos. Sin fórmulas, ni Excel. Sin trabajo manual ni procesos
+              complicados.
+            </h3>
+
+            <ul class="lp-hero-features">
+
+              <li><span class="icon">🚫</span> Sin fórmulas, ni Excel</li>
+              <li><span class="icon">⏳</span> ahorro de tiempo</li>
+            </ul>
+
+
+            <div class="lp-hero-actions">
+              <button class="btn-dark" id="ctaScroll" type="button"> Quiero probar la demo
+              </button>
+            </div>
+
+            <p class="text-muted" style="margin-top: 10px;">
+              Menos desorden, más claridad financiera para tomar mejores decisiones.
+            </p>
+          </div>
+
+          <aside class="lp-preview" aria-label="Vista previa de la plataforma">
+            <div class="lp-preview-head">
+              <span class="text-muted"><i class="fa-solid fa-chart-line"></i> Vista previa</span>
+              <span class="lp-preview-badge"><i class="fa-solid fa-shield-halved"></i> Datos protegidos</span>
+            </div>
+
+            <div class="lp-preview-media">
+              <img src="/img/banks/Dashboard-statement.png" alt="Demo BankClasifAI" />
+            </div>
+
+            <div class="lp-hero-points">
+              <span class="bc-pill"><i class="fa-solid fa-file-pdf"></i> PDF / Imagen</span>
+              <span class="bc-pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Clasificación con IA</span>
+              <span class="bc-pill"><i class="fa-solid fa-file-excel"></i> Exporta a Excel</span>
+              <span class="bc-pill"><i class="fa-solid fa-lock"></i> Security-first</span>
+            </div>
+
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BANCOS -->
+    <section class="bank-logos">
+      <div class="lp-inner">
+        <h3 class="seccion-titulo">Compatible con bancos de Estados Unidos</h3>
+
+
+        <div class="bank-logos__wrap" aria-label="Carrusel de bancos">
+          <div class="logo-row">
+            <div class="logo-track track-left">
+              <div class="logo-slide"><img src="/img/banks/WellsFargo.svg" alt="Wells Fargo"></div>
+              <div class="logo-slide"><img src="/img/banks/HSBC_bank.svg" alt="HSBC"></div>
+              <div class="logo-slide"><img src="/img/banks/us-bank.svg" alt="U.S. Bank"></div>
+              <div class="logo-slide"><img src="/img/banks/capital-one.svg" alt="Capital One"></div>
+              <div class="logo-slide"><img src="/img/banks/TD-Bank.svg" alt="TD Bank"></div>
+              <div class="logo-slide"><img src="/img/banks/Bank-of-America-Logo-700x394.png" alt="Bank of America">
+              </div>
+
+              <!-- duplicados para loop infinito -->
+              <div class="logo-slide"><img src="/img/banks/WellsFargo.svg" alt="Wells Fargo"></div>
+              <div class="logo-slide"><img src="/img/banks/HSBC_bank.svg" alt="HSBC"></div>
+              <div class="logo-slide"><img src="/img/banks/us-bank.svg" alt="U.S. Bank"></div>
+              <div class="logo-slide"><img src="/img/banks/capital-one.svg" alt="Capital One"></div>
+              <div class="logo-slide"><img src="/img/banks/TD-Bank.svg" alt="TD Bank"></div>
+              <div class="logo-slide"><img src="/img/banks/Bank-of-America-Logo-700x394.png" alt="Bank of America">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <small class="bank-logos__note">
+          BankClasifAI funciona con formatos comunes de los bancos más usados. Importa PDF o imagen y obtén tus
+          transacciones organizadas.
+        </small>
+      </div>
+    </section>
+
+
+    <!-- PROBLEM -->
+    <section class="lp-area">
+      <div class="lp-inner">
+        <h2 class="seccion-titulo">¿Alguna vez te has sentido así?</h2>
+        <p class="seccion-subtitulo">
+          Guardas muchos recibos, revisas extractos confusos, mezclas gastos personales y del negocio o pierdes horas
+          organizando movimientos financieros.
+          Tranquilo: es más común de lo que parece.
+        </p>
+
+        <div class="lp-problem-grid">
+          <div class="lp-mini-card">
+            <div class="lp-mini-emoji">🧾</div>
+            <p>Guardas muchos recibos y pierdes el control.</p>
+          </div>
+          <div class="lp-mini-card">
+            <div class="lp-mini-emoji">🤯</div>
+            <p>Revisas extractos bancarios confusos.</p>
+          </div>
+          <div class="lp-mini-card">
+            <div class="lp-mini-emoji">😵‍💫</div>
+            <p>Mezclas gastos personales y del negocio.</p>
+          </div>
+          <div class="lp-mini-card">
+            <div class="lp-mini-emoji">⏳</div>
+            <p>Pierdes horas organizando movimientos.</p>
+          </div>
+        </div>
+
+        <p style="text-align:center; margin-top: 16px;">
+          <span class="badge">BankClasifAI</span>
+          <span class="text-muted"> nace para eliminar ese desorden y devolverte claridad financiera.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="lp-area lp-steps">
+      <div class="lp-inner">
+        <h1 class="seccion-titulo">Así funciona BankClasifAI paso a paso</h1>
+        <h3 class="seccion-subtitulo">Sube tu extracto, deja que la <span class="text-destacado">IA</span> trabaje y
+          obtén resultados listos para usar.</h3>
+
+        <div class="lp-steps-grid">
+          <article class="lp-step">
+
+            <div class="lp-step-media">
+
+              <img src="/img/bank-state.png" alt="Subir extracto (PDF)">
+            </div>
+            <div class="lp-step-body">
+              <div class="lp-step-num">1</div>
+              <h3>Subes tu extracto bancario en PDF</h3>
+              <p>Importa tu statement PDF y empieza el procesamiento.</p>
+            </div>
+          </article>
+
+          <article class="lp-step">
+            <div class="lp-step-media">
+              <img src="/img/banks/Dashboard-statement.png" alt="IA analizando extracto">
+            </div>
+            <div class="lp-step-body">
+              <div class="lp-step-num">2</div>
+              <h3>Nuestra <span class="text-destacado">IA</span> lee y clasifica cada movimiento</h3>
+              <p>Categoriza ingresos y gastos automáticamente en segundos.</p>
+            </div>
+          </article>
+
+          <article class="lp-step">
+            <div class="lp-step-media">
+              <img src="/img/bank-statements-excel.png" alt="Resultados organizados">
+            </div>
+            <div class="lp-step-body">
+              <div class="lp-step-num">3</div>
+              <h3>Obtienes ingresos y gastos organizados</h3>
+              <p>Totales por categoría y exportación a Excel/PDF.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROLES -->
+    <section class="lp-area" id="roles">
+      <div class="lp-inner">
+        <h1 class="seccion-titulo">Elige cómo quieres usar BankClasifAI</h1>
+        <h3 class="seccion-subtitulo">Selecciona el rol que más se adapta a ti y empieza gratis.</h3>
+
+        <div class="lp-role-grid">
+
+          <article class="tarjetas-card2 lp-role-card" class="lp-role-card" data-role="Personal">
+            <div class="lp-role-top">
+              <div class="lp-role-ico"><i class="fa-solid fa-user"></i></div>
+              <span class="lp-role-tag">Cuenta personal</span>
+            </div>
+            <h3>Personal</h3>
+            <p class="lp-role-desc">Ordena tus finanzas personales y declara sin estrés.</p>
+            <ul class="lp-tarjetas-list">
+              <li><i class="fa-solid fa-check"></i><span>Ideal para personas naturales</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Control claro de ingresos y gastos</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Preparación para tax season</span></li>
+            </ul>
+            <button class="btn-dark btn-full open-modal" type="button">Probar demo</button>
+          </article>
+
+          <article class="tarjetas-card2 lp-role-card" class="lp-role-card" data-role="business">
+            <div class="lp-role-top">
+              <div class="lp-role-ico"><i class="fa-solid fa-briefcase"></i></div>
+              <span class="lp-role-tag">Dueño de negocio</span>
+            </div>
+            <h3>Personal + Negocios</h3>
+            <p class="lp-role-desc">Ten total claridad de tus ingresos personales y de tu negocio.</p>
+            <ul class="lp-tarjetas-list">
+              <li><i class="fa-solid fa-check"></i><span>Ideal para personas naturales</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Control claro de ingresos y gastos</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Separación automática de gastos</span></li>
+
+            </ul>
+            <button class="btn-dark btn-full open-modal" type="button">Probar demo</button>
+          </article>
+
+          <article class="tarjetas-card2 lp-role-card" class="lp-role-card" data-role="accountants">
+            <div class="lp-role-top">
+              <div class="lp-role-ico"><i class="fa-solid fa-calculator"></i></div>
+              <span class="lp-role-tag">Multi-cliente</span>
+            </div>
+            <h3>Contadores + Firmas</h3>
+            <p class="lp-role-desc">Ahorra tiempo masivo procesando extractos de clientes.</p>
+            <ul class="lp-tarjetas-list">
+              <li><i class="fa-solid fa-check"></i><span>Alto volumen de transacciones</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Menos trabajo manual</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Más claridad para tus clientes</span></li>
+            </ul>
+            <button class="btn-dark btn-full open-modal" type="button">Probar demo</button>
+          </article>
+
+        </div>
+
+
+      </div>
+    </section>
+
+
+    <!-- Banner oscuro (CTA) -->
+    <section class="cta-dark">
+      <div class="cta-dark__inner">
+        <div class="cta-dark__content">
+          <h2>No lo dejes para última hora: empieza hoy a clasificar tus extractos</h2>
+          <p>
+            Evita el estrés de última hora en este Tax Season. Únete a quienes ya automatizan su contabilidad con
+            <span class="cta-dark__brand">BankClasifAI</span>.
+          </p>
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+  </main>
+
+  <!-- MODAL -->
+  <div id="demo-modal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+      <div class="modal-head">
+        <div>
+          <h3 id="demoTitle" style="margin-bottom:6px;">Estás a punto de probar la demo</h3>
+          <p class="text-muted" style="margin:0;">Descubre la plataforma que te ayudará en este tax season.</p>
+        </div>
+        <button class="modal-close close-modal" type="button" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="demo-form" class="form-grid">
+          <div class="form-group">
+            <label for="name">Nombre completo</label>
+            <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="role">Rol seleccionado</label>
+            <input type="text" id="role" name="role" readonly />
+          </div>
+
+          <button type="submit" class="btn-dark btn-full"> <i class="fa-solid fa-bolt"></i>
+            Activar demo
+          </button>
+          <div class="lp-hero-points">
+            <span class="bc-pill">✔ 7 días de prueba gratis</span>
+            <span class="bc-pill">✔ 10,000 tokens</span>
+            <span class="bc-pill">✔ No requiere tarjeta</span>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <small style="margin:0;"> Disfruta de todo lo que ofrece BankClasifAI en esta demo gratuita.</small>
+        <small style="margin:6px 0 0;">¿Dudas? Escríbenos a <a class="link-inline"
+            href="mailto:info@bankclasifai.com">info@bankclasifai.com</a></small>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/include.js"></script>
+  <script src="/js/script.js"></script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Scroll suave al área de roles
+      const ctaScroll = document.getElementById("ctaScroll");
+      const topCta = document.getElementById("topCta");
+      const roles = document.getElementById("roles");
+
+      function scrollToRoles() {
+        roles?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      ctaScroll?.addEventListener("click", scrollToRoles);
+
+      topCta?.addEventListener("click", (e) => {
+        // Si topCta es <a href="#roles"> evita salto brusco
+        e.preventDefault();
+        scrollToRoles();
+      });
+
+      // Modal + rol seleccionado
+      const modal = document.getElementById("demo-modal");
+      const closeBtns = document.querySelectorAll(".close-modal");
+      const roleInput = document.getElementById("role");
+      const roleCards = document.querySelectorAll(".lp-role-card");
+      const openButtons = document.querySelectorAll(".open-modal");
+      const demoForm = document.getElementById("demo-form");
+
+      function openModal(role) {
+        if (roleInput) roleInput.value = role || "";
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("name")?.focus(), 30);
+      }
+
+      function closeModal() {
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      // Selección visual de cards
+      roleCards.forEach(card => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest(".open-modal")) return;
+          roleCards.forEach(c => c.classList.remove("is-selected"));
+          card.classList.add("is-selected");
+        });
+      });
+
+      // Abrir modal desde botón
+      openButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation(); // importante si el card también tiene click
+          const card = btn.closest(".lp-role-card");
+          const role = card?.getAttribute("data-role") || "";
+          roleCards.forEach(c => c.classList.remove("is-selected"));
+          card?.classList.add("is-selected");
+          openModal(role);
+        });
+      });
+
+      // Cerrar
+      closeBtns.forEach(b => b.addEventListener("click", closeModal));
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
+      });
+
+      // Submit
+      demoForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = demoForm.name.value.trim();
+        const email = demoForm.email.value.trim();
+        const role = demoForm.role.value.trim(); // personal | business | accountants
+
+        if (!name || !email || !role) {
+          alert("Por favor completa todos los campos.");
+          return;
+        }
+
+        const params = new URLSearchParams({
+          plan: role,
+          name,
+          email
+        });
+
+        const demoUrl = `https://app.bankclasifai.com/demo_thanks?${params.toString()}`;
+
+        // 🔐 Redirección a la demo
+        window.location.href = demoUrl;
+      });
+
+      // Debug rápido
+      console.log("openButtons:", openButtons.length, "modal:", !!modal, "roleCards:", roleCards.length);
+    });
+  </script>
+
+
+</body>
+
+<div id="footer-placeholder"></div>
+
+</html>

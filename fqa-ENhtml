@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KZZFBSD9');</script>
+<!-- End Google Tag Manager -->
+
+  <link rel="alternate" hreflang="en" href="https://bankclasifai.com/faq-en.html">
+  <link rel="alternate" hreflang="es" href="https://bankclasifai.com/faq.html">
+  <link rel="alternate" hreflang="x-default" href="https://bankclasifai.com/">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Frequently Asked Questions | BankClasifAI</title>
+
+  <meta name="description"
+    content="Find answers about BankClasifAI. Learn how our AI classifies bank statements, how we protect your data, free trials, exports, and platform features.">
+
+  <meta name="keywords"
+    content="BankClasifAI FAQ, AI bank statement classification, financial automation, data privacy, free trial accounting AI">
+
+  <meta name="author" content="BankClasifAI">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.bankclasifai.com/faq-en.html">
+
+  <meta http-equiv="Content-Language" content="en">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FAQ | BankClasifAI">
+  <meta property="og:description"
+    content="Everything you need to know about BankClasifAI, AI-powered bank statement classification, security, and exports.">
+  <meta property="og:url" content="https://www.bankclasifai.com/faq-en.html">
+  <meta property="og:image" content="https://www.bankclasifai.com/img/og-cover.jpg">
+  <meta property="og:site_name" content="BankClasifAI">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAQ | BankClasifAI">
+  <meta name="twitter:description" content="Learn how BankClasifAI helps you classify bank statements using AI.">
+  <meta name="twitter:image" content="https://www.bankclasifai.com/img/og-cover.jpg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff2689">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="/img/icon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZZFBSD9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <main class="faq">
+    <div class="faq-inner">
+
+      <header class="faq-header">
+        <span class="eyebrow">❓ Help Center</span>
+        <h1>Frequently Asked Questions</h1>
+        <p>
+          Everything you need to know about BankClasifAI and how AI-powered bank statement classification works.
+        </p>
+      </header>
+
+      <!-- =========================
+         PLATFORM
+    ========================= -->
+      <section class="faq-group">
+        <h2>About the platform</h2>
+
+        <details class="faq-item">
+          <summary>What is BankClasifAI?</summary>
+          <div class="faq-content">
+            BankClasifAI is a platform that transforms bank statements into clear and organized financial data.
+            It uses artificial intelligence to automatically classify income and expenses from PDF files or images.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Who is BankClasifAI for?</summary>
+          <div class="faq-content">
+            It is designed for individuals, freelancers, small businesses, entrepreneurs, and accounting firms
+            that need to organize bank transactions without manual processes.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do I need accounting knowledge to use it?</summary>
+          <div class="faq-content">
+            No. BankClasifAI is built to be simple and intuitive.
+            You don’t need accounting or technical knowledge to use the platform.
+          </div>
+        </details>
+      </section>
+
+      <!-- =========================
+         PRIVACY & SECURITY
+    ========================= -->
+      <section class="faq-group">
+        <h2>Privacy & security</h2>
+
+        <details class="faq-item">
+          <summary>Is my banking data secure?</summary>
+          <div class="faq-content">
+            Yes. BankClasifAI does not share sensitive data with external AI models.
+            We only process the minimum information required to classify transactions.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is my data sent to AI systems?</summary>
+          <div class="faq-content">
+            Sensitive data such as full account numbers or personal identifiers
+            is never shared. Data is anonymized before classification.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where is my data stored?</summary>
+          <div class="faq-content">
+            We use secure Google Cloud infrastructure and follow industry standards
+            for data protection, including periodic security audits.
+          </div>
+        </details>
+      </section>
+
+      <!-- =========================
+         AI & CLASSIFICATION
+    ========================= -->
+      <section class="faq-group">
+        <h2>Artificial intelligence</h2>
+
+        <details class="faq-item">
+          <summary>How does the AI classify transactions?</summary>
+          <div class="faq-content">
+            The AI analyzes transaction descriptions, amounts, and dates
+            to identify patterns and assign accounting categories automatically.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is the classification fully automatic?</summary>
+          <div class="faq-content">
+            Yes. The process is automatic, but you can always review results
+            before exporting them.
+          </div>
+        </details>
+      </section>
+
+      <!-- =========================
+         FREE TRIAL
+    ========================= -->
+      <section class="faq-group">
+        <h2>Free trial & demo</h2>
+
+        <details class="faq-item">
+          <summary>Can I try BankClasifAI for free?</summary>
+          <div class="faq-content">
+            Yes. We offer a free demo so you can explore the platform
+            before uploading real financial data.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I upload real bank statements in the demo?</summary>
+          <div class="faq-content">
+            We recommend using sample or non-sensitive statements during the demo.
+          </div>
+        </details>
+      </section>
+
+      <!-- =========================
+         EXPORTS
+    ========================= -->
+      <section class="faq-group">
+        <h2>Data export</h2>
+
+        <details class="faq-item">
+          <summary>Can I export the results?</summary>
+          <div class="faq-content">
+            Yes. You can export categorized income and expenses to Excel or PDF
+            to share with your accountant or accounting software.
+          </div>
+        </details>
+      </section>
+
+      <!-- =========================
+         SUPPORT
+    ========================= -->
+      <section class="faq-group">
+        <h2>Support</h2>
+
+        <details class="faq-item">
+          <summary>How can I contact support?</summary>
+          <div class="faq-content">
+            You can contact us anytime at
+            <a href="mailto:info@bankclasifai.com">info@bankclasifai.com</a>.
+          </div>
+        </details>
+      </section>
+
+      <div class="faq-note">
+        Didn’t find your answer? Contact us at
+        <a href="mailto:info@bankclasifai.com">info@bankclasifai.com</a>
+        and we’ll be happy to help.
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/include.js" defer></script>
+  <script src="/js/script.js" defer></script>
+  <script src="/js/lang/lang.js" defer></script>
+
+</body>
+
+</html>
