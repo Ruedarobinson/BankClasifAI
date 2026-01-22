@@ -1,54 +1,67 @@
 // /js/include.js
 
-function getFileAndDir() {
-  const path = window.location.pathname; // ej: /html/precio.html
-  const parts = path.split("/");
-  const file = (parts.pop() || "index.html").toLowerCase();
-  const dir = parts.join("/") + "/";     // ej: /html/
+function getPathInfo() {
+  const path = window.location.pathname.replace(/\/+$/, ""); // quita / final
+  const parts = path.split("/").filter(Boolean);
+
+  // si estás en "/" => index
+  let file = (parts.pop() || "index").toLowerCase();
+  const dir = "/" + (parts.length ? parts.join("/") + "/" : "");
+
+  // normaliza: si viene con .html lo quita
+  file = file.replace(/\.html$/i, "");
+
   return { file, dir };
 }
 
-function isEnglishFile(file) {
-  return [
-    "index-en.html",
-    "personal.html",
-    "business.html",
-    "accountants.html",
-    "pricing.html",
-    "contactus.html",
-    "privacy-policy.html",
-    "terms&conditions.html",
-    "cookies-en.html",
-  ].includes(file);
+function isEnglishRoute(file) {
+  // soporta con y sin .html (ya normalizamos sin .html)
+  const enFiles = [
+    "index-en",
+    "personal",
+    "business",
+    "accountants",
+    "pricing",
+    "contactus",
+    "privacy-policy",
+    "terms&conditions",
+    "cookies-en",
+    "fqa-en",
+    "bienvenido-en",
+  ];
+  return enFiles.includes(file);
 }
 
 async function loadInto(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-cache" });
   if (!res.ok) throw new Error(`No se pudo cargar ${url} (${res.status})`);
   el.innerHTML = await res.text();
 }
 
-(async function initLayout() {
-  try {
-    const { file } = getFileAndDir();
-    const en = isEnglishFile(file);
+async function loadLayout() {
+  const { file } = getPathInfo();
 
-    await loadInto("header-placeholder", en ? "/components/header-en.html" : "/components/header.html");
-    if (typeof initHeader === "function") initHeader();
+  // prioridad: idioma guardado (si existe), si no, deduce por ruta
+  const savedLang = localStorage.getItem("bc_lang"); // "en" o "es"
+  const en = savedLang ? savedLang === "en" : isEnglishRoute(file);
 
-    await loadInto("footer-placeholder", en ? "/components/footer-en.html" : "/components/footer.html");
-    document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+  await loadInto("header-placeholder", en ? "/components/header-en.html" : "/components/header.html");
+  if (typeof initHeader === "function") initHeader();
 
-  } catch (err) {
-    console.error("Error cargando layout:", err);
-  }
-})();
+  await loadInto("footer-placeholder", en ? "/components/footer-en.html" : "/components/footer.html");
+
+  document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadLayout().catch(err => console.error("Error cargando layout:", err));
+});
 
 // ===============================
-// CAMBIO DE IDIOMA (UNICO)
+// CAMBIO DE IDIOMA
 // ===============================
 document.addEventListener("click", (e) => {
   const link = e.target.closest("[data-lang]");
@@ -56,50 +69,51 @@ document.addEventListener("click", (e) => {
 
   e.preventDefault();
 
-  const { file, dir } = getFileAndDir();
+  const { file, dir } = getPathInfo();
   const targetLang = link.dataset.lang; // "es" o "en"
-  const enNow = isEnglishFile(file);
 
-  if (targetLang === "en" && enNow) return;
-  if (targetLang === "es" && !enNow) return;
+  // guarda selección
+  localStorage.setItem("bc_lang", targetLang);
 
   const pairs = {
-    "index.html": "index-en.html",
-    "index-en.html": "index.html",
+    "index": "index-en",
+    "index-en": "index",
 
-    "personales.html": "personal.html",
-    "personal.html": "personales.html",
+    "personales": "personal",
+    "personal": "personales",
 
-    "negocios.html": "business.html",
-    "business.html": "negocios.html",
+    "negocios": "business",
+    "business": "negocios",
 
-    "contadores.html": "accountants.html",
-    "accountants.html": "contadores.html",
+    "contadores": "accountants",
+    "accountants": "contadores",
 
-    "precio.html": "pricing.html",
-    "pricing.html": "precio.html",
+    "precio": "pricing",
+    "pricing": "precio",
 
-    "contacto.html": "contactus.html",
-    "contactus.html": "contacto.html",
+    "contacto": "contactus",
+    "contactus": "contacto",
 
-    "politicas-de-privacidad.html": "privacy-policy.html",
-    "privacy-policy.html": "politicas-de-privacidad.html",
+    "politicas-de-privacidad": "privacy-policy",
+    "privacy-policy": "politicas-de-privacidad",
 
-    "terminos&condiciones.html": "terms&conditions.html",
-    "terms&conditions.html": "terminos&condiciones.html",
+    "terminos&condiciones": "terms&conditions",
+    "terms&conditions": "terminos&condiciones",
 
-    "cookies.html": "cookies-en.html",
-    "cookies-en.html": "cookies.html",
+    "cookies": "cookies-en",
+    "cookies-en": "cookies",
   };
 
   const targetFile = pairs[file];
 
-  if (!targetFile) {
-    window.location.href = dir + (targetLang === "en" ? "index-en.html" : "index.html");
-    return;
-  }
+  // si no hay par, manda a home del idioma
+  const next = targetFile
+    ? targetFile
+    : (targetLang === "en" ? "index-en" : "index");
 
-  window.location.href = dir + targetFile;
+  // redirección usando URL limpia (sin .html)
+  window.location.href = dir + next;
 });
+
 
 
