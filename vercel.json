@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "src": "/index.html",
+      "status": 301,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "/([^/]+)\\.html",
+      "status": 301,
+      "headers": { "Location": "/$1" }
+    },
+    {
+      "src": "/([^/]+)",
+      "dest": "/html/$1.html"
+    }
+  ]
+}
+

@@ -929,7 +929,7 @@ transform: rotate(45deg);
 .dropdown-desc{
   font-size: 13px;
   font-weight: 300;
-  color: #6b7280;
+  color: var(--color-text);
   line-height: 1.4;
 }
 
@@ -3624,6 +3624,7 @@ footer {
 
   .bc-saas-points i {
     margin-right: 0;
+    text-align: center;
     /* quita el margen viejo */
   }
 
