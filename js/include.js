@@ -1,22 +1,28 @@
 // /js/include.js
 
 function getPathInfo() {
-  const path = window.location.pathname.replace(/\/+$/, ""); // quita / final
+  // Ejemplos:
+  // "/" -> file: "index", dir: "/"
+  // "/precio" -> file: "precio", dir: "/"
+  // "/precio.html" -> file: "precio", dir: "/"
+  // "/html/precio" -> file: "precio", dir: "/html/"
+  // "/html/precio.html" -> file: "precio", dir: "/html/"
+
+  const path = window.location.pathname.replace(/\/+$/, ""); // quita "/" final
   const parts = path.split("/").filter(Boolean);
 
-  // si estás en "/" => index
   let file = (parts.pop() || "index").toLowerCase();
   const dir = "/" + (parts.length ? parts.join("/") + "/" : "");
 
-  // normaliza: si viene con .html lo quita
+  // Normaliza: quita ".html" si existe
   file = file.replace(/\.html$/i, "");
 
   return { file, dir };
 }
 
 function isEnglishRoute(file) {
-  // soporta con y sin .html (ya normalizamos sin .html)
-  const enFiles = [
+  // file ya viene normalizado sin .html y en minúsculas
+  const enRoutes = new Set([
     "index-en",
     "personal",
     "business",
@@ -26,10 +32,11 @@ function isEnglishRoute(file) {
     "privacy-policy",
     "terms&conditions",
     "cookies-en",
-    "fqa-en",
+    "faq-en",
     "bienvenido-en",
-  ];
-  return enFiles.includes(file);
+  ]);
+
+  return enRoutes.has(file);
 }
 
 async function loadInto(placeholderId, url) {
@@ -44,7 +51,7 @@ async function loadInto(placeholderId, url) {
 async function loadLayout() {
   const { file } = getPathInfo();
 
-  // prioridad: idioma guardado (si existe), si no, deduce por ruta
+  // idioma preferido (si existe), si no, deduce por la ruta actual
   const savedLang = localStorage.getItem("bc_lang"); // "en" o "es"
   const en = savedLang ? savedLang === "en" : isEnglishRoute(file);
 
@@ -70,11 +77,12 @@ document.addEventListener("click", (e) => {
   e.preventDefault();
 
   const { file, dir } = getPathInfo();
-  const targetLang = link.dataset.lang; // "es" o "en"
+  const targetLang = (link.dataset.lang || "es").toLowerCase(); // "es" o "en"
 
   // guarda selección
   localStorage.setItem("bc_lang", targetLang);
 
+  // pares de rutas (SIEMPRE en minúsculas y sin .html)
   const pairs = {
     "index": "index-en",
     "index-en": "index",
@@ -100,6 +108,9 @@ document.addEventListener("click", (e) => {
     "terminos&condiciones": "terms&conditions",
     "terms&conditions": "terminos&condiciones",
 
+    "faq-es": "faq-en",
+    "faq-en": "faq-es",
+
     "cookies": "cookies-en",
     "cookies-en": "cookies",
   };
@@ -111,7 +122,7 @@ document.addEventListener("click", (e) => {
     ? targetFile
     : (targetLang === "en" ? "index-en" : "index");
 
-  // redirección usando URL limpia (sin .html)
+  // redirección URL limpia (sin .html)
   window.location.href = dir + next;
 });
 

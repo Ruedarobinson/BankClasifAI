@@ -39,6 +39,9 @@ document.addEventListener("click", (e) => {
 
     "cookies.html": "cookies-en.html",
     "cookies-en.html": "cookies.html",
+
+    "faq-es.html": "faq-en.html",
+    "faq-en.html": "faq-es.html",
   };
 
   const targetFile = pairs[file];
