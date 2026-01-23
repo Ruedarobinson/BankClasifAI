@@ -63,9 +63,7 @@ async function loadLayout() {
   document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadLayout().catch(err => console.error("Error cargando layout:", err));
-});
+
 
 // ===============================
 // CAMBIO DE IDIOMA
@@ -126,5 +124,26 @@ document.addEventListener("click", (e) => {
   window.location.href = dir + next;
 });
 
+// ===============================
+// COOKIEBOT
+// ===============================
+function injectCookiebot() {
+  if (document.getElementById("Cookiebot")) return;
+
+  const s = document.createElement("script");
+  s.id = "Cookiebot";
+  s.src = "https://consent.cookiebot.com/uc.js";
+  s.setAttribute("data-cbid", "b376bc60-8ab6-4d3a-b931-e1156f7c65a9");
+  s.setAttribute("data-blockingmode", "auto");
+  s.type = "text/javascript";
+  document.head.appendChild(s);
+}
+
+// ✅ UN SOLO DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  injectCookiebot();      // primero cookies
+  loadLayout()            // luego header/footer
+    .catch(err => console.error("Error cargando layout:", err));
+});
 
 
