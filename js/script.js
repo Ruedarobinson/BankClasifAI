@@ -133,9 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
       item.classList.toggle("active");
     });
   });
-
-  const saved = localStorage.getItem("site-lang") || "es";
-  setLanguage(saved);
 });
 
 
