@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>503 — Brb, System Maintenance | BankClasifai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --pink: #FF2689; --navy: #0b123a; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; font-family: 'Roboto', sans-serif; font-weight: 300;
+            background: #ffffff; color: var(--navy); height: 100vh;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+
+        .glow {
+            position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+            filter: blur(140px); opacity: .12;
+        }
+
+        .card { position: relative; width: min(750px, 92vw); text-align: center; z-index: 1; }
+        
+        /* Animation: Spinning Gears */
+        .maintenance-icon {
+            font-size: 60px;
+            display: inline-block;
+            margin-bottom: 10px;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .code { font-size: 80px; font-weight: 900; margin: 0; line-height: 1; }
+       .code span {
+            background: linear-gradient(90deg, var(--pink), #ff7bbd);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: var(--pink); /* Fallback para navegadores antiguos */
+        }
+
+        .title { font-size: 26px; margin: 15px 0 10px; font-weight: 900; }
+        .text { margin: 0 auto 30px; max-width: 52ch; font-size: 17px; opacity: .8; line-height: 1.6; }
+
+        .btn {
+            padding: 12px 30px; border-radius: 30px; font-size: 14px;
+            cursor: pointer; transition: all .3s ease; font-weight: 400;
+            border: 2px solid var(--pink); background: transparent; color: var(--pink);
+            text-decoration: none;
+        }
+
+        .btn:hover { background: var(--pink); color: #fff; }
+
+        .eta {
+            margin-top: 40px; font-size: 11px; text-transform: uppercase;
+            letter-spacing: 2px; opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+
+    <main class="card">
+        <div class="maintenance-icon">⚙️</div>
+        <div class="code"><span>503</span></div>
+        <h1 id="lang-title" class="title">---</h1>
+        <p id="lang-text" class="text">---</p>
+
+        <div class="actions">
+            <button id="lang-btn" class="btn" onclick="location.reload()">---</button>
+        </div>
+
+        <div id="lang-eta" class="eta">---</div>
+    </main>
+
+    <script>
+        const i18n = {
+            es: {
+                title: "Balance de cuentas en proceso",
+                text: "Estamos dándole un poco de mantenimiento a nuestro motor de IA para que tus clasificaciones sean aún más precisas. Estaremos de vuelta en unos minutos.",
+                btn: "Verificar si ya regresamos",
+                eta: "Estado: Mantenimiento programado"
+            },
+            en: {
+                title: "System balancing in progress",
+                text: "We're giving our AI engine some quick maintenance to make your classifications even more accurate. We'll be back in just a few minutes.",
+                btn: "Check if we're back",
+                eta: "Status: Scheduled Maintenance"
+            }
+        };
+
+        function init503() {
+            const isEn = navigator.language.startsWith('en');
+            const lang = isEn ? 'en' : 'es';
+            document.getElementById('lang-title').textContent = i18n[lang].title;
+            document.getElementById('lang-text').textContent = i18n[lang].text;
+            document.getElementById('lang-btn').textContent = i18n[lang].btn;
+            document.getElementById('lang-eta').textContent = i18n[lang].eta;
+            document.documentElement.lang = lang;
+        }
+
+        window.onload = init503;
+    </script>
+</body>
+</html>

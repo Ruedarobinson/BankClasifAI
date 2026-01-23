@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500 — System Overload | BankClasifai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --pink: #FF2689; --navy: #0b123a; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; font-family: 'Roboto', sans-serif; font-weight: 300;
+            background: #ffffff; color: var(--navy); height: 100vh;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+
+        .glow {
+            position: absolute; width: 550px; height: 550px;
+            background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+            filter: blur(120px); opacity: .15; animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: .10; }
+            100% { transform: scale(1.2); opacity: .20; }
+        }
+
+        .card { position: relative; width: min(750px, 92vw); text-align: center; z-index: 1; }
+        
+        .code { font-size: 80px; font-weight: 900; margin: 0; letter-spacing: -2px; }
+        .code span {
+            background: linear-gradient(90deg, var(--pink), #ff7bbd);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: var(--pink); /* Fallback para navegadores antiguos */
+        }
+
+        .title { font-size: 28px; margin: 10px 0; font-weight: 900; }
+        .text { margin: 0 auto 25px; max-width: 50ch; font-size: 17px; opacity: .8; line-height: 1.6; }
+
+        /* Animation: Floating Robot/Brain */
+        .ai-status {
+            font-size: 50px; margin-bottom: 20px; display: inline-block;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-1px, -2px) rotate(-1deg); }
+            40% { transform: translate(-3px, 0px) rotate(1deg); }
+            60% { transform: translate(3px, 2px) rotate(0deg); }
+            80% { transform: translate(1px, -1px) rotate(1deg); }
+            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+        }
+
+        .btn {
+            padding: 12px 28px; border-radius: 30px; font-size: 14px;
+            cursor: pointer; transition: all .3s ease; font-weight: 400;
+            border: 2px solid var(--navy); background: var(--navy); color: #fff;
+            text-decoration: none;
+        }
+
+        .btn:hover { background: transparent; color: var(--navy); }
+
+        .error-log {
+            margin-top: 30px; background: #f4f4f4; padding: 10px;
+            border-radius: 8px; font-family: monospace; font-size: 12px;
+            color: #d11212; display: inline-block; opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+
+    <main class="card">
+        <div class="ai-status">🧠🔥</div>
+        <div class="code"><span>500</span></div>
+        <h1 id="lang-title" class="title">---</h1>
+        <p id="lang-text" class="text">---</p>
+
+        <div class="actions">
+            <button id="lang-btn" class="btn" onclick="location.reload()">---</button>
+        </div>
+
+        <div class="error-log">
+            Status: CPU_MELTDOWN | Reason: Too many bank statements
+        </div>
+    </main>
+
+    <script>
+        const i18n = {
+            es: {
+                title: "¡Nuestra IA ha entrado en pánico!",
+                text: "Parece que intentamos clasificar demasiados datos a la vez y nuestro cerebro digital se ha sobrecalentado. No te preocupes, ya le estamos dando un café frío al servidor.",
+                btn: "Intentar de nuevo"
+            },
+            en: {
+                title: "Our AI is having a meltdown!",
+                text: "We tried to classify too many things at once and our digital brain overheated. Don't worry, we're currently giving the server an iced coffee.",
+                btn: "Try again"
+            }
+        };
+
+        function init500() {
+            const isEn = navigator.language.startsWith('en');
+            const lang = isEn ? 'en' : 'es';
+            document.getElementById('lang-title').textContent = i18n[lang].title;
+            document.getElementById('lang-text').textContent = i18n[lang].text;
+            document.getElementById('lang-btn').textContent = i18n[lang].btn;
+        }
+
+        window.onload = init500;
+    </script>
+</body>
+</html>
