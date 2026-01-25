@@ -150,14 +150,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const formMessage = document.getElementById("formMessage");
   const submitBtn = form.querySelector(".btn-submit");
 
+  function showMsg(type, msg) {
+    formMessage.classList.remove("error", "success");
+    formMessage.textContent = msg;
+    formMessage.classList.add(type);
+    formMessage.style.display = "block";
+  }
+
   function clearErrors() {
-    const inputs = [nameInput, emailInput, messageInput];
-    inputs.forEach(input => input.classList.remove("has-error"));
+    [nameInput, emailInput, messageInput].forEach(input => input.classList.remove("has-error"));
+    form.querySelectorAll(".error-message").forEach(span => (span.textContent = ""));
 
-    const errorMessages = form.querySelectorAll(".error-message");
-    errorMessages.forEach(span => span.textContent = "");
-
-    formMessage.className = "form-message";
+    formMessage.classList.remove("error", "success");
     formMessage.style.display = "none";
     formMessage.textContent = "";
   }
@@ -170,8 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
   }
 
   form.addEventListener("submit", async function (e) {
@@ -180,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isValid = true;
 
-    // Mensajes según idioma
     const lang = (form.querySelector('input[name="lang"]')?.value || "es").toLowerCase();
     const t = {
       es: {
@@ -225,23 +227,17 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // ✅ Turnstile token (debe existir)
-    const token = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+    const token = form.querySelector('input[name="cf-turnstile-response"]')?.value?.trim();
     if (!token) {
-      formMessage.textContent = t.bot;
-      formMessage.classList.add("error");
-      formMessage.style.display = "block";
+      showMsg("error", t.bot);
       return;
     }
 
     if (!isValid) {
-      formMessage.textContent = t.fix;
-      formMessage.classList.add("error");
-      formMessage.style.display = "block";
+      showMsg("error", t.fix);
       return;
     }
 
-    // ✅ Envío real al backend (sin recargar)
     submitBtn.disabled = true;
     const originalText = submitBtn.textContent;
     submitBtn.textContent = t.sending;
@@ -263,20 +259,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const text = await res.text();
       if (!res.ok) throw new Error(text || "Request failed");
 
-      formMessage.textContent = t.ok;
-      formMessage.classList.remove("error");
-      formMessage.classList.add("success");
-      formMessage.style.display = "block";
-
+      showMsg("success", t.ok);
       form.reset();
 
-      // Reset Turnstile para permitir otro envío
       if (window.turnstile) window.turnstile.reset();
     } catch (err) {
-      formMessage.textContent = t.fail;
-      formMessage.classList.remove("success");
-      formMessage.classList.add("error");
-      formMessage.style.display = "block";
+      // muestra error real si viene del backend (útil para debug)
+      const msg = (err?.message && err.message.length < 200) ? err.message : t.fail;
+      showMsg("error", msg);
 
       if (window.turnstile) window.turnstile.reset();
     } finally {
@@ -285,6 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 
 // MENU DE SOLUCIONES
 
