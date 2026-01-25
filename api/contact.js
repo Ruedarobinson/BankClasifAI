@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(200).send("OK");
-  }
+  if (req.method !== "POST") return res.status(200).send("OK");
 
   try {
     const { name, email, message, lang } = req.body || {};
@@ -10,32 +8,33 @@ export default async function handler(req, res) {
       return res.status(400).send("Missing required fields.");
     }
 
-    // 🔐 Turnstile
-    const token = req.body["cf-turnstile-response"];
-    if (!token) {
-      return res.status(400).send("Missing anti-bot verification.");
-    }
+    // Turnstile token
+    const token = req.body?.["cf-turnstile-response"];
+    if (!token) return res.status(400).send("Missing anti-bot verification.");
 
     const secret = process.env.TURNSTILE_SECRET_KEY;
-    if (!secret) {
-      return res.status(500).send("Turnstile secret not configured.");
-    }
+    if (!secret) return res.status(500).send("Turnstile secret not configured.");
 
     const formData = new URLSearchParams();
     formData.append("secret", secret);
     formData.append("response", token);
 
-    const verifyResp = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      { method: "POST", body: formData }
-    );
+    const ip =
+      req.headers["cf-connecting-ip"] ||
+      req.headers["x-forwarded-for"]?.split(",")[0] ||
+      req.socket?.remoteAddress;
+
+    if (ip) formData.append("remoteip", ip);
+
+    const verifyResp = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: formData,
+    });
 
     const verify = await verifyResp.json();
-    if (!verify.success) {
-      return res.status(403).send("Anti-bot verification failed.");
-    }
+    if (!verify.success) return res.status(403).send("Anti-bot verification failed.");
 
-    // ✉️ Mailjet
+    // Mailjet keys
     const MJ_PUBLIC = process.env.MJ_APIKEY_PUBLIC;
     const MJ_PRIVATE = process.env.MJ_APIKEY_PRIVATE;
 
@@ -51,17 +50,26 @@ export default async function handler(req, res) {
       return res.status(500).send("Mailjet emails not configured.");
     }
 
-    const isEN = lang === "en";
+    const isEN = String(lang || "").toLowerCase() === "en";
     const subject = isEN
       ? `New contact message from ${name}`
       : `Nuevo mensaje de contacto de ${name}`;
+
+    const html = `
+      <h2>${isEN ? "New contact message" : "Nuevo mensaje de contacto"}</h2>
+      <p><b>${isEN ? "Name" : "Nombre"}:</b> ${escapeHtml(name)}</p>
+      <p><b>Email:</b> ${escapeHtml(email)}</p>
+      <p><b>${isEN ? "Message" : "Mensaje"}:</b></p>
+      <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(message)}</pre>
+      <hr/>
+      <small>IP: ${escapeHtml(ip || "n/a")} | Lang: ${escapeHtml(lang || "n/a")}</small>
+    `;
 
     const response = await fetch("https://api.mailjet.com/v3.1/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Basic " + Buffer.from(`${MJ_PUBLIC}:${MJ_PRIVATE}`).toString("base64"),
+        Authorization: "Basic " + Buffer.from(`${MJ_PUBLIC}:${MJ_PRIVATE}`).toString("base64"),
       },
       body: JSON.stringify({
         Messages: [
@@ -71,23 +79,35 @@ export default async function handler(req, res) {
             ReplyTo: { Email: email, Name: name },
             Subject: subject,
             TextPart: `${name} <${email}>\n\n${message}`,
+            HTMLPart: html,
           },
         ],
       }),
     });
 
-    const mj = await response.json();
+    const mjText = await response.text();
+    let mj;
+    try { mj = JSON.parse(mjText); } catch { mj = { raw: mjText }; }
 
     if (!response.ok) {
-      console.error("Mailjet error:", mj);
-      return res.status(500).send("Mailjet failed.");
+      console.error("Mailjet error:", response.status, mj);
+      return res.status(500).send(`Mailjet failed: ${response.status} ${mjText}`);
     }
 
-    return res
-      .status(200)
-      .send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
+    console.log("Mailjet OK:", mj);
+
+    return res.status(200).send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
   } catch (err) {
     console.error(err);
     return res.status(500).send("Internal server error.");
   }
+}
+
+function escapeHtml(str) {
+  return String(str || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
