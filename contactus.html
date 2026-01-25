@@ -66,7 +66,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     content="Reach out for support, questions, or feedback. We respond as soon as possible.">
   <meta name="twitter:image" content="https://bankclasifai.com/img/og-cover.jpg">
 
-
+<!-- --------
+  RECAPTCHA
+  ---------- -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 
 </head>
@@ -120,10 +123,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h3 class="form-title">Send us a message</h3>
           <p class="form-subtitle">We’ll get back to you as soon as possible.</p>
 
-          <!-- Google Apps Script Web App -->
-          <form
-            action="https://script.google.com/macros/s/AKfycbxIan-aQWX9nR7UB5XY0E7bQNg1rs1koDq5qi48dbg6FT5VYeT2hw-DLVXHWn4x9SrB/exec"
-            method="POST" class="contact-form" id="contactForm" target="hidden_iframe" novalidate>
+          <!-- mailjet api -->
+
+          <form action="/api/contact" method="POST" class="contact-form">
+            <!-- Idioma -->
+            <input type="hidden" name="lang" value="en">
 
             <div class="form-group">
               <label for="name">Full name</label>
@@ -144,13 +148,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <div id="formMessage" class="form-message"></div>
+            <div class="cf-turnstile" data-sitekey="TU_SITE_KEY"></div>
 
             <button type="submit" class="btn-submit">Send Message</button>
 
           </form>
 
-          <!-- Hidden iframe to avoid page reload -->
-          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+          
 
         </div>
       </div>

@@ -1,5 +1,5 @@
 
-// carpeta script.js
+// HEADER//
 
 function initHeader() {
 
@@ -174,56 +174,115 @@ document.addEventListener("DOMContentLoaded", function () {
     return re.test(String(email).toLowerCase());
   }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();   // detenemos envío para validar primero
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
     clearErrors();
 
     let isValid = true;
 
+    // Mensajes según idioma
+    const lang = (form.querySelector('input[name="lang"]')?.value || "es").toLowerCase();
+    const t = {
+      es: {
+        name: "Por favor ingresa tu nombre completo.",
+        emailReq: "El correo electrónico es obligatorio.",
+        emailVal: "Ingresa un correo electrónico válido.",
+        msg: "El mensaje debe tener al menos 10 caracteres.",
+        fix: "Por favor corrige los campos marcados en rojo.",
+        sending: "Enviando...",
+        ok: "¡Tu mensaje fue enviado correctamente! Pronto nos pondremos en contacto contigo.",
+        fail: "Hubo un error al enviar el mensaje. Inténtalo nuevamente.",
+        bot: "Completa la verificación anti-bot."
+      },
+      en: {
+        name: "Please enter your full name.",
+        emailReq: "Email is required.",
+        emailVal: "Please enter a valid email.",
+        msg: "Message must be at least 10 characters.",
+        fix: "Please fix the fields marked in red.",
+        sending: "Sending...",
+        ok: "Message sent successfully. We’ll get back to you soon.",
+        fail: "There was an error sending your message. Please try again.",
+        bot: "Please complete the anti-bot verification."
+      }
+    }[lang === "en" ? "en" : "es"];
+
     if (nameInput.value.trim().length < 3) {
-      setError(nameInput, "Por favor ingresa tu nombre completo.");
+      setError(nameInput, t.name);
       isValid = false;
     }
 
     if (emailInput.value.trim() === "") {
-      setError(emailInput, "El correo electrónico es obligatorio.");
+      setError(emailInput, t.emailReq);
       isValid = false;
     } else if (!isValidEmail(emailInput.value.trim())) {
-      setError(emailInput, "Ingresa un correo electrónico válido.");
+      setError(emailInput, t.emailVal);
       isValid = false;
     }
 
     if (messageInput.value.trim().length < 10) {
-      setError(messageInput, "El mensaje debe tener al menos 10 caracteres.");
+      setError(messageInput, t.msg);
       isValid = false;
     }
 
-    if (!isValid) {
-      formMessage.textContent = "Por favor corrige los campos marcados en rojo.";
-      formMessage.classList.remove("success");
+    // ✅ Turnstile token (debe existir)
+    const token = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+    if (!token) {
+      formMessage.textContent = t.bot;
       formMessage.classList.add("error");
       formMessage.style.display = "block";
       return;
     }
 
-    // ✅ Si todo está bien: ahora sí enviamos el formulario al Apps Script
+    if (!isValid) {
+      formMessage.textContent = t.fix;
+      formMessage.classList.add("error");
+      formMessage.style.display = "block";
+      return;
+    }
+
+    // ✅ Envío real al backend (sin recargar)
     submitBtn.disabled = true;
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = "Enviando...";
+    submitBtn.textContent = t.sending;
 
-    // Esto manda el POST al Web App (por el iframe oculto, sin CORS y sin JSON)
-    form.submit();
+    try {
+      const body = new URLSearchParams();
+      body.append("lang", lang);
+      body.append("name", nameInput.value.trim());
+      body.append("email", emailInput.value.trim());
+      body.append("message", messageInput.value.trim());
+      body.append("cf-turnstile-response", token);
 
-    // Simulamos feedback en la UI (Apps Script se encarga de los correos)
-    setTimeout(() => {
-      formMessage.textContent = "¡Tu mensaje fue enviado correctamente! Pronto nos pondremos en contacto contigo.";
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      const text = await res.text();
+      if (!res.ok) throw new Error(text || "Request failed");
+
+      formMessage.textContent = t.ok;
       formMessage.classList.remove("error");
       formMessage.classList.add("success");
       formMessage.style.display = "block";
+
       form.reset();
+
+      // Reset Turnstile para permitir otro envío
+      if (window.turnstile) window.turnstile.reset();
+    } catch (err) {
+      formMessage.textContent = t.fail;
+      formMessage.classList.remove("success");
+      formMessage.classList.add("error");
+      formMessage.style.display = "block";
+
+      if (window.turnstile) window.turnstile.reset();
+    } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
-    }, 1000);
+    }
   });
 });
 

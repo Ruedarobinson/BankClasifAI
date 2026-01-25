@@ -569,7 +569,7 @@ h2 {
 
 /* Ajuste para H3 (Títulos de tarjetas) */
 h3 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 300;
   /* Un peso de 340 es casi invisible en algunas pantallas */
   color: var(--ink);
@@ -577,9 +577,9 @@ h3 {
 
 /* Párrafos */
 p {
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 390;
-  color: var(--ink);
+  color: var(--bc-muted);
   margin: 0 0 0.9em;
 }
 
@@ -1534,6 +1534,7 @@ footer {
 .faq-question h3 {
   font-size: 19px;
   font-weight: 400;
+  color: var(--ink);
 
   margin: 0;
 
