@@ -1,115 +1,76 @@
-// /api/contact.js  (Vercel Serverless Function - Node 18)
-
-function readBody(req) {
-  return new Promise((resolve, reject) => {
-    let data = "";
-    req.on("data", chunk => (data += chunk));
-    req.on("end", () => resolve(data));
-    req.on("error", reject);
-  });
-}
-
-function parseForm(bodyText) {
-  const params = new URLSearchParams(bodyText);
-  return Object.fromEntries(params.entries());
-}
-
 module.exports = async (req, res) => {
-  // CORS preflight (por si acaso)
+  // 1. Manejo de CORS y Métodos
   if (req.method === "OPTIONS") return res.status(200).end();
-
-  if (req.method !== "POST") return res.status(200).send("OK");
+  if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
   try {
-    const raw = await readBody(req);
-    const body = parseForm(raw);
+    // En Vercel, req.body ya viene parseado si envías 'application/x-www-form-urlencoded'
+    // No necesitas readBody() ni parseForm()
+    const body = req.body;
 
     const name = (body.name || "").trim();
     const email = (body.email || "").trim();
     const message = (body.message || "").trim();
-    const lang = (body.lang || "es").toLowerCase();
+    const lang = (body.lang || "en").toLowerCase();
     const isEN = lang === "en";
 
-    if (!name || !email || !message) {
-      return res.status(400).send(isEN ? "Missing required fields." : "Faltan campos requeridos.");
+    // 2. Validación de variables de entorno (Aquí suele fallar)
+    const {
+      TURNSTILE_SECRET_KEY,
+      MJ_APIKEY_PUBLIC,
+      MJ_APIKEY_PRIVATE,
+      MAILJET_FROM_EMAIL,
+      MAILJET_TO_EMAIL
+    } = process.env;
+
+    if (!TURNSTILE_SECRET_KEY || !MJ_APIKEY_PUBLIC || !MJ_APIKEY_PRIVATE) {
+      console.error("Faltan Variables de Entorno");
+      return res.status(500).send("Server configuration error.");
     }
 
-    // 🔐 Turnstile token
-    const token = (body["cf-turnstile-response"] || "").trim();
-    if (!token) {
-      return res.status(400).send(isEN ? "Missing anti-bot verification." : "Falta verificación anti-bot.");
-    }
-
-    const secret = process.env.TURNSTILE_SECRET_KEY;
-    if (!secret) return res.status(500).send("TURNSTILE_SECRET_KEY no configurado.");
-
-    const verifyBody = new URLSearchParams();
-    verifyBody.append("secret", secret);
-    verifyBody.append("response", token);
-
-    const ip =
-      req.headers["cf-connecting-ip"] ||
-      (req.headers["x-forwarded-for"] || "").split(",")[0] ||
-      req.socket?.remoteAddress;
-
-    if (ip) verifyBody.append("remoteip", ip);
-
+    // 3. Verificar Turnstile
+    const token = body["cf-turnstile-response"];
     const verifyResp = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
-      body: verifyBody,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${TURNSTILE_SECRET_KEY}&response=${token}`,
     });
 
     const verify = await verifyResp.json();
-    if (!verify?.success) {
-      return res.status(403).send(isEN ? "Anti-bot verification failed." : "Verificación anti-bot falló.");
+    if (!verify.success) {
+      return res.status(403).send(isEN ? "Verification failed." : "Fallo la verificación.");
     }
 
-    // ✉️ Mailjet
-    const MJ_PUBLIC = process.env.MJ_APIKEY_PUBLIC;
-    const MJ_PRIVATE = process.env.MJ_APIKEY_PRIVATE;
-    const FROM_EMAIL = process.env.MAILJET_FROM_EMAIL;
-    const FROM_NAME = process.env.MAILJET_FROM_NAME || "BankClasifAI";
-    const TO_EMAIL = process.env.MAILJET_TO_EMAIL;
-
-    if (!MJ_PUBLIC || !MJ_PRIVATE) return res.status(500).send("Mailjet API keys no configuradas.");
-    if (!FROM_EMAIL || !TO_EMAIL) return res.status(500).send("MAILJET_FROM_EMAIL o MAILJET_TO_EMAIL faltan.");
-
-    const subject = isEN
-      ? `New contact message from ${name}`
-      : `Nuevo mensaje de contacto de ${name}`;
-
+    // 4. Enviar con Mailjet (usando fetch para no depender de librerías externas)
+    const auth = Buffer.from(`${MJ_APIKEY_PUBLIC}:${MJ_APIKEY_PRIVATE}`).toString("base64");
+    
     const mjResp = await fetch("https://api.mailjet.com/v3.1/send", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: "Basic " + Buffer.from(`${MJ_PUBLIC}:${MJ_PRIVATE}`).toString("base64"),
+        "Authorization": `Basic ${auth}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        Messages: [
-          {
-            From: { Email: FROM_EMAIL, Name: FROM_NAME },
-            To: [{ Email: TO_EMAIL, Name: "Info" }],
-            ReplyTo: { Email: email, Name: name },
-            Subject: subject,
-            TextPart: `${name} <${email}>\n\n${message}`,
-          },
-        ],
-      }),
+        Messages: [{
+          From: { Email: MAILJET_FROM_EMAIL, Name: "BankClasifAI" },
+          To: [{ Email: MAILJET_TO_EMAIL }],
+          Subject: isEN ? `New Message from ${name}` : `Nuevo mensaje de ${name}`,
+          TextPart: `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`,
+          ReplyTo: { Email: email, Name: name }
+        }]
+      })
     });
 
-    const mj = await mjResp.json();
-
-    // OJO: Mailjet puede responder 200 pero Status "error"
-    const msg0 = mj?.Messages?.[0];
-    if (!mjResp.ok || msg0?.Status !== "success") {
-      console.error("Mailjet send failed:", { httpStatus: mjResp.status, mj });
-      const mjErr = msg0?.Errors?.[0]?.ErrorMessage || "Mailjet failed.";
-      return res.status(500).send(isEN ? `Mail delivery failed: ${mjErr}` : `Falló el envío: ${mjErr}`);
+    if (mjResp.ok) {
+      return res.status(200).send(isEN ? "Success!" : "¡Enviado!");
+    } else {
+      const errorData = await mjResp.text();
+      console.error("Mailjet Error:", errorData);
+      throw new Error("Mailjet delivery failed");
     }
 
-    return res.status(200).send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
-  } catch (e) {
-    console.error("API contact error:", e);
-    return res.status(500).send("Internal server error.");
+  } catch (error) {
+    console.error("Error final:", error);
+    return res.status(500).send("Internal Error");
   }
 };
