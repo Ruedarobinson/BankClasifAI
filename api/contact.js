@@ -1,17 +1,20 @@
+import fetch from "node-fetch";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(200).send("OK");
 
   try {
     const { name, email, message, lang } = req.body || {};
+    const isEN = String(lang || "").toLowerCase() === "en";
 
     if (!name || !email || !message) {
-      return res.status(400).send(lang === "en" ? "Missing required fields." : "Faltan campos requeridos.");
+      return res.status(400).send(isEN ? "Missing required fields." : "Faltan campos requeridos.");
     }
 
     // 🔐 Turnstile
     const token = req.body?.["cf-turnstile-response"];
     if (!token) {
-      return res.status(400).send(lang === "en" ? "Missing anti-bot verification." : "Falta verificación anti-bot.");
+      return res.status(400).send(isEN ? "Missing anti-bot verification." : "Falta verificación anti-bot.");
     }
 
     const secret = process.env.TURNSTILE_SECRET_KEY;
@@ -35,7 +38,7 @@ export default async function handler(req, res) {
 
     const verify = await verifyResp.json();
     if (!verify?.success) {
-      return res.status(403).send(lang === "en" ? "Anti-bot verification failed." : "Verificación anti-bot falló.");
+      return res.status(403).send(isEN ? "Anti-bot verification failed." : "Verificación anti-bot falló.");
     }
 
     // ✉️ Mailjet
@@ -49,10 +52,7 @@ export default async function handler(req, res) {
     if (!FROM_EMAIL) return res.status(500).send("MAILJET_FROM_EMAIL falta.");
     if (!TO_EMAIL) return res.status(500).send("MAILJET_TO_EMAIL falta.");
 
-    const isEN = (lang || "").toLowerCase() === "en";
-    const subject = isEN
-      ? `New contact message (${name})`
-      : `Nuevo mensaje de contacto (${name})`;
+    const subject = isEN ? `New contact message (${name})` : `Nuevo mensaje de contacto (${name})`;
 
     const mjResp = await fetch("https://api.mailjet.com/v3.1/send", {
       method: "POST",
@@ -68,9 +68,7 @@ export default async function handler(req, res) {
             ReplyTo: { Email: email, Name: name },
             Subject: subject,
             TextPart: `${name} <${email}>\n\n${message}`,
-            Headers: {
-              "X-Form-Source": "bankclasifai-contact",
-            },
+            Headers: { "X-Form-Source": "bankclasifai-contact" },
           },
         ],
       }),
@@ -78,23 +76,21 @@ export default async function handler(req, res) {
 
     const mj = await mjResp.json();
 
-    // ✅ OJO: Mailjet puede responder 200 pero el mensaje venir con Status "error"
+    // Mailjet a veces responde 200 pero con Status: "error"
     const msg0 = mj?.Messages?.[0];
     const status = msg0?.Status;
 
     if (!mjResp.ok || status !== "success") {
-      console.error("Mailjet send failed:", {
-        httpStatus: mjResp.status,
-        mj,
-      });
-
-      // Devuelve un error legible (y si viene detalle de Mailjet, lo mostramos)
       const mjError =
         msg0?.Errors?.[0]?.ErrorMessage ||
         msg0?.Errors?.[0]?.ErrorCode ||
-        "Mailjet failed.";
+        `HTTP ${mjResp.status}`;
 
-      return res.status(500).send(isEN ? `Mail delivery failed: ${mjError}` : `Falló el envío: ${mjError}`);
+      console.error("Mailjet send failed:", { httpStatus: mjResp.status, mj });
+
+      return res
+        .status(500)
+        .send(isEN ? `Mail delivery failed: ${mjError}` : `Falló el envío: ${mjError}`);
     }
 
     return res.status(200).send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
@@ -103,17 +99,3 @@ export default async function handler(req, res) {
     return res.status(500).send("Internal server error.");
   }
 }
-const mj = await response.json();
-
-// Mailjet a veces responde 200 pero con Status: "error"
-const msg0 = mj?.Messages?.[0];
-if (!response.ok || msg0?.Status !== "success") {
-  console.error("Mailjet error:", mj);
-  return res
-    .status(500)
-    .send("Mailjet failed: " + (msg0?.Errors?.[0]?.ErrorMessage || "Unknown"));
-}
-
-return res
-  .status(200)
-  .send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
