@@ -103,3 +103,17 @@ export default async function handler(req, res) {
     return res.status(500).send("Internal server error.");
   }
 }
+const mj = await response.json();
+
+// Mailjet a veces responde 200 pero con Status: "error"
+const msg0 = mj?.Messages?.[0];
+if (!response.ok || msg0?.Status !== "success") {
+  console.error("Mailjet error:", mj);
+  return res
+    .status(500)
+    .send("Mailjet failed: " + (msg0?.Errors?.[0]?.ErrorMessage || "Unknown"));
+}
+
+return res
+  .status(200)
+  .send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
