@@ -1,41 +1,18 @@
-// /api/contact.js  (Vercel Serverless Function - Node 18)
+import fetch from "node-fetch";
 
-function readBody(req) {
-  return new Promise((resolve, reject) => {
-    let data = "";
-    req.on("data", chunk => (data += chunk));
-    req.on("end", () => resolve(data));
-    req.on("error", reject);
-  });
-}
-
-function parseForm(bodyText) {
-  const params = new URLSearchParams(bodyText);
-  return Object.fromEntries(params.entries());
-}
-
-module.exports = async (req, res) => {
-  // CORS preflight (por si acaso)
-  if (req.method === "OPTIONS") return res.status(200).end();
-
+export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(200).send("OK");
 
   try {
-    const raw = await readBody(req);
-    const body = parseForm(raw);
-
-    const name = (body.name || "").trim();
-    const email = (body.email || "").trim();
-    const message = (body.message || "").trim();
-    const lang = (body.lang || "es").toLowerCase();
-    const isEN = lang === "en";
+    const { name, email, message, lang } = req.body || {};
+    const isEN = String(lang || "").toLowerCase() === "en";
 
     if (!name || !email || !message) {
       return res.status(400).send(isEN ? "Missing required fields." : "Faltan campos requeridos.");
     }
 
-    // 🔐 Turnstile token
-    const token = (body["cf-turnstile-response"] || "").trim();
+    // 🔐 Turnstile
+    const token = req.body?.["cf-turnstile-response"];
     if (!token) {
       return res.status(400).send(isEN ? "Missing anti-bot verification." : "Falta verificación anti-bot.");
     }
@@ -49,7 +26,7 @@ module.exports = async (req, res) => {
 
     const ip =
       req.headers["cf-connecting-ip"] ||
-      (req.headers["x-forwarded-for"] || "").split(",")[0] ||
+      req.headers["x-forwarded-for"]?.split(",")[0] ||
       req.socket?.remoteAddress;
 
     if (ip) verifyBody.append("remoteip", ip);
@@ -69,14 +46,13 @@ module.exports = async (req, res) => {
     const MJ_PRIVATE = process.env.MJ_APIKEY_PRIVATE;
     const FROM_EMAIL = process.env.MAILJET_FROM_EMAIL;
     const FROM_NAME = process.env.MAILJET_FROM_NAME || "BankClasifAI";
-    const TO_EMAIL = process.env.MAILJET_TO_EMAIL;
+    const TO_EMAIL = process.env.MAILJET_TO_EMAIL || "info@bankclasifai.com";
 
     if (!MJ_PUBLIC || !MJ_PRIVATE) return res.status(500).send("Mailjet API keys no configuradas.");
-    if (!FROM_EMAIL || !TO_EMAIL) return res.status(500).send("MAILJET_FROM_EMAIL o MAILJET_TO_EMAIL faltan.");
+    if (!FROM_EMAIL) return res.status(500).send("MAILJET_FROM_EMAIL falta.");
+    if (!TO_EMAIL) return res.status(500).send("MAILJET_TO_EMAIL falta.");
 
-    const subject = isEN
-      ? `New contact message from ${name}`
-      : `Nuevo mensaje de contacto de ${name}`;
+    const subject = isEN ? `New contact message (${name})` : `Nuevo mensaje de contacto (${name})`;
 
     const mjResp = await fetch("https://api.mailjet.com/v3.1/send", {
       method: "POST",
@@ -92,6 +68,7 @@ module.exports = async (req, res) => {
             ReplyTo: { Email: email, Name: name },
             Subject: subject,
             TextPart: `${name} <${email}>\n\n${message}`,
+            Headers: { "X-Form-Source": "bankclasifai-contact" },
           },
         ],
       }),
@@ -99,17 +76,26 @@ module.exports = async (req, res) => {
 
     const mj = await mjResp.json();
 
-    // OJO: Mailjet puede responder 200 pero Status "error"
+    // Mailjet a veces responde 200 pero con Status: "error"
     const msg0 = mj?.Messages?.[0];
-    if (!mjResp.ok || msg0?.Status !== "success") {
+    const status = msg0?.Status;
+
+    if (!mjResp.ok || status !== "success") {
+      const mjError =
+        msg0?.Errors?.[0]?.ErrorMessage ||
+        msg0?.Errors?.[0]?.ErrorCode ||
+        `HTTP ${mjResp.status}`;
+
       console.error("Mailjet send failed:", { httpStatus: mjResp.status, mj });
-      const mjErr = msg0?.Errors?.[0]?.ErrorMessage || "Mailjet failed.";
-      return res.status(500).send(isEN ? `Mail delivery failed: ${mjErr}` : `Falló el envío: ${mjErr}`);
+
+      return res
+        .status(500)
+        .send(isEN ? `Mail delivery failed: ${mjError}` : `Falló el envío: ${mjError}`);
     }
 
     return res.status(200).send(isEN ? "Message sent successfully." : "Mensaje enviado correctamente.");
-  } catch (e) {
-    console.error("API contact error:", e);
+  } catch (err) {
+    console.error("API contact error:", err);
     return res.status(500).send("Internal server error.");
   }
-};
+}
