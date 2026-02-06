@@ -214,13 +214,17 @@ document.addEventListener("click", (e) => {
     fab.addEventListener("click", togglePanel);
     closeBtn.addEventListener("click", closePanel);
 
-    function addMsg(role, text) {
-      const div = document.createElement("div");
-      div.className = `bc-msg ${role}`;
-      div.textContent = text;
-      elMsgs.appendChild(div);
-      scrollChatToBottom(false);
-    }
+   function addMsg(role, text){
+  const div = document.createElement("div");
+  div.className = `bc-msg ${role}`;
+
+  div.textContent = text;              // texto del bot/usuario
+  div.style.whiteSpace = "pre-wrap";   // respeta saltos de línea
+
+  elMsgs.appendChild(div);
+  scrollChatToBottom(false);
+}
+
 
     function saveHistory() {
       localStorage.setItem(
