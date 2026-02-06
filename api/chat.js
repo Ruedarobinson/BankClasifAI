@@ -15,10 +15,9 @@ BankClasifAI:
 - Clasifica extractos bancarios (PDF/imagen) con IA.
 - Organiza ingresos/gastos por categorías.
 - Exporta a Excel/CSV y reportes.
-Secciones del sitio:
-- Precios y planes (incluye prueba gratis)
-- Preguntas frecuentes / Ayuda
-- Contacto / Soporte
+Links:
+- Precios: /precio.html
+- FAQ: /faq-es.html
 `.trim();
 
 module.exports = async (req, res) => {
