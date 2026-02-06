@@ -40,12 +40,16 @@
 
 .modal__close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  border: 0;
-  background: transparent;
+  top: 12px;
+  right: 14px;
+  z-index: 10;        /* 🔑 CLAVE */
+  background: rgba(0,0,0,0.6);
   color: #fff;
-  font-size: 22px;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
   cursor: pointer;
 }
 

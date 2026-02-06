@@ -903,7 +903,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!modal || !frame) return;
 
   function openModal(videoId) {
-    frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+   frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`;
+
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
