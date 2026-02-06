@@ -1,57 +1,72 @@
-// ===============================
-// CHATBOT
-// ===============================
+const OpenAI = require("openai");
 
+module.exports = async function handler(req, res) {
+  try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
 
-(function loadChatbotOnce() {
-  if (window.__BC_CHAT_LOADED__) return;
-  window.__BC_CHAT_LOADED__ = true;
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
+    }
 
-  // 1) CSS del chatbot (solo una vez)
-  if (!document.querySelector('link[data-bc-chat-css="1"]')) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "/css/chatbot.css";
-    link.setAttribute("data-bc-chat-css", "1");
-    document.head.appendChild(link);
-  }
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  // 2) Cargar el JS del chatbot (solo una vez)
-  function loadChatScriptOnce() {
-    if (document.querySelector('script[data-bc-chat-js="1"]')) return Promise.resolve();
+    const SYSTEM_PROMPT = `
+Eres el asistente oficial de BankClasifAI.
 
-    return new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = "/js/script.js";      // <-- tu script completo con Markdown
-      s.defer = true;
-      s.setAttribute("data-bc-chat-js", "1");
-      s.onload = resolve;
-      s.onerror = reject;
-      document.body.appendChild(s);
+REGLAS OBLIGATORIAS:
+- NO incluyas rutas, nombres de archivos, ni URLs (ej: /faq, faq-es.html, precio.html).
+- Si necesitas referirte a una sección del sitio, dilo en palabras: "sección de Precios", "Ayuda", "Contacto", "Preguntas frecuentes".
+- Habla como asesor humano, no como documentación técnica.
+- Responde siempre en el idioma del último mensaje del usuario (ES o EN).
+- Sé claro, directo y útil. Evita respuestas largas.
+`.trim();
+
+    const KNOWLEDGE_BASE = `
+BankClasifAI:
+- Clasifica extractos bancarios (PDF/imagen) con IA.
+- Organiza ingresos/gastos por categorías.
+- Exporta a Excel/CSV y reportes.
+Secciones del sitio:
+- Precios y planes (incluye prueba gratis)
+- Preguntas frecuentes / Ayuda
+- Contacto / Soporte
+`.trim();
+
+    const { messages } = req.body || {};
+    if (!Array.isArray(messages)) {
+      return res.status(400).json({ error: "messages must be an array" });
+    }
+
+    const normalized = messages
+      .map((m) => ({
+        role: m?.role === "assistant" ? "assistant" : "user",
+        content: String(m?.content || ""),
+      }))
+      .slice(-20);
+
+    const finalMessages = [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: `Contexto del producto:\n${KNOWLEDGE_BASE}` },
+      ...normalized,
+    ];
+
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0.4,
+      messages: finalMessages,
+    });
+
+    const reply = completion.choices?.[0]?.message?.content?.trim() || "…";
+    return res.status(200).json({ reply });
+  } catch (err) {
+    console.error("API /api/chat error:", err);
+    return res.status(500).json({
+      error: "Internal Server Error",
+      detail: err?.message || String(err),
     });
   }
-
-  // 3) Inyectar HTML del chatbot
-  fetch("/components/chatbot.html")
-    .then((r) => {
-      if (!r.ok) throw new Error("No se pudo cargar /components/chatbot.html");
-      return r.text();
-    })
-    .then(async (html) => {
-      if (!document.getElementById("bc-chat")) {
-        document.body.insertAdjacentHTML("beforeend", html);
-      }
-
-      // 4) Asegura que el script esté cargado y luego inicializa
-      await loadChatScriptOnce();
-
-      if (window.initBankClasifAIChatbot) {
-        window.initBankClasifAIChatbot();
-      } else {
-        console.error("[Chatbot] initBankClasifAIChatbot no está disponible. Revisa /js/script.js");
-      }
-    })
-    .catch((err) => console.error("[Chatbot] Error:", err));
-})();
+};
 
 
