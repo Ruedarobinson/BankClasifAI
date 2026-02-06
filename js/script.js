@@ -653,12 +653,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 /* ============================
    BankClasifAI – CHATBOT
 ============================ */
 
 function initBankClasifAIChatbot() {
+  // ✅ evita doble init (MUY IMPORTANTE)
+  if (window.__BC_CHAT_INITED__) return;
+  window.__BC_CHAT_INITED__ = true;
+
   // ---------- DOM ----------
   const fab = document.getElementById("bc-chat-fab");
   const panel = document.getElementById("bc-chat");
@@ -672,6 +675,7 @@ function initBankClasifAIChatbot() {
   // ⛔ Si el HTML aún no existe, no inicializa
   if (!fab || !panel || !closeBtn || !elMsgs || !elForm || !elInput) {
     console.warn("[Chatbot] DOM no listo, init cancelado");
+    window.__BC_CHAT_INITED__ = false; // permite reintento si se cargó tarde
     return;
   }
 
@@ -740,13 +744,18 @@ function initBankClasifAIChatbot() {
   function addMsg(role, text) {
     const div = document.createElement("div");
     div.className = `bc-msg ${role}`;
-    div.innerHTML = renderSimpleMarkdown(text); // ✅ render markdown
+    div.innerHTML = renderSimpleMarkdown(text);
     elMsgs.appendChild(div);
     scrollChatToBottom(false);
+    return div; // 👈 útil para “loading node”
   }
 
   function hideQuickReplies() {
     if (elQuick) elQuick.style.display = "none";
+  }
+
+  function showQuickReplies() {
+    if (elQuick) elQuick.style.display = "";
   }
 
   // ---------- STORAGE ----------
@@ -771,13 +780,12 @@ function initBankClasifAIChatbot() {
     elMsgs.innerHTML = "";
     if (history.length === 0) {
       addMsg("bot", "Hi! / ¡Hola! How can I help you?");
+      showQuickReplies();
     } else {
       history.forEach((m) => addMsg(m.role, m.content));
       hideQuickReplies();
     }
   }
-
-  renderHistory();
 
   // ---------- QUICK REPLIES ----------
   const quick = [
@@ -814,6 +822,7 @@ function initBankClasifAIChatbot() {
     });
   }
 
+  renderHistory();
   renderQuick();
 
   // Ocultar quick replies cuando escriben
@@ -822,18 +831,17 @@ function initBankClasifAIChatbot() {
   });
 
   // ---------- API ----------
-async function askAI(messages){
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages })
-  });
+  async function askAI(messages) {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    });
 
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data?.error || `Request failed (${res.status})`);
-  return data.reply;
-}
-
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || `Request failed (${res.status})`);
+    return data.reply;
+  }
 
   // ---------- SUBMIT ----------
   elForm.addEventListener("submit", async (e) => {
@@ -843,25 +851,22 @@ async function askAI(messages){
     if (!text) return;
 
     hideQuickReplies();
-    uiLang = guessLang(text);
 
-    // (Opcional) si quieres que los chips cambien idioma tras escribir:
-    // renderQuick();
+    uiLang = guessLang(text);
+    renderQuick(); // ✅ chips se adaptan al idioma del usuario
 
     addMsg("user", text);
     history.push({ role: "user", content: text });
     saveHistory();
     elInput.value = "";
 
-    // Placeholder de “cargando”
-    addMsg("bot", "…");
-    const loadingNode = elMsgs.lastChild;
+    // Placeholder “cargando”
+    const loadingNode = addMsg("bot", "…");
 
     try {
       const clipped = history.slice(-MAX_HISTORY);
       const reply = await askAI(clipped);
 
-      // ✅ renderiza markdown en el mismo nodo
       loadingNode.innerHTML = renderSimpleMarkdown(reply);
 
       history.push({ role: "assistant", content: reply });
@@ -881,5 +886,5 @@ async function askAI(messages){
   });
 }
 
-// ✅ Export global (afuera de la función)
+// ✅ Export global
 window.initBankClasifAIChatbot = initBankClasifAIChatbot;

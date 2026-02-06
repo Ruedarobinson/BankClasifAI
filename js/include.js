@@ -130,9 +130,8 @@ document.addEventListener("click", (e) => {
 
 
 // ===============================
-// CHATBOT
+//CHATBOT LOADER
 // ===============================
-
 
 (function loadChatbotOnce() {
   if (window.__BC_CHAT_LOADED__) return;
@@ -153,7 +152,7 @@ document.addEventListener("click", (e) => {
 
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "/js/script.js";      // <-- tu script completo con Markdown
+      s.src = "/js/script.js";
       s.defer = true;
       s.setAttribute("data-bc-chat-js", "1");
       s.onload = resolve;
@@ -162,25 +161,23 @@ document.addEventListener("click", (e) => {
     });
   }
 
-  // 3) Inyectar HTML del chatbot
-  fetch("/components/chatbot.html")
-    .then((r) => {
+  async function ensureChatLoaded() {
+    // Si ya existe el HTML del chat, no lo vuelvas a inyectar
+    if (!document.getElementById("bc-chat")) {
+      const r = await fetch("/components/chatbot.html");
       if (!r.ok) throw new Error("No se pudo cargar /components/chatbot.html");
-      return r.text();
-    })
-    .then(async (html) => {
-      if (!document.getElementById("bc-chat")) {
-        document.body.insertAdjacentHTML("beforeend", html);
-      }
+      const html = await r.text();
+      document.body.insertAdjacentHTML("beforeend", html);
+    }
 
-      // 4) Asegura que el script esté cargado y luego inicializa
-      await loadChatScriptOnce();
+    await loadChatScriptOnce();
 
-      if (window.initBankClasifAIChatbot) {
-        window.initBankClasifAIChatbot();
-      } else {
-        console.error("[Chatbot] initBankClasifAIChatbot no está disponible. Revisa /js/script.js");
-      }
-    })
-    .catch((err) => console.error("[Chatbot] Error:", err));
+    if (typeof window.initBankClasifAIChatbot === "function") {
+      window.initBankClasifAIChatbot();
+    } else {
+      console.error("[Chatbot] initBankClasifAIChatbot no está disponible. Revisa /js/script.js");
+    }
+  }
+
+  ensureChatLoaded().catch((err) => console.error("[Chatbot] Error:", err));
 })();
