@@ -29,13 +29,13 @@ FORMATO:
 
 const KNOWLEDGE_BASE = `
 BankClasifAI:
-- Clasifica extractos bancarios (PDF/imagen) con IA.
-- Organiza ingresos/gastos por categorías.
-- Exporta a Excel/CSV y reportes.
+- Clasifica extractos bancarios PDF con IA.
+- Organiza ingresos/gastos por categorías typo Quickbook , IRS
+- Exporta a Excel/PDF y reportes.
 Secciones del sitio:
-- Precios y planes (incluye prueba gratis)
+- Precios y planes: Plan cuentas personales. plan personal+negoicos, plan Contadores(incluye prueba gratis 7 dias , no requiere tarjeta, 10,000 tokens) url: httpps://bankclasifai.com/precios
 - Preguntas frecuentes / Ayuda
-- Contacto / Soporte
+- Contacto url: https://bankclasifai.com/contacto or https://bankclasifai.com/contactus
 `.trim();
 
 module.exports = async (req, res) => {
