@@ -137,10 +137,11 @@
 }
 
 .bc-msg{
-  max-width: 85%;
+  max-width: 90%;
   padding: 12px 14px;
   border-radius: 14px;
   font-size: 14px;
+  font-weight: 350;
   line-height: 1.55;
   
   border: 1px solid var(--color-border);
@@ -205,6 +206,7 @@
   background: #fff;
   color: var(--color-text);
   font-size: 14px;
+  font-weight: 350px;
   outline: none;
 }
 .bc-chat__input::placeholder{
