@@ -1,6 +1,8 @@
-import OpenAI from "openai";
+const OpenAI = require("openai");
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const SYSTEM_PROMPT = `
 Eres el asistente oficial de BankClasifAI.
@@ -18,7 +20,7 @@ Links:
 - FAQ: /faq-es.html
 `.trim();
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -28,11 +30,15 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   try {
+    // Validación env var
     if (!process.env.OPENAI_API_KEY) {
       return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
     }
 
-    const { messages } = req.body || {};
+    // Body (Vercel a veces lo manda como string)
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { messages } = body || {};
+
     if (!Array.isArray(messages)) {
       return res.status(400).json({ error: "messages must be an array" });
     }
@@ -52,4 +58,5 @@ export default async function handler(req, res) {
     console.error("[/api/chat] error:", err);
     return res.status(500).json({ error: err?.message || "Server error" });
   }
-}
+};
+
