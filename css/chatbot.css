@@ -141,7 +141,7 @@
   padding: 12px 14px;
   border-radius: 14px;
   font-size: 14px;
-  font-weight: 350;
+  font-weight: 400;
   line-height: 1.55;
   
   border: 1px solid var(--color-border);
@@ -206,7 +206,7 @@
   background: #fff;
   color: var(--color-text);
   font-size: 14px;
-  font-weight: 350px;
+  font-weight: 400px;
   outline: none;
 }
 .bc-chat__input::placeholder{
@@ -221,7 +221,7 @@
   background: var(--color-logo);
   color: #fff;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 400px;
   cursor: pointer;
 }
 .bc-chat__send:hover{
