@@ -1,72 +1,64 @@
 const OpenAI = require("openai");
 
-module.exports = async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
-    }
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
-    }
-
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-    const SYSTEM_PROMPT = `
+const SYSTEM_PROMPT = `
 Eres el asistente oficial de BankClasifAI.
-
-REGLAS OBLIGATORIAS:
-- NO incluyas rutas, nombres de archivos, ni URLs (ej: /faq, faq-es.html, precio.html).
-- Si necesitas referirte a una sección del sitio, dilo en palabras: "sección de Precios", "Ayuda", "Contacto", "Preguntas frecuentes".
-- Habla como asesor humano, no como documentación técnica.
-- Responde siempre en el idioma del último mensaje del usuario (ES o EN).
-- Sé claro, directo y útil. Evita respuestas largas.
+Responde siempre en el idioma del usuario (ES/EN).
+Sé breve y claro. No pidas datos sensibles.
 `.trim();
 
-    const KNOWLEDGE_BASE = `
+const KNOWLEDGE_BASE = `
 BankClasifAI:
 - Clasifica extractos bancarios (PDF/imagen) con IA.
 - Organiza ingresos/gastos por categorías.
 - Exporta a Excel/CSV y reportes.
-Secciones del sitio:
-- Precios y planes (incluye prueba gratis)
-- Preguntas frecuentes / Ayuda
-- Contacto / Soporte
+Links:
+- Precios: /precio.html
+- FAQ: /faq-es.html
 `.trim();
 
-    const { messages } = req.body || {};
+module.exports = async (req, res) => {
+  // CORS
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  try {
+    // Validación env var
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
+    }
+
+    // Body (Vercel a veces lo manda como string)
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { messages } = body || {};
+
     if (!Array.isArray(messages)) {
       return res.status(400).json({ error: "messages must be an array" });
     }
 
-    const normalized = messages
-      .map((m) => ({
-        role: m?.role === "assistant" ? "assistant" : "user",
-        content: String(m?.content || ""),
-      }))
-      .slice(-20);
-
-    const finalMessages = [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "system", content: `Contexto del producto:\n${KNOWLEDGE_BASE}` },
-      ...normalized,
+    const input = [
+      { role: "system", content: `${SYSTEM_PROMPT}\n\nContexto:\n${KNOWLEDGE_BASE}` },
+      ...messages,
     ];
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.4,
-      messages: finalMessages,
+    const response = await client.responses.create({
+      model: "gpt-5.2",
+      input,
     });
 
-    const reply = completion.choices?.[0]?.message?.content?.trim() || "…";
-    return res.status(200).json({ reply });
+    return res.status(200).json({ reply: response.output_text });
   } catch (err) {
-    console.error("API /api/chat error:", err);
-    return res.status(500).json({
-      error: "Internal Server Error",
-      detail: err?.message || String(err),
-    });
+    console.error("[/api/chat] error:", err);
+    return res.status(500).json({ error: err?.message || "Server error" });
   }
 };
+
 
 
