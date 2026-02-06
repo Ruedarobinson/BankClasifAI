@@ -6,9 +6,11 @@ const client = new OpenAI({
 
 const SYSTEM_PROMPT = `
 Eres el asistente oficial de BankClasifAI.
-Responde siempre en el idioma del usuario (ES/EN).
-Sé breve y claro. No pidas datos sensibles.
+Responde en el idioma del usuario (ES/EN).
+IMPORTANTE: No uses Markdown. No uses **, #, -, ni listas con guiones.
+Usa texto plano. Si necesitas listas, usa viñetas con "•" o números "1) 2)".
 `.trim();
+
 
 const KNOWLEDGE_BASE = `
 BankClasifAI:
