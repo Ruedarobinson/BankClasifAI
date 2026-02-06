@@ -894,17 +894,14 @@ window.initBankClasifAIChatbot = initBankClasifAIChatbot;
 //MODAL VIDEO//
 
 
-document.addEventListener("DOMContentLoaded", () => {
+function initVideoModal() {
   const openBtn = document.querySelector("[data-open-video]");
-  if (!openBtn) return;
-
   const modal = document.getElementById("videoModal");
   const frame = document.getElementById("ytFrame");
-  if (!modal || !frame) return;
+  if (!openBtn || !modal || !frame) return;
 
   function openModal(videoId) {
-   frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`;
-
+    frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`;
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -929,6 +926,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
-});
+}
+
+document.addEventListener("videoModalReady", initVideoModal);
+document.addEventListener("DOMContentLoaded", initVideoModal);
 
 

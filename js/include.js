@@ -187,11 +187,14 @@ document.addEventListener("click", (e) => {
 //MODAL VIDEO LOADER
 // ===============================
 
-
 fetch("/components/video-modal.html")
-  .then(res => res.text())
+  .then(res => {
+    if (!res.ok) throw new Error("No se pudo cargar el modal: " + res.status);
+    return res.text();
+  })
   .then(html => {
     const container = document.getElementById("video-component");
     if (container) container.innerHTML = html;
+    document.dispatchEvent(new Event("videoModalReady"));
   })
-  .catch(console.error);
+  .catch(err => console.error("Modal load error:", err));
