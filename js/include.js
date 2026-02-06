@@ -181,3 +181,17 @@ document.addEventListener("click", (e) => {
 
   ensureChatLoaded().catch((err) => console.error("[Chatbot] Error:", err));
 })();
+
+
+// ===============================
+//MODAL VIDEO LOADER
+// ===============================
+
+
+fetch("components/video-modal.html")
+  .then(res => res.text())
+  .then(html => {
+    const container = document.getElementById("video-component");
+    if (container) container.innerHTML = html;
+  })
+  .catch(console.error);

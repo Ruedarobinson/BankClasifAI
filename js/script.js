@@ -888,3 +888,46 @@ function initBankClasifAIChatbot() {
 
 // ✅ Export global
 window.initBankClasifAIChatbot = initBankClasifAIChatbot;
+
+
+
+//MODAL VIDEO//
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const openBtn = document.querySelector("[data-open-video]");
+  if (!openBtn) return;
+
+  const modal = document.getElementById("videoModal");
+  const frame = document.getElementById("ytFrame");
+  if (!modal || !frame) return;
+
+  function openModal(videoId) {
+    frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    frame.src = "";
+    document.body.style.overflow = "";
+  }
+
+  openBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openModal(openBtn.dataset.video);
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+});
+
+
