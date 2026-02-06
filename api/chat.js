@@ -35,8 +35,16 @@ BankClasifAI:
 - Clasifica extractos bancarios PDF con IA.
 - Organiza ingresos/gastos por categorías typo Quickbook , IRS
 - Exporta a Excel/PDF y reportes.
-Planes: Prueba Gratuita 7 dias,no requiere tarjeta, 10,000 tokens. Plan cuentas personales $19.mensual. plan personal+negoicos $39.mensual. plan Contadores $69.mensual
-planes disponibles en la sección de precios.
+Planes: Prueba Gratuita 7 dias,no requiere tarjeta, 10,000 tokens. Plan cuentas personales $19.mensual. plan personal+negoicos $39.mensual. 
+plan Contadores $69.mensual 
+incluye:
+1,000,000/ mes tokens 400 MB memoria
+Clientes ilimitados
+Carpetas por cliente
+Categorización automática - editable
+Exportar en formato excel
+Reportes en PDF por cliente
+
 
 Politicas de privacidad: no almancenazon datos personales, solo se almacena el correo para contactar al equipo para mas información en la sección de politicas de privacidad.
 ayuda
