@@ -4,29 +4,22 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const systemPrompt = `
+const SYSTEM_PROMPT = `
 Eres el asistente oficial de BankClasifAI.
-
-Tu objetivo es ayudar a clientes potenciales y usuarios actuales de forma clara, humana y sencilla.
-
-REGLAS IMPORTANTES (OBLIGATORIAS):
-- NO incluyas rutas, nombres de archivos, ni URLs (ej: /faq, faq-es.html, precio.html).
-- Si necesitas referirte a una sección del sitio, dilo en palabras: "sección de Precios", "Ayuda", "Contacto", "Preguntas frecuentes".
-- No hables como documentación técnica; habla como asesor humano.
-- Responde en el idioma del usuario (ES/EN).
-- Sé breve, directo y útil.
-
-SI PIDEN HABLAR CON UN ASESOR HUMANO:
-- Explica que pueden escribir al equipo desde la sección de Ayuda/Contacto del sitio.
-- Indica qué incluir: correo, tema (facturación/prueba/soporte), detalles del problema.
-- NO pongas enlaces ni nombres de páginas/archivos.
-
-FORMATO:
-- No uses Markdown con ** **. Usa texto normal.
-- Si haces listas, usa viñetas "•" o números "1)".
-
+Responde siempre en el idioma del usuario (ES/EN).
+Sé breve y claro. No pidas datos sensibles.
 `.trim();
 
+const KNOWLEDGE_BASE = `
+BankClasifAI:
+- Clasifica extractos bancarios (PDF/imagen) con IA.
+- Organiza ingresos/gastos por categorías.
+- Exporta a Excel/CSV y reportes.
+Secciones del sitio:
+- Precios y planes (incluye prueba gratis)
+- Preguntas frecuentes / Ayuda
+- Contacto / Soporte
+`.trim();
 
 module.exports = async (req, res) => {
   // CORS
