@@ -654,13 +654,173 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ============================
-   DARK MODE
+   CHAT
 ============================ */
 
 
+const fab = document.getElementById("bc-chat-fab");
+const panel = document.getElementById("bc-chat");
+const closeBtn = document.getElementById("bc-chat-close");
 
+const elMsgs = document.getElementById("bc-chat-messages");
+const elQuick = document.getElementById("bc-chat-quick");
+const elForm = document.getElementById("bc-chat-form");
+const elInput = document.getElementById("bc-chat-input");
 
+const STORAGE_KEY = "bc_chat_history_v1";
+const MAX_HISTORY = 12;
 
+let history = loadHistory();
 
+/* -------- Panel open/close -------- */
+function openPanel(){
+  panel.classList.remove("closed");
+  panel.classList.add("open");
+  panel.setAttribute("aria-hidden", "false");
+  setTimeout(() => scrollChatToBottom(false), 50);
+}
+function closePanel(){
+  panel.classList.remove("open");
+  panel.classList.add("closed");
+  panel.setAttribute("aria-hidden", "true");
+}
+function togglePanel(){
+  panel.classList.contains("open") ? closePanel() : openPanel();
+}
 
+fab.addEventListener("click", togglePanel);
+closeBtn.addEventListener("click", closePanel);
 
+/* -------- Quick replies hide -------- */
+function hideQuickReplies(){
+  if (elQuick) elQuick.style.display = "none";
+}
+
+// desaparecen cuando el usuario empieza a escribir
+elInput.addEventListener("input", () => {
+  if (elInput.value.trim().length > 0) hideQuickReplies();
+});
+
+/* -------- Scroll -------- */
+function scrollChatToBottom(smooth = true){
+  if (!elMsgs) return;
+  elMsgs.scrollTo({
+    top: elMsgs.scrollHeight,
+    behavior: smooth ? "smooth" : "auto"
+  });
+}
+
+/* -------- Messages -------- */
+function addMsg(role, text){
+  const div = document.createElement("div");
+  div.className = `bc-msg ${role}`;
+  div.textContent = text;
+  elMsgs.appendChild(div);
+  scrollChatToBottom(false);
+}
+
+/* -------- Storage -------- */
+function saveHistory(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(-MAX_HISTORY)));
+}
+function loadHistory(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch{
+    return [];
+  }
+}
+
+/* -------- Render history -------- */
+function renderHistory(){
+  elMsgs.innerHTML = "";
+  if (history.length === 0){
+    addMsg("bot", "Hi! / ¡Hola! How can I help you?");
+  } else {
+    history.forEach(m => addMsg(m.role, m.content));
+    hideQuickReplies(); // si ya hay historial, no muestres quick replies
+  }
+}
+renderHistory();
+
+/* -------- Quick replies -------- */
+const quick = [
+  { es: "¿Cómo funciona BankClasifAI?", en: "How does BankClasifAI work?" },
+  { es: "¿Convierten PDF a Excel?", en: "Do you convert PDF to Excel?" },
+  { es: "Precios y prueba gratis", en: "Pricing and free trial" },
+];
+
+function guessLang(text){
+  const t = (text||"").toLowerCase();
+  if (/[ñáéíóúü]/.test(t) || /\b(hola|gracias|precio|prueba|banco|extracto)\b/.test(t)) return "es";
+  return "en";
+}
+
+let uiLang = "es";
+function renderQuick(){
+  if (!elQuick) return;
+
+  elQuick.innerHTML = "";
+  quick.forEach(q => {
+    const b = document.createElement("button");
+    b.className = "bc-chip";
+    b.type = "button";
+    b.textContent = q[uiLang];
+    b.onclick = () => {
+      elInput.value = q[uiLang];
+      elForm.requestSubmit(); // mejor que dispatchEvent
+    };
+    elQuick.appendChild(b);
+  });
+}
+renderQuick();
+
+/* -------- AI call -------- */
+async function askAI(messages){
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ messages })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data?.error || "Request failed");
+  return data.reply;
+}
+
+/* -------- SINGLE submit handler (solo uno) -------- */
+elForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const text = elInput.value.trim();
+  if (!text) return;
+
+  hideQuickReplies();
+
+  uiLang = guessLang(text);
+
+  addMsg("user", text);
+  history.push({ role: "user", content: text });
+  saveHistory();
+  elInput.value = "";
+
+  addMsg("bot", "…");
+  const loadingNode = elMsgs.lastChild;
+
+  try{
+    const clipped = history.slice(-MAX_HISTORY);
+    const reply = await askAI(clipped);
+    loadingNode.textContent = reply;
+
+    history.push({ role: "assistant", content: reply });
+    saveHistory();
+
+    requestAnimationFrame(() => scrollChatToBottom());
+  }catch(err){
+    loadingNode.textContent = uiLang === "es"
+      ? "Hubo un error conectando con la IA. Intenta de nuevo."
+      : "There was an error connecting to AI. Please try again.";
+
+    requestAnimationFrame(() => scrollChatToBottom());
+  }
+});
