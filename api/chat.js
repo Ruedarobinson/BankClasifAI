@@ -35,10 +35,15 @@ BankClasifAI:
 - Clasifica extractos bancarios PDF con IA.
 - Organiza ingresos/gastos por categorías typo Quickbook , IRS
 - Exporta a Excel/PDF y reportes.
-Secciones del sitio:
-- Precios y planes: Plan cuentas personales. plan personal+negoicos, plan Contadores(incluye prueba gratis 7 dias , no requiere tarjeta, 10,000 tokens) url: httpps://bankclasifai.com/precios
-- Preguntas frecuentes / Ayuda
-- Contacto url: https://bankclasifai.com/contacto or https://bankclasifai.com/contactus
+Planes: Prueba Gratuita 7 dias,no requiere tarjeta, 10,000 tokens. Plan cuentas personales $19.mensual. plan personal+negoicos $39.mensual. plan Contadores $69.mensual
+planes disponibles en la sección de precios.
+
+Politicas de privacidad: no almancenazon datos personales, solo se almacena el correo para contactar al equipo para mas información en la sección de politicas de privacidad.
+ayuda
+contacto
+preguntas frecuentes href="faq-es.html"
+
+
 `.trim();
 
 module.exports = async (req, res) => {
