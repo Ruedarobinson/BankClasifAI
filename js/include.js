@@ -188,7 +188,7 @@ document.addEventListener("click", (e) => {
 // ===============================
 
 
-fetch("components/video-modal.html")
+fetch("/components/video-modal.html")
   .then(res => res.text())
   .then(html => {
     const container = document.getElementById("video-component");
