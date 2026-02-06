@@ -1,39 +1,19 @@
-const OpenAI = require("openai");
+import OpenAI from "openai";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const systemPrompt = `
+const SYSTEM_PROMPT = `
 Eres el asistente oficial de BankClasifAI.
 
-Tu objetivo es ayudar a clientes potenciales y usuarios actuales de forma clara, humana y sencilla.
-
-REGLAS IMPORTANTES (OBLIGATORIAS):
+REGLAS OBLIGATORIAS:
 - NO incluyas rutas, nombres de archivos, ni URLs (ej: /faq, faq-es.html, precio.html).
 - Si necesitas referirte a una sección del sitio, dilo en palabras: "sección de Precios", "Ayuda", "Contacto", "Preguntas frecuentes".
-- No hables como documentación técnica; habla como asesor humano.
-- Responde en el idioma del usuario (ES/EN).
-- Sé breve, directo y útil.
-
-SI PIDEN HABLAR CON UN ASESOR HUMANO:
-- Explica que pueden escribir al equipo desde la sección de Ayuda/Contacto del sitio.
-- Indica qué incluir: correo, tema (facturación/prueba/soporte), detalles del problema.
-- NO pongas enlaces ni nombres de páginas/archivos.
-
-FORMATO:
-- No uses Markdown con ** **. Usa texto normal.
-- Si haces listas, usa viñetas "•" o números "1)".
-
-Responde siempre en el mismo idioma del último mensaje del usuario.
-Si el usuario escribe en inglés, responde completamente en inglés.
-Si escribe en español, responde completamente en español.
-
-
+- Habla como asesor humano, no como documentación técnica.
+- Responde siempre en el idioma del último mensaje del usuario (ES o EN).
+- Sé claro, directo y útil. Evita respuestas largas.
 `.trim();
-
-
-
 
 const KNOWLEDGE_BASE = `
 BankClasifAI:
@@ -46,43 +26,46 @@ Secciones del sitio:
 - Contacto / Soporte
 `.trim();
 
-module.exports = async (req, res) => {
-  // CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-
+export default async function handler(req, res) {
   try {
-    // Validación env var
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
+
     if (!process.env.OPENAI_API_KEY) {
       return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
     }
 
-    // Body (Vercel a veces lo manda como string)
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { messages } = body || {};
+    const { messages } = req.body || {};
 
     if (!Array.isArray(messages)) {
       return res.status(400).json({ error: "messages must be an array" });
     }
 
-    const input = [
-      { role: "system", content: `${SYSTEM_PROMPT}\n\nContexto:\n${KNOWLEDGE_BASE}` },
-      ...messages,
-    ];
+    // Mensajes finales enviados al modelo
+    const finalMessages = [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: `Contexto del producto:\n${KNOWLEDGE_BASE}` },
+      ...messages.map((m) => ({
+        role: m.role === "assistant" ? "assistant" : "user",
+        content: String(m.content || ""),
+      })),
+    ].slice(-30); // limite de seguridad
 
-    const response = await client.responses.create({
-      model: "gpt-5.2",
-      input,
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0.4,
+      messages: finalMessages,
     });
 
-    return res.status(200).json({ reply: response.output_text });
+    const reply = completion.choices?.[0]?.message?.content?.trim() || "…";
+    return res.status(200).json({ reply });
   } catch (err) {
-    console.error("[/api/chat] error:", err);
-    return res.status(500).json({ error: err?.message || "Server error" });
+    console.error("API /api/chat error:", err);
+    return res.status(500).json({
+      error: "Internal Server Error",
+    });
   }
-};
+}
+
 
