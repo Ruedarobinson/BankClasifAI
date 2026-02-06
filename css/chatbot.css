@@ -141,7 +141,8 @@
   padding: 12px 14px;
   border-radius: 14px;
   font-size: 14px;
-  line-height: 1.35;
+  line-height: 1.55;
+  
   border: 1px solid var(--color-border);
   white-space: pre-wrap;
 }
