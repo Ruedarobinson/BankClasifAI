@@ -714,13 +714,38 @@ function initBankClasifAIChatbot(){
     });
   }
 
-  function addMsg(role, text){
-    const div = document.createElement("div");
-    div.className = `bc-msg ${role}`;
-    div.textContent = text;
-    elMsgs.appendChild(div);
-    scrollChatToBottom(false);
-  }
+  function escapeHTML(str){
+  return (str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderSimpleMarkdown(text){
+  let html = escapeHTML(text);
+
+  // **bold**
+  html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+  // saltos de línea
+  html = html.replace(/\n/g, "<br>");
+
+  // líneas que empiezan con "- " => viñetas básicas
+  html = html.replace(/(^|<br>)-\s+/g, "$1• ");
+
+  return html;
+}
+
+function addMsg(role, text){
+  const div = document.createElement("div");
+  div.className = `bc-msg ${role}`;
+  div.innerHTML = renderSimpleMarkdown(text);
+  elMsgs.appendChild(div);
+  scrollChatToBottom(false);
+}
+
 
   function hideQuickReplies(){
     if (elQuick) elQuick.style.display = "none";
