@@ -660,6 +660,15 @@ small,
 /* =========================
    HEADER (sticky real + container)
 ========================= */
+#header-placeholder {
+  min-height: 84px;          /* reserva espacio (ajústalo si hace falta) */
+  opacity: 0;                /* oculto mientras carga */
+  transition: opacity .2s ease;
+}
+
+#header-placeholder.is-ready {
+  opacity: 1;
+}
 
 
 .main-header{
