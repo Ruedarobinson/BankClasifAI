@@ -43,20 +43,9 @@ async function loadInto(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
 
-  // estado inicial de carga
-  if (placeholderId === "header-placeholder") {
-    el.classList.remove("is-ready");
-  }
-
   const res = await fetch(url, { cache: "no-cache" });
   if (!res.ok) throw new Error(`No se pudo cargar ${url} (${res.status})`);
-
   el.innerHTML = await res.text();
-
-  // mostrar cuando ya está insertado
-  if (placeholderId === "header-placeholder") {
-    el.classList.add("is-ready");
-  }
 }
 
 async function loadLayout() {
