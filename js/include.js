@@ -1,5 +1,23 @@
 // /js/include.js
 
+
+
+function ensureScriptOnce(src, attr = "data-loaded") {
+  const existing = document.querySelector(`script[${attr}="1"][src="${src}"]`);
+  if (existing) return Promise.resolve();
+
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.defer = true;
+    s.setAttribute(attr, "1");
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+
 function getPathInfo() {
   // Ejemplos:
   // "/" -> file: "index", dir: "/"
@@ -51,17 +69,33 @@ async function loadInto(placeholderId, url) {
 async function loadLayout() {
   const { file } = getPathInfo();
 
-  // idioma preferido (si existe), si no, deduce por la ruta actual
-  const savedLang = localStorage.getItem("bc_lang"); // "en" o "es"
+  const savedLang = localStorage.getItem("bc_lang");
   const en = savedLang ? savedLang === "en" : isEnglishRoute(file);
 
-  await loadInto("header-placeholder", en ? "/components/header-en.html" : "/components/header.html");
-  if (typeof initHeader === "function") initHeader();
+  // ✅ Asegura que script.js (y initHeader) esté cargado ANTES
+  await ensureScriptOnce("/js/script.js", "data-main-js");
 
-  await loadInto("footer-placeholder", en ? "/components/footer-en.html" : "/components/footer.html");
+  await loadInto(
+    "header-placeholder",
+    en ? "/components/header-en.html" : "/components/header.html"
+  );
 
-  document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+  if (typeof initHeader === "function") {
+    initHeader();
+  } else {
+    console.warn("initHeader no está disponible");
+  }
+
+  await loadInto(
+    "footer-placeholder",
+    en ? "/components/footer-en.html" : "/components/footer.html"
+  );
+
+  document.querySelectorAll(".js-year").forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   loadLayout().catch(err => console.error("Error cargando layout:", err));
