@@ -51,10 +51,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <!-- Tu CSS global -->
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preload" href="/components/header.html" as="fetch" crossorigin>
+<link rel="preload" href="/components/footer.html" as="fetch" crossorigin>
 
   <!-- CSS específico de la página (compatible con tu :root actual) -->
 
-<link rel="icon" href="/img/icono.svg" type="image/svg">
+<link rel="icon" href="/img/favicon.ico" type="image/ico">
 
 
 </head>
@@ -369,15 +371,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
   </main>
+<div id="footer-placeholder"></div>
 
-  <div id="footer-placeholder"></div>
+<!-- 1️⃣ Script base: define funciones -->
+<script src="/js/script.js" defer></script>
 
-  <script src="/js/include.js"></script>
-  <script src="/js/lang.js"></script>
-  <script src="/js/script.js"></script>
+<!-- 2️⃣ Include: inyecta header/footer + carga chatbot -->
+<script src="/js/include.js" defer></script>
 
+<!-- 3️⃣ Scripts independientes -->
+<script src="/js/lang.js" defer></script>
 
-   <link rel="stylesheet" href="/css/chatbot.css">
 
 
 

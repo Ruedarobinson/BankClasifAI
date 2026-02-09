@@ -660,7 +660,20 @@ small,
 /* =========================
    HEADER (sticky real + container)
 ========================= */
+/* Evita salto cuando el header se inyecta por fetch */
+#header-placeholder {
+  min-height: 88px; /* ajusta al alto real de tu header desktop */
+}
 
+@media (max-width: 900px) {
+  #header-placeholder {
+    min-height: 76px; /* ajusta al alto real en móvil */
+  }
+}
+
+main, .hero-section {
+  margin-top: 0;
+}
 
 
 .main-header{

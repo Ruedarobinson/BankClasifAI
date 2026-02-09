@@ -33,11 +33,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Favicon -->
- <link rel="icon" href="/img/icono.svg" type="image/svg">
+ <link rel="icon" href="/img/favicon.ico" type="image/ico">
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css">
 
+<link rel="preload" href="/components/header-en.html" as="fetch" crossorigin>
+<link rel="preload" href="/components/footer-en.html" as="fetch" crossorigin>
 
 
 
@@ -168,16 +170,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <div id="banner-placeholder"></div>
+<div id="footer-placeholder"></div>
 
-  <div id="footer-placeholder"></div>
+<!-- 1️⃣ Script base (define funciones globales) -->
+<script src="/js/script.js" defer></script>
 
-  <script src="/js/include.js"></script>
-  <script src="/faq.js"></script>
-  <script src="/js/script.js"></script>
-  <script src="/js/lang.js"></script>
+<!-- 2️⃣ Include (inyecta header/footer + carga chatbot) -->
+<script src="/js/include.js" defer></script>
 
+<!-- 3️⃣ Scripts de página -->
+<script src="/faq.js" defer></script>
+<script src="/js/lang.js" defer></script>
 
-   <link rel="stylesheet" href="/css/chatbot.css">
+</body>
+
 
 
 

@@ -50,22 +50,39 @@ async function loadInto(placeholderId, url) {
 
 async function loadLayout() {
   const { file } = getPathInfo();
-
-  // idioma preferido (si existe), si no, deduce por la ruta actual
-  const savedLang = localStorage.getItem("bc_lang"); // "en" o "es"
+  const savedLang = localStorage.getItem("bc_lang");
   const en = savedLang ? savedLang === "en" : isEnglishRoute(file);
 
-  await loadInto("header-placeholder", en ? "/components/header-en.html" : "/components/header.html");
-  if (typeof initHeader === "function") initHeader();
+  const headerUrl = en ? "/components/header-en.html" : "/components/header.html";
+  const footerUrl = en ? "/components/footer-en.html" : "/components/footer.html";
 
-  await loadInto("footer-placeholder", en ? "/components/footer-en.html" : "/components/footer.html");
+  try {
+    // 1. Cargamos el HTML en paralelo
+    await Promise.all([
+      loadInto("header-placeholder", headerUrl),
+      loadInto("footer-placeholder", footerUrl)
+    ]);
 
-  document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+    // 2. AHORA QUE EL HTML EXISTE, inicializamos todo el JS del header
+    if (typeof initHeader === "function") {
+      initHeader();
+    }
+
+    // 3. Específicamente para el dropdown de Stripe que mencionas
+    // Asegúrate de que los IDs coincidan con tu header.html
+    if (typeof initStripeDropdown === "function") {
+      initStripeDropdown("solucionesDropdown", "solucionesBtn");
+    }
+
+    // 4. Actualizar año
+    document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+
+  } catch (err) {
+    console.error("Error en el layout:", err);
+  }
 }
+loadLayout().catch(err => console.error("Error cargando layout:", err));
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadLayout().catch(err => console.error("Error cargando layout:", err));
-});
 
 // ===============================
 // CAMBIO DE IDIOMA
@@ -129,15 +146,15 @@ document.addEventListener("click", (e) => {
 
 
 
-// ===============================
-//CHATBOT LOADER
-// ===============================
 
+// ===============================
+// CHATBOT LOADER
+// ===============================
 (function loadChatbotOnce() {
   if (window.__BC_CHAT_LOADED__) return;
   window.__BC_CHAT_LOADED__ = true;
 
-  // 1) CSS del chatbot (solo una vez)
+  // 1) CSS del chatbot (una sola vez)
   if (!document.querySelector('link[data-bc-chat-css="1"]')) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -146,13 +163,15 @@ document.addEventListener("click", (e) => {
     document.head.appendChild(link);
   }
 
-  // 2) Cargar el JS del chatbot (solo una vez)
+  // 2) Cargar JS del chatbot
   function loadChatScriptOnce() {
-    if (document.querySelector('script[data-bc-chat-js="1"]')) return Promise.resolve();
+    if (document.querySelector('script[data-bc-chat-js="1"]')) {
+      return Promise.resolve();
+    }
 
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "/js/script.js";
+      s.src = "/js/chatbot.js"; // ✅ SOLO chatbot
       s.defer = true;
       s.setAttribute("data-bc-chat-js", "1");
       s.onload = resolve;
@@ -162,7 +181,7 @@ document.addEventListener("click", (e) => {
   }
 
   async function ensureChatLoaded() {
-    // Si ya existe el HTML del chat, no lo vuelvas a inyectar
+    // 3) Inyectar HTML del chatbot
     if (!document.getElementById("bc-chat")) {
       const r = await fetch("/components/chatbot.html");
       if (!r.ok) throw new Error("No se pudo cargar /components/chatbot.html");
@@ -170,17 +189,22 @@ document.addEventListener("click", (e) => {
       document.body.insertAdjacentHTML("beforeend", html);
     }
 
+    // 4) Cargar JS
     await loadChatScriptOnce();
 
+    // 5) Inicializar
     if (typeof window.initBankClasifAIChatbot === "function") {
       window.initBankClasifAIChatbot();
     } else {
-      console.error("[Chatbot] initBankClasifAIChatbot no está disponible. Revisa /js/script.js");
+      console.error("[Chatbot] initBankClasifAIChatbot no existe");
     }
   }
 
-  ensureChatLoaded().catch((err) => console.error("[Chatbot] Error:", err));
+  ensureChatLoaded().catch(err =>
+    console.error("[Chatbot] Error:", err)
+  );
 })();
+
 
 
 // ===============================

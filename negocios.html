@@ -61,10 +61,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
   <!-- Icono de la pestaña (Favicon) -->
- <link rel="icon" href="/img/icono.svg" type="image/svg">
+ <link rel="icon" href="/img/favicon.ico" type="image/ico">
 
   <!-- Hoja de estilos principal -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="preload" href="/components/header.html" as="fetch" crossorigin>
+<link rel="preload" href="/components/footer.html" as="fetch" crossorigin>
+
 
 </head>
 
@@ -185,15 +188,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
+<div id="footer-placeholder"></div>
 
-  <div id="footer-placeholder"></div>
+<!-- 1️⃣ Script base: define funciones -->
+<script src="/js/script.js" defer></script>
 
-  <script src="/js/include.js"></script>
-  
-  <script src="/js/script.js"></script> <!-- aquí está initHeader -->
-  <script src="/js/lang.js"></script>
+<!-- 2️⃣ Include: inyecta header/footer + carga chatbot -->
+<script src="/js/include.js" defer></script>
 
-   <link rel="stylesheet" href="/css/chatbot.css">
+<!-- 3️⃣ Scripts independientes -->
+<script src="/js/lang.js" defer></script>
+
 
 
  

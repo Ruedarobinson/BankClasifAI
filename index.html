@@ -67,9 +67,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
- <link rel="icon" href="/img/icono.svg" type="image/svg">
+ <link rel="icon" href="/img/favicon.ico" type="image/ico">
 
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="preload" href="/components/header.html" as="fetch" crossorigin>
+<link rel="preload" href="/components/footer.html" as="fetch" crossorigin>
+
 
 <script type="application/ld+json">
 {
@@ -864,17 +867,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
 
   <div id="footer-placeholder"></div>
- 
-  <script src="/js/include.js" defer></script>
-     <script src="/js/script.js" defer></script>
-  <script src="/js/promo-modal-2026.js" defer></script>
-  <script src="/js/lang.js" defer></script>
+
+<!-- 1️⃣ Script base (define funciones globales) -->
+<script src="/js/script.js" defer></script>
+
+<!-- 2️⃣ Include (inyecta header/footer + carga chatbot.js) -->
+<script src="/js/include.js" defer></script>
+
+<!-- 3️⃣ Scripts independientes de la página -->
+<script src="/js/promo-modal-2026.js" defer></script>
+<script src="/js/lang.js" defer></script>
+
   
-  
 
 
 
- <link rel="stylesheet" href="/css/chatbot.css">
 
 
  
