@@ -223,4 +223,4 @@
   window.initBankClasifAIChatbot = initBankClasifAIChatbot;
 })();
 
-      if (elQuick) elQuick.style.display = "none";
+
