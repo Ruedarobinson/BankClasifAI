@@ -57,16 +57,16 @@ async function loadLayout() {
   const footerUrl = en ? "/components/footer-en.html" : "/components/footer.html";
 
   try {
-    // ✅ 1) HEADER primero (no espera nada)
+    // ✅ HEADER primero
     await loadInto("header-placeholder", headerUrl);
+    document.getElementById("header-placeholder")?.classList.add("is-ready");
 
-    // ✅ 2) inicializa header apenas exista
     if (typeof initHeader === "function") initHeader();
     if (typeof initStripeDropdown === "function") {
       initStripeDropdown("solucionesDropdown", "solucionesBtn");
     }
 
-    // ✅ 3) FOOTER después (sin bloquear el header)
+    // ✅ FOOTER después (no bloquea)
     loadInto("footer-placeholder", footerUrl)
       .then(() => {
         document.querySelectorAll(".js-year").forEach(el => {
