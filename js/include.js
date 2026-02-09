@@ -146,8 +146,8 @@ document.addEventListener("click", (e) => {
 
 
 
-
-// CHATBOT LOADER (DELAYED)
+// ===============================
+// CHATBOT LOADER
 // ===============================
 (function loadChatbotOnce() {
   if (window.__BC_CHAT_LOADED__) return;
@@ -162,13 +162,16 @@ document.addEventListener("click", (e) => {
     document.head.appendChild(link);
   }
 
-  // 2) Cargar JS del chatbot (solo una vez)
+  // 2) Cargar JS del chatbot
   function loadChatScriptOnce() {
-    if (document.querySelector('script[data-bc-chat-js="1"]')) return Promise.resolve();
+    if (document.querySelector('script[data-bc-chat-js="1"]')) {
+      return Promise.resolve();
+    }
 
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "/js/chatbot.js?v=1"; // cache-bust opcional
+      s.src = "/js/chatbot.js"; // ✅ SOLO chatbot
+      s.defer = true;
       s.setAttribute("data-bc-chat-js", "1");
       s.onload = resolve;
       s.onerror = reject;
@@ -196,16 +199,10 @@ document.addEventListener("click", (e) => {
     }
   }
 
-  // ✅ 6) Cargar DESPUÉS (no compite con el header)
-  const startLater = () => ensureChatLoaded().catch(err => console.error("[Chatbot] Error:", err));
-
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(startLater, { timeout: 1500 });
-  } else {
-    setTimeout(startLater, 900);
-  }
+  ensureChatLoaded().catch(err =>
+    console.error("[Chatbot] Error:", err)
+  );
 })();
-
 
 
 
