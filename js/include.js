@@ -53,8 +53,8 @@ async function loadLayout() {
   const savedLang = localStorage.getItem("bc_lang");
   const en = savedLang ? savedLang === "en" : isEnglishRoute(file);
 
-  const headerUrl = en ? "/components/header-en.html" : "/components/header.html";
-  const footerUrl = en ? "/components/footer-en.html" : "/components/footer.html";
+  const headerUrl = en ? "/components/header.html" : "/components/header-en.html";
+  const footerUrl = en ? "/components/footer.html" : "/components/footer-en.html";
 
   try {
     // ✅ HEADER primero
