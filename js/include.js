@@ -43,7 +43,7 @@ async function loadInto(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
 
-  const res = await fetch(url, { cache: "no-cache" });
+  const res = await fetch(url); // ✅ deja que el navegador cachee normal
   if (!res.ok) throw new Error(`No se pudo cargar ${url} (${res.status})`);
   el.innerHTML = await res.text();
 }
