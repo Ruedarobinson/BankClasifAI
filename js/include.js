@@ -56,28 +56,25 @@ async function loadLayout() {
   const headerUrl = en ? "/components/header-en.html" : "/components/header.html";
   const footerUrl = en ? "/components/footer-en.html" : "/components/footer.html";
 
-  try {
-    // ✅ HEADER primero
-    await loadInto("header-placeholder", headerUrl);
-    document.getElementById("header-placeholder")?.classList.add("is-ready");
+  // 1. CARGAR HEADER INMEDIATAMENTE (Sin esperar al resto)
+  loadInto("header-placeholder", headerUrl)
+    .then(() => {
+      document.getElementById("header-placeholder")?.classList.add("is-ready");
+      if (typeof initHeader === "function") initHeader();
+      if (typeof initStripeDropdown === "function") {
+        initStripeDropdown("solucionesDropdown", "solucionesBtn");
+      }
+    })
+    .catch(err => console.error("Header error:", err));
 
-    if (typeof initHeader === "function") initHeader();
-    if (typeof initStripeDropdown === "function") {
-      initStripeDropdown("solucionesDropdown", "solucionesBtn");
-    }
-
-    // ✅ FOOTER después (no bloquea)
-    loadInto("footer-placeholder", footerUrl)
-      .then(() => {
-        document.querySelectorAll(".js-year").forEach(el => {
-          el.textContent = new Date().getFullYear();
-        });
-      })
-      .catch(err => console.error("Footer error:", err));
-
-  } catch (err) {
-    console.error("Error en el layout:", err);
-  }
+  // 2. CARGAR FOOTER EN SEGUNDO PLANO
+  loadInto("footer-placeholder", footerUrl)
+    .then(() => {
+      document.querySelectorAll(".js-year").forEach(el => {
+        el.textContent = new Date().getFullYear();
+      });
+    })
+    .catch(err => console.error("Footer error:", err));
 }
 
 loadLayout().catch(err => console.error("Error cargando layout:", err));
@@ -199,10 +196,17 @@ document.addEventListener("click", (e) => {
     }
   }
 
-  ensureChatLoaded().catch(err =>
-    console.error("[Chatbot] Error:", err)
-  );
-})();
+// ... (dentro de la función loadChatbotOnce)
+
+  // ESTO ES LO QUE DEBES REEMPLAZAR O AGREGAR AL FINAL
+  window.addEventListener('load', () => {
+    // El navegador ya terminó de pintar el Header, Logo e Imágenes
+    setTimeout(() => {
+      ensureChatLoaded().catch(err => console.error("[Chatbot] Error:", err));
+    }, 1000); // Retraso de 1 segundo para dar prioridad total a la UI
+  });
+
+})(); // Cierre de la función autoejecutable
 
 
 
