@@ -57,30 +57,29 @@ async function loadLayout() {
   const footerUrl = en ? "/components/footer-en.html" : "/components/footer.html";
 
   try {
-    // 1. Cargamos el HTML en paralelo
-    await Promise.all([
-      loadInto("header-placeholder", headerUrl),
-      loadInto("footer-placeholder", footerUrl)
-    ]);
+    // ✅ 1) HEADER primero (no espera nada)
+    await loadInto("header-placeholder", headerUrl);
 
-    // 2. AHORA QUE EL HTML EXISTE, inicializamos todo el JS del header
-    if (typeof initHeader === "function") {
-      initHeader();
-    }
-
-    // 3. Específicamente para el dropdown de Stripe que mencionas
-    // Asegúrate de que los IDs coincidan con tu header.html
+    // ✅ 2) inicializa header apenas exista
+    if (typeof initHeader === "function") initHeader();
     if (typeof initStripeDropdown === "function") {
       initStripeDropdown("solucionesDropdown", "solucionesBtn");
     }
 
-    // 4. Actualizar año
-    document.querySelectorAll(".js-year").forEach(el => (el.textContent = new Date().getFullYear()));
+    // ✅ 3) FOOTER después (sin bloquear el header)
+    loadInto("footer-placeholder", footerUrl)
+      .then(() => {
+        document.querySelectorAll(".js-year").forEach(el => {
+          el.textContent = new Date().getFullYear();
+        });
+      })
+      .catch(err => console.error("Footer error:", err));
 
   } catch (err) {
     console.error("Error en el layout:", err);
   }
 }
+
 loadLayout().catch(err => console.error("Error cargando layout:", err));
 
 
