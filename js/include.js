@@ -146,7 +146,7 @@ document.addEventListener("click", (e) => {
 // ===============================
 // CHATBOT LOADER
 // ===============================
-(function lensureChatLoaded() {
+(function loadChatbotOnce() {
   if (window.__BC_CHAT_LOADED__) return;
   window.__BC_CHAT_LOADED__ = true;
 
@@ -160,7 +160,7 @@ document.addEventListener("click", (e) => {
   }
 
   // 2) Cargar JS del chatbot
-  function loadChatScriptLoaded() {
+  function loadChatScriptOnce() {
     if (document.querySelector('script[data-bc-chat-js="1"]')) {
       return Promise.resolve();
     }
@@ -186,7 +186,7 @@ document.addEventListener("click", (e) => {
     }
 
     // 4) Cargar JS
-    await loadChatScriptOLoaded();
+    await loadChatScriptOnce();
 
     // 5) Inicializar
     if (typeof window.initBankClasifAIChatbot === "function") {
