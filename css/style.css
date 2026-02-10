@@ -564,7 +564,7 @@ h2 {
   /* Cámbialo de 300 a 600 para que tenga peso visual */
   line-height: 1.9;
   margin-bottom: 20px;
-  color: var(--ink);
+  
 }
 
 /* Ajuste para H3 (Títulos de tarjetas) */
@@ -1286,7 +1286,8 @@ footer {
   max-width: 1000px;
   margin: 0 auto 50px;
   font-size: 20px;
-  color: var(--color-muted);
+  color: var(--text-muted);
+  
 
 }
 
