@@ -341,6 +341,7 @@
   border-top:9px solid var(--color-border); /* borde */
 }
 
+
 /* ===============================
    TYPING INDICATOR – GRANDE
 ================================ */
@@ -359,8 +360,8 @@
 
 /* LOS PUNTOS */
 .bc-typing__dot{
-  width: 10px;               /* 🔥 más grandes */
-  height: 10px;
+  width: 18px;               /* 🔥 más grandes */
+  height: 18px;
   border-radius: 999px;
   background: var(--color-logo); /* usa tu color de marca */
   animation: bc-dot 1.4s infinite ease-in-out;
@@ -381,3 +382,5 @@
     opacity: 1;
   }
 }
+
+
