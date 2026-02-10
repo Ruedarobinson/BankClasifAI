@@ -539,7 +539,6 @@ h5,
 h6 {
   font-family: "roboto", system-ui, sans-serif;
   letter-spacing: -0.03em;
-  color: var(--ink);
   margin: 0 0 0.5em;
 }
 
@@ -565,6 +564,7 @@ h2 {
   line-height: 1.9;
   margin-bottom: 20px;
   
+  
 }
 
 /* Ajuste para H3 (Títulos de tarjetas) */
@@ -572,7 +572,7 @@ h3 {
   font-size: 20px;
   font-weight: 300;
   /* Un peso de 340 es casi invisible en algunas pantallas */
-  color: var(--ink);
+  
 }
 
 /* Párrafos */
@@ -1286,7 +1286,8 @@ footer {
   max-width: 1000px;
   margin: 0 auto 50px;
   font-size: 20px;
-  color: var(--text-muted);
+  color: var(--bc-muted);
+ 
   
 
 }
@@ -2504,6 +2505,7 @@ footer {
 
 .sec-card__body h3 {
   margin: 0 0 6px;
+  font-size: 18px;
 
 
   letter-spacing: -0.02em;
@@ -2512,9 +2514,9 @@ footer {
 
 .sec-card__body p {
   margin: 0;
-  font-size: 14px;
+ 
   line-height: 1.5;
-  color: var(--bc-muted);
+ 
   max-width: 520px;
 }
 
@@ -3759,6 +3761,8 @@ footer {
 .usuarios__cardTitle {
   margin: 10px 0 0px 0;
   color: var(--color-text);
+  font-weight: 390;
+  font-size: 23px;
 
 
   display: flex;
@@ -4784,7 +4788,8 @@ font-size: 18px;
 
 /* Descripción debajo */
 .seguridad__card p {
-  font-size: 15px;
+  font-size: 16px;
+  color: var(--color-text);
   text-align: left;
   line-height: 1.6;
   margin: 0;
