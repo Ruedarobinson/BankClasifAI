@@ -721,35 +721,77 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       line-height: 1.6;
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 960px) {
-      .lp-preview-media {
-        height: 200px;
-      }
+   /* ===== Modal responsive (mobile) ===== */
+@media (max-width: 520px) {
 
-      .lp-problem-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+  /* el overlay */
+  .modal{
+    padding: 0;
+    align-items: flex-end;   /* modal como "bottom sheet" */
+  }
 
-      .lp-steps-grid {
-        grid-template-columns: 1fr;
-      }
+  /* caja del modal */
+  .modal-content{
+    width: 100%;
+    max-width: 100%;
+    height: 92vh;            /* casi full screen */
+    border-radius: 18px 18px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-      .lp-role-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+  /* header más compacto */
+  .modal-head{
+    padding: 14px 16px 10px;
+  }
 
-    @media (max-width: 520px) {
-      .lp-problem-grid {
-        grid-template-columns: 1fr;
-      }
+  /* body scrolleable (para que no se vea “eterno”) */
+  .modal-body{
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px 16px;
+    -webkit-overflow-scrolling: touch;
+  }
 
-      .logo-slide {
-        width: 130px;
-        height: 50px;
-      }
-    }
+  /* formulario más compacto */
+  .form-grid{
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .form-group label{
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .form-group input,
+  .form-group select{
+    min-height: 44px;
+    padding: 12px 14px;
+    font-size: 16px; /* evita zoom en iOS */
+  }
+
+  /* botón */
+  .btn-dark.btn-full{
+    margin-top: 10px;
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  /* oculta los 3 pills dentro del modal en móvil (hacen ruido y alargan) */
+  .modal-body .lp-hero-points{
+    display: none;
+  }
+
+  /* footer más compacto */
+  .modal-footer{
+    margin: 0;
+    padding: 12px 16px 14px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
 
 
     /* ===== Banner oscuro CTA ===== */
