@@ -1285,8 +1285,8 @@ footer {
 .seccion-subtitulo {
   max-width: 1000px;
   margin: 0 auto 50px;
-  font-size: 20px;
-  color: var(--bc-muted);
+  
+  color: var(--ink);
  
   
 
