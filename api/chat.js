@@ -66,16 +66,10 @@ Reportes en PDF por cliente
 
 
 Plan Equipos Contables
-Multi-usuarios
-$
-1,519
-/ año
-Ahorra $269
-17,250,000
-tokens/año
-500 MB
-memoria
-Empieza gratis
+Multi-usuarios $149.mensual 0 $1,519 anual Ahorra $269
+incluye:
+
+1,250,000/ mes tokens 500 MB memoria
 Panel administrativo completo
 Usuarios y clientes ilimitados
 Carpetas individuales para cada usuario
@@ -86,7 +80,7 @@ Hasta 750 páginas
 Hasta 21,600 transacciones
 Asesor financiero IA – Pro
 Pronto
- Recomendado trabajo en equipo
+ 
 
 
 Privacidad: BankClasifAI
