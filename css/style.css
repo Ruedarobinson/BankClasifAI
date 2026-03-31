@@ -884,11 +884,14 @@ transform: rotate(45deg);
 ========================= */
 
 .nav-dropdown-menu.nav-dropdown-rich{
-  width: 440px; /* desktop */
+  width: 800px; /* desktop */
   padding: 12px;
   display: grid;
-  grid-template-columns: 1fr;
+   grid-template-columns: repeat(2, 1fr);
   gap: 6px;
+align-items: center;
+  
+  
 }
 
 .nav-dropdown-menu.nav-dropdown-rich li{
@@ -949,6 +952,21 @@ transform: rotate(45deg);
   color: var(--color-text);
   line-height: 1.4;
 }
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-soon{
+  font-size: 10px;
+  color: var(--brand-1);
+  border: solid .5px;
+  border-radius: 8px;
+  padding: 4px 4px;
+}
+  
 
 /* =========================
    ACCIONES
@@ -1899,9 +1917,7 @@ footer {
 
 
 
-/* =========================
-   FOOTER STYLES
-========================= */
+
 /* =========================
    FOOTER
 ========================= */
@@ -3876,7 +3892,7 @@ font-size: 18px;
     #fff;
   color: var(--ink);
   padding: 16px;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
   margin-top: auto;
 }
@@ -3961,12 +3977,15 @@ font-size: 18px;
 
 /* grid 4 */
 .tarjetas-grid4 {
+  max-width: 1400px;
+  margin: 60px auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
 }
 
 .tarjetas-card2 {
+  
   position: relative;
   border-radius: 18px;
   border: 1px solid var(--bc-border);
@@ -4187,6 +4206,26 @@ font-size: 18px;
 .pricing-note {
   margin-top: 4px;
 }
+
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-pronto{
+  font-size: 10px;
+  color: var(--ink);
+  border: solid .5px;
+  border-radius: 8px;
+  padding: 4px 4px;
+}
+
+.tarjetas-token-note{
+ padding: 16px;
+}
+
 
 /* Responsive */
 @media (max-width: 1100px) {
