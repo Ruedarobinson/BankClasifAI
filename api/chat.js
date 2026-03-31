@@ -64,6 +64,31 @@ Exportar en formato excel
 Reportes en PDF por cliente
 
 
+
+Plan Equipos Contables
+Multi-usuarios
+$
+1,519
+/ año
+Ahorra $269
+17,250,000
+tokens/año
+500 MB
+memoria
+Empieza gratis
+Panel administrativo completo
+Usuarios y clientes ilimitados
+Carpetas individuales para cada usuario
+Registro de movimientos por usuario
+Exportar en formato excel
+Reportes listos para impuestos (C-Corp, S-Corp, LLC)
+Hasta 750 páginas
+Hasta 21,600 transacciones
+Asesor financiero IA – Pro
+Pronto
+ Recomendado trabajo en equipo
+
+
 Privacidad: BankClasifAI
  Recopilación Mínima: Solo se solicita correo electrónico para la cuenta y datos técnicos (cookies/IP) para el funcionamiento. Nunca se piden contraseñas bancarias. 2. Manejo de Archivos: Se extraen fechas, montos y descripciones de PDFs/imágenes. La IA solo procesa lo estrictamente necesario para clasificar (minimización de datos). 3. Infraestructura y Seguridad: Datos alojados en Google Cloud con cifrado en tránsito, auditorías periódicas y enfoque security-first. 4. No Comercialización: Los datos personales no se venden. Solo se comparten con proveedores esenciales (infraestructura, email) bajo confidencialidad. 5. Derechos del Usuario: El usuario puede solicitar acceso, rectificación o eliminación total de sus datos escribiendo a info@bankclasifai.com. 6. Retención: Los archivos se guardan solo el tiempo necesario para el servicio o hasta que el usuario pida borrarlos. 7. Cumplimiento: Alineado con principios de GDPR, CCPA y LGPD.
  
