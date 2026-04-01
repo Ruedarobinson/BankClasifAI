@@ -128,14 +128,14 @@
 }
 
 .bc-chat__icon{
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
   border: none;
    background: var(--brand-degradado);
   color: var(--color-white);
 
-  font-size: 26px;
+  font-size: 24px;
   cursor: pointer;
 }
 
@@ -203,9 +203,9 @@
 }
 
 .bc-chip{
-  padding: 10px 12px;
+  padding: 14px 16px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 14px;
   border: 1px solid var(--color-border);
   background: #fff;
   color: var(--color-text);
