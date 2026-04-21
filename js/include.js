@@ -246,8 +246,7 @@ function loadComponent(url, elementId) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  loadComponent("/components/header.html", "header-placeholder");
-  loadComponent("/components/footer.html", "footer-placeholder");
+  
   loadComponent("/components/ai-modal.html", "ai-modal-placeholder");
 
 });
