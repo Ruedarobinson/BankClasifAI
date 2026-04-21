@@ -749,12 +749,12 @@ if (btnAction) {
         title: 'Smart financial insights<br>powered by AI',
         text: 'Upload your bank statements and get automated analysis, tax recommendations, and financial insights.',
         features: [
-          'Automatic expense analysis',
+          'Smart expense analysis',
           'Tax recommendations',
-          'Financial insights',
-          'Cost optimization'
+          'Suggestions to save money',
+          'How to improve your finances'
         ],
-        btn: 'Start analysis'
+        btn: 'How it works 👉'
       }
     };
 
