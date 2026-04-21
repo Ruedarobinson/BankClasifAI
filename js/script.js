@@ -713,18 +713,36 @@ window.addEventListener("load", () => {
     // detectar idioma
     const isEN = window.location.pathname.includes("en");
 
+// 👇 AGREGA ESTO AQUÍ
+const image = document.getElementById("aiImage");
+
+if (image) {
+  image.src = isEN
+    ? "/img/ai-chat-modal-en.png"
+    : "/img/ai-chat-modal-es.png";
+}
+const btnAction = document.getElementById("aiBtn");
+
+if (btnAction) {
+  btnAction.addEventListener("click", () => {
+    window.location.href = isEN 
+      ? "/AI-advisor.html"
+      : "/AI-advisor-es.html";
+  });
+}
+
     const content = {
       es: {
         badge: '<i class="fa-solid fa-brain"></i> Asesor Financiero IA',
         title: 'Asesor financiero inteligente<br>con IA',
         text: 'Sube tus extractos bancarios y recibe análisis automático, recomendaciones fiscales y optimización de gastos.',
         features: [
-          'Análisis automático de gastos',
+          'Análisis inteligente de gastos',
           'Recomendaciones fiscales',
-          'Insights financieros',
-          'Optimización de costos'
+          'Sugerencias para ahorrar más',
+          'Cómo mejorar tus finanzas'
         ],
-        btn: 'Comenzar análisis'
+        btn: 'Como Funciona 👉'
       },
       en: {
         badge: '<i class="fa-solid fa-brain"></i> AI Financial Advisor',

@@ -6395,7 +6395,7 @@ details[open] summary::after {
 /* CONTENT BOX */
 .ai-modal__content {
   position: relative;
-  max-width: 920px;
+  max-width: 820px;
   margin: 80px auto;
   background: #ffffff;
   border-radius: 22px;
@@ -6416,7 +6416,7 @@ details[open] summary::after {
   position: absolute;
   top: 12px;
   right: 14px;
-  background: rgba(0,0,0,0.06);
+  background: rgba(80, 80, 80, 0.06);
   border: none;
   width: 36px;
   height: 36px;
@@ -6452,7 +6452,7 @@ details[open] summary::after {
 
 /* TITLE */
 .ai-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 400;
   margin: 10px 0;
   color: #0b123a;
@@ -6513,7 +6513,10 @@ details[open] summary::after {
 .ai-modal__right img {
   width: 100%;
   max-width: 520px;
-  border-radius: 16px;
+  border-radius: 18px;
+  background-color: var(--bc-border)
+
+  
 }
 
 /* =========================
@@ -6523,6 +6526,8 @@ details[open] summary::after {
 @media (max-width: 900px) {
   .ai-modal__content {
     margin: 40px 16px;
+   
+
   }
 
   .ai-modal__inner {
@@ -6531,10 +6536,10 @@ details[open] summary::after {
   }
 
   .ai-title {
-    font-size: 22px;
+    font-size: 26px;
   }
 
   .ai-modal__right img {
-    max-width: 260px;
+    max-width: 360px;
   }
 }
