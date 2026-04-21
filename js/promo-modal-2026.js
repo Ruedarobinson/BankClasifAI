@@ -68,27 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const modal = document.getElementById("aiModal");
 
-  // Si NO se ha mostrado antes
-  if (!localStorage.getItem("aiModalSeen")) {
-    
-    // pequeño delay (mejor UX)
+  if (!modal) return;
+
+  // detectar si estás en home
+  const isHome = window.location.pathname.includes("index") || window.location.pathname === "/";
+
+  if (isHome) {
     setTimeout(() => {
       modal.classList.add("active");
-    }, 1200);
-
-    // marcar como visto
-    localStorage.setItem("aiModalSeen", "true");
+    }, 1000);
   }
-
-  // cerrar modal
-  const overlay = document.getElementById("aiModalClose");
-  const closeBtn = document.getElementById("aiModalCloseBtn");
-
-  function closeModal() {
-    modal.classList.remove("active");
-  }
-
-  if (overlay) overlay.addEventListener("click", closeModal);
-  if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
 });

@@ -225,3 +225,29 @@ fetch("/components/video-modal.html")
     document.dispatchEvent(new Event("videoModalReady"));
   })
   .catch(err => console.error("Modal load error:", err));
+
+
+
+
+
+
+
+// ===============================
+//POP UD AI CHAT MODAL
+// ===============================
+function loadComponent(url, elementId) {
+  fetch(url)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(elementId).innerHTML = data;
+    })
+    .catch(err => console.error("Error loading component:", err));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  loadComponent("/components/header.html", "header-placeholder");
+  loadComponent("/components/footer.html", "footer-placeholder");
+  loadComponent("/components/ai-modal.html", "ai-modal-placeholder");
+
+});

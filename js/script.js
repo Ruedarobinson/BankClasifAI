@@ -698,3 +698,83 @@ document.addEventListener("videoModalReady", initVideoModal);
 document.addEventListener("DOMContentLoaded", initVideoModal);
 
 
+
+
+
+//pop up MODAL AI Chat//
+
+window.addEventListener("load", () => {
+
+  setTimeout(() => {
+
+    const modal = document.getElementById("aiModal");
+    if (!modal) return;
+
+    // detectar idioma
+    const isEN = window.location.pathname.includes("en");
+
+    const content = {
+      es: {
+        badge: '<i class="fa-solid fa-brain"></i> Asesor Financiero IA',
+        title: 'Asesor financiero inteligente<br>con IA',
+        text: 'Sube tus extractos bancarios y recibe análisis automático, recomendaciones fiscales y optimización de gastos.',
+        features: [
+          'Análisis automático de gastos',
+          'Recomendaciones fiscales',
+          'Insights financieros',
+          'Optimización de costos'
+        ],
+        btn: 'Comenzar análisis'
+      },
+      en: {
+        badge: '<i class="fa-solid fa-brain"></i> AI Financial Advisor',
+        title: 'Smart financial insights<br>powered by AI',
+        text: 'Upload your bank statements and get automated analysis, tax recommendations, and financial insights.',
+        features: [
+          'Automatic expense analysis',
+          'Tax recommendations',
+          'Financial insights',
+          'Cost optimization'
+        ],
+        btn: 'Start analysis'
+      }
+    };
+
+    const lang = isEN ? content.en : content.es;
+
+    // set texto
+    const badge = document.getElementById("aiBadge");
+    const title = document.getElementById("aiTitle");
+    const text = document.getElementById("aiText");
+    const btn = document.getElementById("aiBtn");
+    const ul = document.getElementById("aiFeatures");
+
+    if (badge) badge.innerHTML = lang.badge;
+    if (title) title.innerHTML = lang.title;
+    if (text) text.innerText = lang.text;
+    if (btn) btn.innerText = lang.btn;
+
+    if (ul) {
+      ul.innerHTML = "";
+      lang.features.forEach(f => {
+        const li = document.createElement("li");
+        li.textContent = "✔ " + f;
+        ul.appendChild(li);
+      });
+    }
+
+    // abrir
+    modal.classList.add("active");
+
+    // cerrar
+    document.getElementById("aiModalCloseBtn")?.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+    document.getElementById("aiModalClose")?.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+  }, 1800);
+
+});
