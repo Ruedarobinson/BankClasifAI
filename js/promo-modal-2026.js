@@ -58,3 +58,37 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 })();
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById("aiModal");
+
+  // Si NO se ha mostrado antes
+  if (!localStorage.getItem("aiModalSeen")) {
+    
+    // pequeño delay (mejor UX)
+    setTimeout(() => {
+      modal.classList.add("active");
+    }, 1200);
+
+    // marcar como visto
+    localStorage.setItem("aiModalSeen", "true");
+  }
+
+  // cerrar modal
+  const overlay = document.getElementById("aiModalClose");
+  const closeBtn = document.getElementById("aiModalCloseBtn");
+
+  function closeModal() {
+    modal.classList.remove("active");
+  }
+
+  if (overlay) overlay.addEventListener("click", closeModal);
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+});
