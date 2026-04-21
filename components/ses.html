@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Asistente Financiero AI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ai-modal">
+
+  <!-- HEADER -->
+  <div class="modal-header">
+    <div class="logo">
+      ✨ <b>Asistente Financiero AI</b>
+      <span>Tu asistente financiero inteligente</span>
+    </div>
+    <div class="actions">
+      <button>🔊</button>
+      <button>⋮</button>
+      <button>✕</button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+
+    <!-- LEFT PANEL -->
+    <div class="left">
+
+      <div class="avatar">
+        <img src="robot.png" />
+      </div>
+
+      <h2>Hola, <span>Robinson 👋</span></h2>
+      <p>Estoy aquí para ayudarte a tomar mejores decisiones financieras.</p>
+
+      <div class="card resumen">
+        <h4>Resumen rápido</h4>
+        <div class="row">
+          <span>Entradas</span>
+          <b class="green">$14,212.75</b>
+        </div>
+        <div class="row">
+          <span>Salidas</span>
+          <b class="red">$14,922.03</b>
+        </div>
+        <div class="row">
+          <span>Balance</span>
+          <b>-$709.28</b>
+        </div>
+      </div>
+
+      <div class="quick">
+        <button>📊 Análisis</button>
+        <button>💡 Recomendaciones</button>
+        <button>📥 Exportar</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+
+      <div class="chat">
+
+        <div class="msg ai">
+          Hola Robinson 👋 Soy tu asistente financiero AI.
+        </div>
+
+        <div class="msg user">
+          ¿Puedes analizar mis gastos?
+        </div>
+
+        <div class="msg ai">
+          Claro, encontré lo siguiente:
+          <ul>
+            <li>Gastaste más en restaurantes</li>
+            <li>Tienes suscripciones activas</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="input">
+        <input placeholder="Escribe tu mensaje..." />
+        <button>➤</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+      
+
+<style>/* Layout general */
+
+
+
+:root {
+  --brand-1: #ff2689;
+  --brand-2: #fe6bb0;
+  --brand-3: #ff5b82;
+
+  --ink: #0b123a;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --border: rgba(11, 18, 58, .12);
+  --border-rosado: #f3a7c9;
+  --muted: rgba(11, 18, 58, .68);
+
+  --brand-soft: rgba(255, 38, 137, .10);
+  --brand-soft-2: rgba(254, 107, 176, .12);
+
+  --brand-degradado:
+    linear-gradient(135deg, #ff5b82 3%, #ff4da3 45%, #ffa3cf 85%, #ff2689 100%);
+
+  --shadow-sm: 0 10px 34px rgba(11, 18, 58, .08);
+  --shadow-md: 0 18px 60px rgba(11, 18, 58, .10);
+  --shadow-brand: 0 28px 90px rgba(255, 38, 137, .18);
+
+  --r-12: 12px;
+  --r-16: 16px;
+  --r-22: 22px;
+
+  --bc-pink: var(--brand-1);
+  --bc-border: var(--border);
+  --bc-card: var(--surface);
+
+  --color-bg: var(--bg);
+}
+
+.ai-modal {
+  width: 1000px;
+  max-width: 95%;
+  background: var(--color-bg);
+  border-radius: var(--r-22);
+  box-shadow: var(--shadow-brand);
+  overflow: hidden;
+}
+
+/* HEADER */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo span {
+  display: block;
+  font-size: 13px;
+  color: var(--bc-muted);
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* BODY */
+.modal-body {
+  display: flex;
+  height: 550px;
+}
+
+/* LEFT */
+.left {
+  width: 38%;
+  padding: 25px;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(
+    180deg,
+    var(--brand-soft),
+    transparent
+  );
+}
+
+.avatar img {
+  width: 140px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+}
+
+.left h2 span {
+  color: var(--bc-pink);
+}
+
+/* CARD */
+.card {
+  background: var(--bc-card);
+  padding: 15px;
+  border-radius: var(--r-16);
+  margin-top: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.green { color: #16a34a; }
+.red { color: #dc2626; }
+
+/* QUICK */
+.quick {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quick button {
+  padding: 12px;
+  border-radius: var(--r-12);
+  border: 1px solid var(--bc-border);
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.quick button:hover {
+  background: var(--brand-soft);
+}
+
+/* RIGHT */
+.right {
+  width: 62%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CHAT */
+.chat {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.msg {
+  max-width: 70%;
+  padding: 12px;
+  border-radius: var(--r-16);
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* AI */
+.msg.ai {
+  background: #f3f4f6;
+}
+
+/* USER */
+.msg.user {
+  margin-left: auto;
+  background: var(--brand-soft);
+  color: var(--ink);
+  border: 1px solid var(--border-rosado);
+}
+
+/* INPUT */
+.input {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid var(--border);
+}
+
+.input input {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--r-12);
+  border: 1px solid var(--border);
+}
+
+.input button {
+  margin-left: 10px;
+  background: var(--brand-degradado);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: var(--r-12);
+  cursor: pointer;
+}
+</style>
+</body>
+</html>
