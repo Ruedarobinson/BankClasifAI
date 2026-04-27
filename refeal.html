@@ -1,6 +1,7 @@
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" href="/css/style.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -9,24 +10,96 @@
 
 
 
-<div class="ref-top__title">
-    <h3>PROGRAMA DE REFERIDOS</h3>
-</div>
+    
+  
+   
+  
+<!-- DASH CARDS (Activate + Balance) -->
+<section class="ref-metrics">
+    <div class="ref-metrics__grid">
+
+      
+
+      <article class="ref-metricCard ref-metricCard--balance">
+        <div class="ref-metricCard__head">
+          <h3 class="ref-metricCard__title">Balance acumulado</h3>
+          <span class="ref-muted">Actualiza diariamente</span>
+        </div>
+
+        <div class="ref-balance">
+          <div class="ref-balance__main">
+            <span class="ref-balance__label">Disponible</span>
+            <span class="ref-balance__value">$124.60</span>
+          </div>
+
+          <div class="ref-balance__row">
+            <div class="ref-balanceMini">
+              <span class="ref-balanceMini__label">Este mes</span>
+              <span class="ref-balanceMini__value">$58.50</span>
+            </div>
+            <div class="ref-balanceMini">
+              <span class="ref-balanceMini__label">Pendiente</span>
+              <span class="ref-balanceMini__value">$36.20</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="ref-btnGhost" type="button" disabled>Retirar balance</button>
+
+      </article>
+     
+
+
+      
+      <article class="ref-activate-account">
+        <div class="ref-metricCard__head">
+          <h3 class="ref-metricCard__title">Activar cuenta de pagos</h3>
+          <span class="ref-muted">Requerido para retiros</span>
+        </div>
+
+        <ul class="ref-checklist">
+          <li><span class="ref-check ref-check--ok">✓</span> Identidad verificada</li>
+          <li><span class="ref-check ref-check--warn">!</span> Método de pago pendiente</li>
+          <li><span class="ref-check ref-check--warn">!</span> Información fiscal pendiente</li>
+        </ul>
+
+        <button class="ref-primaryBtn" type="button">Conectar Cuenta</button>
+         <small class="note-cuenta">
+        * Activa tu cuenta para recibir los pagos automaticamente. Los pagos se ven reflejados en tu panel una vez conectes tu cuenta de pagos.
+      </small>
+       
+      </article>
+
+    </div>
+  </section>
+
 
 
 <section class="ref-top">
-  <div class="ref-top__inner">
+<div class="bg">
+    <div class="ref-top__inner">
 
     <!-- LEFT -->
     <div class="ref-top__left">
       
       <h1 class="ref-top__title">Refiere un cliente <br>y gana dinero mensual</h2>
+       
       <p class="ref-top__text">
-        Comparte tu enlace con tus clientes y recibe <strong>13% mensual</strong> del valor de su membresía
-        mientras estén activos. También puedes invitar contadores y ganar un <strong>bono de $20</strong> por cada uno.
-      </p>
 
+
+        Comparte tu enlace con tus clientes y recibe <strong>13% mensual</strong> de su membresía mientras estén activos.
+        Además, ¡invita a otros contadores y ambos ganarán un <strong>bono de $20</strong> cuando se unan!
+      </p>
+        <div class="ref-top__image">
+          <img src="img/coin-pig.png" alt="">
+        </div>
     </div>
+    
+
+
+
+   
+
 
     <!-- RIGHT -->
     <div class="ref-top__right">
@@ -41,7 +114,21 @@
         <div class="ref-linkRow">
           <input class="ref-input" type="text" readonly
                  value="https://bankclasifai.com/start?ref=TU_CODIGO&type=client">
-          <button class="ref-btn" type="button" disabled>Copiar</button>
+           
+          <button class="ref-btn" type="button"><i disabled class="fa-solid fa-link"></i> Copiar</button>
+
+          <div class="ref-shareRow">
+            <button class="ref-shareBtn ref-shareBtn--wa" type="button" data-share="whatsapp" data-input="#refClientLink">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="ref-shareBtn" type="button" data-share="native" data-input="#refClientLink">
+              <i class="fa-solid fa-share-nodes"></i> Share
+            </button>
+            <button class="ref-shareBtn" type="button" data-share="email" data-input="#refClientLink">
+              <i class="fa-regular fa-envelope"></i> Email
+            </button>
+          </div>
+          
         </div>
 
         <p class="ref-hint">
@@ -60,16 +147,29 @@
         <div class="ref-linkRow">
           <input class="ref-input" type="text" readonly
                  value="https://bankclasifai.com/accountants?ref=TU_CODIGO&type=accountant">
-          <button class="ref-btn" type="button" disabled>Copiar</button>
+          <button class="ref-btn" type="button" disabled><i class="fa-solid fa-link"></i> Copiar</button>
+       
+           <div class="ref-shareRow">
+            <button class="ref-shareBtn ref-shareBtn--wa" type="button" data-share="whatsapp" data-input="#refClientLink">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="ref-shareBtn" type="button" data-share="native" data-input="#refClientLink">
+              <i class="fa-solid fa-share-nodes"></i> Share
+            </button>
+            <button class="ref-shareBtn" type="button" data-share="email" data-input="#refClientLink">
+              <i class="fa-regular fa-envelope"></i> Email
+            </button>
+          </div>
         </div>
 
         <p class="ref-hint">
-          Comparte este enlace con otros contadores. Ganas $20 cuando completen el registro y validación.
+          Comparte este enlace con otros contadores. Ganas $20 cuando completen el registro y adquieran una membresía.
         </p>
       </div>
 
       <small class="ref-note">
-        * Los pagos se gestionan desde tu panel una vez conectes tu cuenta de pagos.
+* Para más información, consulte nuestros 
+         <a href="#terminos">Términos de referidos</a>
       </small>
     </div>
 
@@ -81,8 +181,8 @@
   <div class="ref-steps__inner">
 
     <div class="ref-steps__head">
-      <span class="ref-steps__eyebrow">🚀 Cómo funciona</span>
-      <h2 class="ref-steps__title">Gana comisiones en 3 pasos</h2>
+    
+      <h2 class="ref-steps__title">🚀 Gana comisiones en 3 pasos</h2>
       <p class="ref-steps__subtitle">
         Comparte tu link, tus referidos se suscriben y tú ganas automáticamente mes a mes.
       </p>
@@ -101,13 +201,10 @@
 
         <h3 class="ref-stepCard__title">Comparte tu enlace</h3>
         <p class="ref-stepCard__text">
-          Envía tu link a <strong>clientes</strong> (13% mensual) o a <strong>contadores</strong> ($20 por referido).
+          Gana <strong>13% mensual</strong> por cada cliente activo y <strong>$20 por cada contador </strong>que invites.
         </p>
 
-        <div class="ref-stepCard__chipRow">
-          <span class="ref-chip">Clientes • 13% mensual</span>
-          <span class="ref-chip">Contadores • $20</span>
-        </div>
+    
       </article>
 
       <!-- Step 2 -->
@@ -124,11 +221,7 @@
           El referido crea su cuenta y activa su plan. Tú quedas vinculado automáticamente a ese usuario.
         </p>
 
-        <div class="ref-stepCard__chipRow">
-          <span class="ref-chip">Registro</span>
-          <span class="ref-chip">Suscripción</span>
-          <span class="ref-chip">Vinculación</span>
-        </div>
+        
       </article>
 
       <!-- Step 3 -->
@@ -145,10 +238,7 @@
           Generas comisión mensual mientras el cliente esté activo. Luego puedes <strong>retirar</strong> tu balance.
         </p>
 
-        <div class="ref-stepCard__chipRow">
-          <span class="ref-chip">Comisión mensual</span>
-          <span class="ref-chip">Balance acumulado</span>
-        </div>
+       
       </article>
 
     </div>
@@ -158,58 +248,865 @@
 
 
 
+  <!-- TABLES -->
+  <section class="ref-tables">
+    <div class="ref-tables__grid">
+
+      <!-- Active clients -->
+      <article class="ref-tableCard">
+        <div class="ref-tableCard__head">
+          <div>
+            <h3 class="ref-tableTitle">Clientes activos</h3>
+            <p class="ref-tableSub">Clientes con suscripción pagada.</p>
+          </div>
+
+          <input class="ref-search" id="clientSearch" type="search" placeholder="Buscar cliente...">
+        </div>
+
+        <div class="ref-tableWrap">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Plan</th>
+                <th>Mensual</th>
+                <th>Tu 13%</th>
+                <th>Estado</th>
+                <th>Desde</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTable">
+              <tr>
+                <td>Acme LLC</td>
+                <td>Business</td>
+                <td>$49.00</td>
+                <td>$6.37</td>
+                <td><span class="ref-pill ref-pill--ok">Activo</span></td>
+                <td>2025-11-12</td>
+              </tr>
+              <tr>
+                <td>Maria Consulting</td>
+                <td>Personal</td>
+                <td>$29.00</td>
+                <td>$3.77</td>
+                <td><span class="ref-pill ref-pill--ok">Activo</span></td>
+                <td>2025-12-03</td>
+              </tr>
+              <tr>
+                <td>Nova Imports</td>
+                <td>Business</td>
+                <td>$49.00</td>
+                <td>$0.00</td>
+                <td><span class="ref-pill ref-pill--warn">Vencido</span></td>
+                <td>2025-10-20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ref-note">* Solo ganas comisión por facturas pagadas exitosamente.</p>
+      </article>
+
+      <!-- Referred accountants -->
+      <article class="ref-tableCard">
+        <div class="ref-tableCard__head">
+          <div>
+            <h3 class="ref-tableTitle">Contadores referidos</h3>
+            <p class="ref-tableSub">Bono de $20 cuando activan su cuenta.</p>
+          </div>
+        </div>
+
+        <div class="ref-tableWrap">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Contador</th>
+                <th>Estado</th>
+                <th>Bono</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John CPA</td>
+                <td><span class="ref-pill ref-pill--ok">Aprobado</span></td>
+                <td>$20.00</td>
+                <td>2026-01-03</td>
+              </tr>
+              <tr>
+                <td>Rivera Accounting</td>
+                <td><span class="ref-pill ref-pill--soft">Pendiente</span></td>
+                <td>$20.00</td>
+                <td>2026-01-18</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+
+<!---------------- 
+
+INGLES
+
+------------------>
+
+
+
+
+
+
+<section class="ref-metrics">
+  <div class="ref-metrics__grid">
+
+    <article class="ref-metricCard ref-metricCard--balance">
+      <div class="ref-metricCard__head">
+        <h3 class="ref-metricCard__title">Accumulated Balance</h3>
+        <span class="ref-muted">Updated daily</span>
+      </div>
+
+      <div class="ref-balance">
+        <div class="ref-balance__main">
+          <span class="ref-balance__label">Available</span>
+          <span class="ref-balance__value">$124.60</span>
+        </div>
+
+        <div class="ref-balance__row">
+          <div class="ref-balanceMini">
+            <span class="ref-balanceMini__label">This month</span>
+            <span class="ref-balanceMini__value">$58.50</span>
+          </div>
+          <div class="ref-balanceMini">
+            <span class="ref-balanceMini__label">Pending</span>
+            <span class="ref-balanceMini__value">$36.20</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="ref-btnGhost" type="button" disabled>Withdraw Balance</button>
+    </article>
+
+    <article class="ref-activate-account">
+      <div class="ref-metricCard__head">
+        <h3 class="ref-metricCard__title">Activate Payment Account</h3>
+        <span class="ref-muted">Required for withdrawals</span>
+      </div>
+
+      <ul class="ref-checklist">
+        <li><span class="ref-check ref-check--ok">✓</span> Identity verified</li>
+        <li><span class="ref-check ref-check--warn">!</span> Payment method pending</li>
+        <li><span class="ref-check ref-check--warn">!</span> Tax information pending</li>
+      </ul>
+
+      <button class="ref-primaryBtn" type="button">Connect Account</button>
+      <small class="note-cuenta">
+        * Activate your account to receive payments automatically. Payments will appear in your dashboard once you connect your payment account.
+      </small>
+    </article>
+
+  </div>
+</section>
+
+
+<section class="ref-top">
+  <div class="bg">
+    <div class="ref-top__inner">
+
+      <!-- LEFT -->
+      <div class="ref-top__left">
+        <h1 class="ref-top__title">Refer a client <br>and earn monthly income</h1>
+
+        <p class="ref-top__text">
+          Share your link with your clients and receive <strong>13% monthly</strong> of their membership while they remain active.
+          Plus, invite other accountants and both of you will earn a <strong>$20 bonus</strong> when they join!
+        </p>
+
+        <div class="ref-top__image">
+          <img src="img/coin-pig.png" alt="">
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="ref-top__right">
+
+        <div class="ref-linkCard">
+          <div class="ref-linkCard__head">
+            <div class="ref-tag ref-tag--pink">
+              <i class="fa-solid fa-user"></i> Client Link
+            </div>
+            <span class="ref-muted">Earn 13% monthly</span>
+          </div>
+
+          <div class="ref-linkRow">
+            <input class="ref-input" type="text" readonly
+              value="https://bankclasifai.com/start?ref=YOUR_CODE&type=client">
+
+            <button class="ref-btn" type="button">
+              <i class="fa-solid fa-link"></i> Copy
+            </button>
+
+            <div class="ref-shareRow">
+              <button class="ref-shareBtn ref-shareBtn--wa" type="button">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="ref-shareBtn" type="button">
+                <i class="fa-solid fa-share-nodes"></i> Share
+              </button>
+              <button class="ref-shareBtn" type="button">
+                <i class="fa-regular fa-envelope"></i> Email
+              </button>
+            </div>
+          </div>
+
+          <p class="ref-hint">
+            Send it to your clients. When they subscribe, you will start earning monthly commissions.
+          </p>
+        </div>
+
+        <div class="ref-linkCard">
+          <div class="ref-linkCard__head">
+            <div class="ref-tag ref-tag--blue">
+              <i class="fa-solid fa-briefcase"></i> Accountant Link
+            </div>
+            <span class="ref-muted">$20 Bonus</span>
+          </div>
+
+          <div class="ref-linkRow">
+            <input class="ref-input" type="text" readonly
+              value="https://bankclasifai.com/accountants?ref=YOUR_CODE&type=accountant">
+
+            <button class="ref-btn" type="button">
+              <i class="fa-solid fa-link"></i> Copy
+            </button>
+
+            <div class="ref-shareRow">
+              <button class="ref-shareBtn ref-shareBtn--wa" type="button">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="ref-shareBtn" type="button">
+                <i class="fa-solid fa-share-nodes"></i> Share
+              </button>
+              <button class="ref-shareBtn" type="button">
+                <i class="fa-regular fa-envelope"></i> Email
+              </button>
+            </div>
+          </div>
+
+          <p class="ref-hint">
+            Share this link with other accountants. You earn $20 when they complete registration and purchase a membership.
+          </p>
+        </div>
+
+        <small class="ref-note">
+          * For more information, see our
+          <a href="#terminos">Referral Terms</a>
+        </small>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="ref-steps">
+  <div class="ref-steps__inner">
+
+    <div class="ref-steps__head">
+      <h2 class="ref-steps__title">🚀 Earn commissions in 3 steps</h2>
+      <p class="ref-steps__subtitle">
+        Share your link, your referrals subscribe, and you earn automatically month after month.
+      </p>
+    </div>
+
+    <div class="ref-steps__grid">
+
+      <article class="ref-stepCard">
+        <h3 class="ref-stepCard__title">Share your link</h3>
+        <p class="ref-stepCard__text">
+          Earn <strong>13% monthly</strong> for each active client and <strong>$20 for each accountant</strong> you invite.
+        </p>
+      </article>
+
+      <article class="ref-stepCard">
+        <h3 class="ref-stepCard__title">They register and activate</h3>
+        <p class="ref-stepCard__text">
+          Your referral creates their account and activates a plan. You are automatically linked to that user.
+        </p>
+      </article>
+
+      <article class="ref-stepCard">
+        <h3 class="ref-stepCard__title">Receive your earnings</h3>
+        <p class="ref-stepCard__text">
+          You earn monthly commissions while the client remains active. Then you can <strong>withdraw</strong> your balance.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="ref-tables">
+  <div class="ref-tables__grid">
+
+    <article class="ref-tableCard">
+      <div class="ref-tableCard__head">
+        <div>
+          <h3 class="ref-tableTitle">Active Clients</h3>
+          <p class="ref-tableSub">Clients with paid subscriptions.</p>
+        </div>
+        <input class="ref-search" type="search" placeholder="Search client...">
+      </div>
+
+      <p class="ref-note">
+        * You only earn commission on successfully paid invoices.
+      </p>
+    </article>
+
+    <article class="ref-tableCard">
+      <div class="ref-tableCard__head">
+        <div>
+          <h3 class="ref-tableTitle">Referred Accountants</h3>
+          <p class="ref-tableSub">$20 bonus when they activate their account.</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+
+
+
+
+<!---------------- 
+
+ESPANOL PARTNER PROGRAM
+
+------------------>
+
+
+<section class="partner">
+  <div class="partner__inner">
+
+    <div class="partner__head">
+      <div class="partner__kicker">Para Contadores </div>
+      <h2 class="partner__title">Programa Partner</h2>
+      <p class="partner__subtitle">
+       Una vez alcances <strong>5 clientes con membresía activa</strong>, 
+    pasarás al <strong>Programa Account Partners</strong> y podrás acceder 
+    a mayores porcentajes de ingreso recurrente, beneficios exclusivos 
+    y soporte prioritario.
+      </p>
+    </div>
+
+    <div class="partner__grid">
+
+      <!-- Silver -->
+      <article class="partnerCard">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--soft">Silver</span>
+          <span class="partnerCard__hint">5-25 Clientes</span>
+        </div>
+
+        <h3 class="partnerCard__title">Silver Partner</h3>
+        <p class="partnerCard__desc">
+          Genera ingresos adicionales mientras ahorras horas operativas cada mes.
+        </p>
+
+        <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Ingreso recurrente mensual </li>
+         <li><i class="fa-solid fa-circle-check"></i> 15% por cliente activo</li>
+         <li><i class="fa-solid fa-circle-check"></i> Aplica según el plan que el cliente elija:</li>
+  <li style="margin-left:20px;">• Plan Personal ($19) = $2.85 mensual</li>
+  <li style="margin-left:20px;">• Plan Personal + Negocio ($39) = $5.85 mensual</li>
+       
+   
+          
+        </ul>
+
+       
+        <p class="partnerCard__footnote"> 25 clientes activos generan hasta $146.25 mensuales.</p>
+      </article>
+      
+
+      <!-- Gold -->
+      <article class="partnerCard partnerCard--featured">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--pink">Gold</span>
+          <span class="partnerCard__hint">26–75 Clientes</span>
+        </div>
+
+        <h3 class="partnerCard__title">Gold Partner</h3>
+        <p class="partnerCard__desc">
+          Escala tu firma, estandariza procesos y maximiza ingresos recurrentes.
+        </p>
+
+         <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Ingreso recurrente mensual </li>
+         <li><i class="fa-solid fa-circle-check"></i> 20% por cliente activo</li>
+         <li><i class="fa-solid fa-circle-check"></i> Aplica según el plan que el cliente elija:</li>
+  <li style="margin-left:20px;">• Plan Personal ($19) = $3.80 mensual</li>
+  <li style="margin-left:20px;">• Plan Personal + Negocio ($39) = $7.80 mensual</li>
+       
+   
+          
+        </ul>
+
+       
+        <p class="partnerCard__footnote"> 75 clientes activos generan hasta $585 mensuales.</p>
+      </article>
+      
+
+      <!-- Platinum -->
+      <article class="partnerCard">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--blue">Platinum</span>
+          <span class="partnerCard__hint">76+ Clientes</span>
+        </div>
+
+        <h3 class="partnerCard__title">Platinum Partner</h3>
+        <p class="partnerCard__desc">
+         Recomendado para firmas en crecimiento que buscan eficiencia y previsibilidad.
+        </p>
+
+        <ul class="partnerList">
+          
+ <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Ingreso recurrente mensual </li>
+         <li><i class="fa-solid fa-circle-check"></i> 25% por cliente activo</li>
+         <li><i class="fa-solid fa-circle-check"></i> Aplica según el plan que el cliente elija:</li>
+  <li style="margin-left:20px;">• Plan Personal ($19) = $4.75 mensual</li>
+  <li style="margin-left:20px;">• Plan Personal + Negocio ($39) = $9.75 mensual</li>
+</ul>
+
+       
+        <p class="partnerCard__footnote"> 100 clientes activos generan hasta $975 mensuales.</p>
+      </article>
+
+    </div>
+
+    <div class="partner__note">
+      <strong>Nota:</strong> Los ingresos estimados pueden variar según el plan de sus clientes. Para más información leer politícas del programa de Partners
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<!---------------- 
+
+INGLES PARTNER PROGRAM
+
+------------------>
+
+ 
+<section class="partner">
+  <div class="partner__inner">
+
+    <div class="partner__head">
+      <div class="partner__kicker">For Accountants</div>
+      <h2 class="partner__title">Partner Program</h2>
+      <p class="partner__subtitle">
+       Once you reach <strong>5 clients with an active membership</strong>, 
+       you will move to the <strong>Account Partners Program</strong> and gain access 
+       to higher recurring revenue percentages, exclusive benefits, 
+       and priority support.
+      </p>
+    </div>
+
+    <div class="partner__grid">
+
+      <!-- Silver -->
+      <article class="partnerCard">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--soft">Silver</span>
+          <span class="partnerCard__hint">5-25 Clients</span>
+        </div>
+
+        <h3 class="partnerCard__title">Silver Partner</h3>
+        <p class="partnerCard__desc">
+          Generate additional income while saving operational hours every month.
+        </p>
+
+        <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Monthly recurring income</li>
+         <li><i class="fa-solid fa-circle-check"></i> 15% per active client</li>
+         <li><i class="fa-solid fa-circle-check"></i> Applies depending on the plan the client chooses:</li>
+         <li style="margin-left:20px;">• Personal Plan ($19) = $2.85 monthly</li>
+         <li style="margin-left:20px;">• Personal + Business Plan ($39) = $5.85 monthly</li>
+        </ul>
+
+        <p class="partnerCard__footnote">25 active clients can generate up to $146.25 monthly.</p>
+      </article>
+      
+
+      <!-- Gold -->
+      <article class="partnerCard partnerCard--featured">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--pink">Gold</span>
+          <span class="partnerCard__hint">26–75 Clients</span>
+        </div>
+
+        <h3 class="partnerCard__title">Gold Partner</h3>
+        <p class="partnerCard__desc">
+          Scale your firm, standardize processes, and maximize recurring revenue.
+        </p>
+
+        <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Monthly recurring income</li>
+         <li><i class="fa-solid fa-circle-check"></i> 20% per active client</li>
+         <li><i class="fa-solid fa-circle-check"></i> Applies depending on the plan the client chooses:</li>
+         <li style="margin-left:20px;">• Personal Plan ($19) = $3.80 monthly</li>
+         <li style="margin-left:20px;">• Personal + Business Plan ($39) = $7.80 monthly</li>
+        </ul>
+
+        <p class="partnerCard__footnote">75 active clients can generate up to $585 monthly.</p>
+      </article>
+      
+
+      <!-- Platinum -->
+      <article class="partnerCard">
+        <div class="partnerCard__top">
+          <span class="partnerBadge partnerBadge--blue">Platinum</span>
+          <span class="partnerCard__hint">76+ Clients</span>
+        </div>
+
+        <h3 class="partnerCard__title">Platinum Partner</h3>
+        <p class="partnerCard__desc">
+         Recommended for growing firms seeking efficiency and predictability.
+        </p>
+
+        <ul class="partnerList">
+         <li><i class="fa-solid fa-circle-check"></i> Monthly recurring income</li>
+         <li><i class="fa-solid fa-circle-check"></i> 25% per active client</li>
+         <li><i class="fa-solid fa-circle-check"></i> Applies depending on the plan the client chooses:</li>
+         <li style="margin-left:20px;">• Personal Plan ($19) = $4.75 monthly</li>
+         <li style="margin-left:20px;">• Personal + Business Plan ($39) = $9.75 monthly</li>
+        </ul>
+
+        <p class="partnerCard__footnote">100 active clients can generate up to $975 monthly.</p>
+      </article>
+
+    </div>
+
+    <div class="partner__note">
+      <strong>Note:</strong> Estimated income may vary depending on your clients' plans. For more information, please read the Partner Program policies.
+    </div>
+
+  </div>
+</section>
+
+
+
 
 <style>
+
+
+
+ :root{
+      --bc-pink:#ff2689;
+      --bc-pink3:#ff5b82;
+      --bc-navy:#0b123a;
+      --bc-bg:#ffffff;
+      --bc-surface:#ffffff;
+      --bc-border: rgba(11,18,58,.12);
+      --bc-muted: rgba(11,18,58,.68);
+      --bc-soft: rgba(255,38,137,.08);
+      --bc-shadow: 0 18px 60px rgba(11,18,58,.10);
+    }
+
+    body{
+      margin:0;
+      font-family: Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      background: var(--bc-bg);
+      color: var(--bc-navy);
+    }
+
 /* =========================
-   REFERRALS TOP (part 1)
+   CARD BALANCE
 ========================= */
+
+
+.ref-balance__label{
+  display:block;
+  font-size: 16px;
+  color: rgba(11,18,58,.60);
+}
+
+.ref-balance__value{
+  display:block;
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b123a;
+  letter-spacing: -0.02em;
+}
+
+.ref-balance__row{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ref-balanceMini{
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.02);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.ref-balanceMini__label{
+  display:block;
+  font-size: 12px;
+  color: rgba(11,18,58,.60);
+}
+
+.ref-balanceMini__value{
+  display:block;
+  margin-top: 4px;
+  font-weight: 900;
+  color: rgba(11,18,58,.88);
+}
+
+
+.ref-btnGhost{
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(11,18,58,.12);
+  background: #0b123a;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: not-allowed;
+}
+
+
+
+
+/* =========================
+   ACTIVATE ACCOUNT
+========================= */
+.ref-metrics{
+  max-width: 1100px;
+  margin: 10px auto 0;
+  padding: 0 12px;
+}
+
+.ref-metrics__grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ref-metricCard{
+  border: 1px solid rgba(11,18,58,.10);
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.ref-activate-account{
+padding: 16px;
+
+}
+
+.ref-metricCard__head{
+  display:flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ref-metricCard__title{
+  margin: 0;
+  font-size: 16px;
+  color: #0b123a;
+}
+
+.ref-checklist{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  color: rgba(11,18,58,.78);
+  font-size: 14px;
+}
+
+.ref-check{
+  display:inline-flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  align-items:center;
+  justify-content:center;
+  border: 1px solid rgba(11,18,58,.12);
+  background: rgba(11,18,58,.04);
+  font-weight: 900;
+  margin-right: 8px;
+}
+
+.ref-check--ok{
+  background: rgba(34,197,94,.12);
+  border-color: rgba(34,197,94,.22);
+  color: #27AE60;
+}
+
+.ref-check--warn{
+  background: rgba(255, 38, 38, 0.1);
+  border-color: rgba(255, 38, 38, 0.2);
+  color: #EF1E1E;
+}
+
+.ref-primaryBtn{
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(135deg,#ff2689,#ff4da3);
+}
+
+.note-cuenta{
+  display: flex;
+  margin-top: 14px;
+
+  color: rgba(11,18,58,.55);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+
+
+
+/* =========================
+   REFERRALS CARDS LINKS
+========================= */
+
 .ref-top{
   padding: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+  
+    
 }
 
 .ref-top__inner{
-    display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start; /* antes center */
+  gap: 60px;
   padding: 80px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* LEFT */
-.ref-top__left{
-width: 80%;
+.bg{
+  position: relative;
+  overflow: hidden;
+}
 
-  
+/* GIF lado izquierdo */
+.bg::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:80%;        /* controla cuánto ocupa */
+  height: 100%;
+
+  background:
+    linear-gradient(to right, transparent 00%, rgba(255,255,255,.95) 80%),
+    url('/img/Coins.gif') left center / cover no-repeat;
+
+  opacity: .22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* contenido encima */
+.bg > *{
+  position: relative;
+  z-index: 2;
 }
 
 
 
+/* LEFT */
+.ref-top__left{
+
+
+}
+
+
+/* Contenido texto */
+.ref-top__content{
+  max-width: 520px;
+}
+
+
+/* Imagen */
+.ref-top__image{
+  display: flex;
+  justify-content: center;
+}
+
+.ref-top__image img{
+  width: 40%;
+  height: auto;
+  object-fit: contain;
+
+  }
+
+/* texto encima */
+
+
 .ref-top__title{
-  margin: 10px 0 8px;
-  font-size: 48px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: #0b123a;
 }
 
 .ref-top__text{
-  max-width: 480px;
-  color: #0b123a;
-  line-height: 1.6;
+  max-width: 520px;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(11,18,58,.82);
+  line-height: 1.7;
 }
-
-
-
-
 
 /* RIGHT */
 .ref-top__right{
+  flex: 0 0 520px;   /* ancho fijo pro */
   display: grid;
-  width: 80%;
   gap: 12px;
 }
+
 
 .ref-linkCard{
 
@@ -280,7 +1177,7 @@ width: 80%;
   border-radius: 14px;
   border: 1px solid rgba(11,18,58,.12);
   background: rgba(11,18,58,.06);
-  color: rgba(11,18,58,.65);
+  color: #0b123a;
   font-weight: 600;
   cursor: not-allowed;
 }
@@ -298,6 +1195,26 @@ width: 80%;
   line-height: 1.5;
 }
 
+.ref-shareBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(26, 4, 105, 0.08);
+  background:#fff;
+  font-weight:600;
+  font-size:13px;
+}
+
+/* Whatsapp color */
+.ref-shareBtn--wa{
+  background:#27AE60;
+  color:#fff;
+  border-radius: 10px;
+  padding:8px 12px;
+}
+
 /* Responsive */
 @media (max-width: 980px){
   .ref-top__inner{
@@ -310,11 +1227,18 @@ width: 80%;
 
 
 
+
+
 /* =========================
    REFERRALS - STEPS (3 pasos)
 ========================= */
 .ref-steps{
   padding: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+
+
 }
 
 .ref-steps__inner{
@@ -330,15 +1254,6 @@ width: 80%;
   max-width: 920px;
 }
 
-.ref-steps__eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap: 8px;
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(11,18,58,.68);
-}
 
 .ref-steps__title{
   margin: 10px 0 6px;
@@ -432,7 +1347,7 @@ width: 80%;
   border-color: rgba(34,197,94,.25);
   background: rgba(34,197,94,.10);
 }
-.ref-stepIcon--green i{ color: #15803d; }
+.ref-stepIcon--green i{ color: #27AE60; }
 
 .ref-stepCard__title{
   position: relative;
@@ -444,30 +1359,15 @@ width: 80%;
 
 .ref-stepCard__text{
   position: relative;
-  margin: 0;
+  top: 7px;
   font-size: 14px;
   color: rgba(11,18,58,.72);
   line-height: 1.7;
 }
 
-.ref-stepCard__chipRow{
-  position: relative;
-  margin-top: 12px;
-  display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
 
-.ref-chip{
-  display:inline-flex;
-  align-items:center;
-  padding: 7px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  border: 1px solid rgba(11,18,58,.10);
-  background: #fff;
-  color: rgba(11,18,58,.70);
-}
+
+
 
 /* Responsive */
 @media (max-width: 980px){
@@ -480,8 +1380,344 @@ width: 80%;
 
 
 
+/* =========================
+  TABLES HISTORY
+========================= */
+.ref-tables{
+max-width: 1100px;
+padding: 12px;
+ margin: 0 auto;
+}
+
+.ref-tables__grid{
+   display:grid;
+  grid-template-columns: 2 1fr;
+  gap: 12px;
+}
+
+.ref-tableCard{
+  
+  border: 1px solid rgba(11,18,58,.10);
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.ref-tableCard__head{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.ref-tableTitle{
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #0b123a;
+}
+
+.ref-tableSub{
+  margin: 0;
+  font-size: 13px;
+  color: rgba(11,18,58,.65);
+}
+
+.ref-search{
+  width: 260px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(11,18,58,.12);
+  background: #fff;
+  font-size: 13px;
+  outline: none;
+}
+
+.ref-tableWrap{
+  margin-top: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(11,18,58,.10);
+  overflow:auto;
+}
+
+.ref-table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.ref-table th{
+  text-align:left;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: rgba(11,18,58,.65);
+  background: rgba(11,18,58,.03);
+  border-bottom: 1px solid rgba(11,18,58,.10);
+}
+
+.ref-table td{
+  padding: 12px;
+  font-size: 13px;
+  border-top: 1px solid rgba(11,18,58,.08);
+  color: rgba(11,18,58,.88);
+  white-space: nowrap;
+}
+
+.ref-pill{
+  display:inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.04);
+}
+
+.ref-pill--ok{
+  background: rgba(34,197,94,.12);
+  border-color: rgba(34,197,94,.22);
+  color: #27AE60;
+}
+
+.ref-pill--warn{
+  background: rgba(255, 38, 38, 0.1);
+  border-color: rgba(255, 38, 38, 0.2);
+  color: #EF1E1E;
+}
+
+.ref-pill--soft{
+  background: rgba(11,18,58,.05);
+  border-color: rgba(11,18,58,.10);
+  color: rgba(11,18,58,.72);
+}
+
+/* Responsive fixes (IMPORTANT: your original .ref-top uses flex) */
+@media (max-width: 980px){
+  .ref-top__inner{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 10px;
+  }
+
+  .ref-top__left,
+  .ref-top__right{
+    width: 100%;
+  }
+
+  .ref-top__title{
+    font-size: 26px;
+  }
+
+  .ref-metrics__grid{
+    grid-template-columns: 1fr;
+  }
+
+  .ref-tables__grid{
+    grid-template-columns: 1fr;
+  }
+
+  .ref-search{
+    width: 100%;
+  }
+}
+
+.partner{
+  max-width: 1100px;
+  margin: 12px auto 0;
+  padding: 12px;
+}
+
+.partner__inner{
+  border: 1px solid rgba(11,18,58,.10);
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.partner__head{
+  max-width: 820px;
+}
+
+.partner__kicker{
+  display:inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.02);
+  color: rgba(11,18,58,.75);
+}
+
+.partner__title{
+  margin: 10px 0 6px;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: #0b123a;
+}
+
+.partner__subtitle{
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(11,18,58,.72);
+}
+
+.partner__grid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.partnerCard{
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.02);
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.partnerCard--featured{
+  background: #fff;
+  border-color: rgba(255,38,137,.25);
+  box-shadow: 0 18px 50px rgba(255,38,137,.10);
+}
+
+.partnerCard__top{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.partnerBadge{
+  display:inline-flex;
+  align-items:center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid rgba(11,18,58,.10);
+  background: #fff;
+}
+
+.partnerBadge--soft{ background: rgba(11,18,58,.04); color: rgba(11,18,58,.75); }
+.partnerBadge--pink{ background: rgba(255,38,137,.10); border-color: rgba(255,38,137,.25); color: #8a0f53; }
+.partnerBadge--blue{ background: rgba(61,220,255,.12); border-color: rgba(61,220,255,.25); color: #0b4d5d; }
+
+.partnerCard__hint{
+  font-size: 14px;
+   color: #0b123a;
+}
+
+.partnerCard__title{
+  margin: 0 0 6px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: #0b123a;
+}
+
+.partnerCard__desc{
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(11,18,58,.72);
+}
+
+.partnerList{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(11,18,58,.80);
+}
+
+.partnerList i{
+  margin-right: 8px;
+  color: #27AE60;
+}
+
+.partnerBtn{
+  margin-top: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(11,18,58,.12);
+  background: rgba(11,18,58,.06);
+  color: #0b123a;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.partnerBtn--primary{
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg,#ff2689,#ff4da3);
+}
+
+.partnerCard__footnote{
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: rgba(11,18,58,.55);
+  line-height: 1.5;
+}
+
+.partner__note{
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.02);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(11,18,58,.75);
+}
+
+@media (max-width: 980px){
+  .partner__grid{
+    grid-template-columns: 1fr;
+  }
+}
 
 
 
+
+
+.partner__transition{
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(11,18,58,.10);
+  background: rgba(11,18,58,.03);
+}
+
+.partner__transitionTitle{
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #0b123a;
+  letter-spacing: -0.01em;
+}
+
+.partner__transitionText{
+  margin: 6px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(11,18,58,.75);
+}
+
+.partner__transitionHighlight{
+  font-weight: 600;
+  color: rgba(11,18,58,.90);
+}
 </style>
+
 
