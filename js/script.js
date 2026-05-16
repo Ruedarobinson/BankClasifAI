@@ -368,7 +368,7 @@ const isEnglish = currentLang.startsWith("en");
   const glider = toggle.querySelector(".tarjetas-toggle__glider");
 
   const priceEls = Array.from(document.querySelectorAll(".tarjetas-amt"));
-  const periodEls = Array.from(document.querySelectorAll(".tarjetas-unit"));
+  const periodEls = Array.from(document.querySelectorAll(".tarjetas-period"));
 
 const tokenEls = Array.from(
   document.querySelectorAll(".tarjetas-kpi:first-child .tarjetas-kpi__value")
@@ -467,8 +467,10 @@ const isEnglish = htmlLang.startsWith("en");
     });
 
     // /mes o /año
-    periodEls.forEach(p => {
-  p.textContent = mode === "yearly" ? "/ year" : "/ month";
+   periodEls.forEach(p => {
+  p.textContent = mode === "yearly"
+    ? (isEnglish ? "year" : "año")
+    : (isEnglish ? "month" : "mes");
 });
     // tokens (mensual vs anual +15%)
     setTokens(mode);
