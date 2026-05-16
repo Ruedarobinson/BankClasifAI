@@ -358,16 +358,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.querySelector(".tarjetas-toggle");
   if (!toggle) return;
 
+const currentLang = localStorage.getItem("language") || document.documentElement.lang || "es";
+const isEnglish = currentLang.startsWith("en");
+  
+  
   const BONUS_YEARLY = 0.15; // +15% tokens en anual
 
   const buttons = Array.from(toggle.querySelectorAll(".tarjetas-toggle__btn"));
   const glider = toggle.querySelector(".tarjetas-toggle__glider");
 
   const priceEls = Array.from(document.querySelectorAll(".tarjetas-amt"));
-  const periodEls = Array.from(document.querySelectorAll(".tarjetas-period, .bc-period"));
+  const periodEls = Array.from(document.querySelectorAll(".tarjetas-unit"));
 
-  const tokenEls = Array.from(document.querySelectorAll(".tarjetas-tokens"));
-  const tokenLbls = Array.from(document.querySelectorAll(".tarjetas-tokens-label"));
+const tokenEls = Array.from(
+  document.querySelectorAll(".tarjetas-kpi:first-child .tarjetas-kpi__value")
+);
+
+const tokenLbls = Array.from(
+  document.querySelectorAll(".tarjetas-kpi:first-child .tarjetas-kpi__label")
+);
 
   function moveGlider(mode, animate = true) {
     const activeBtn = toggle.querySelector(`.tarjetas-toggle__btn[data-billing="${mode}"]`);
@@ -418,7 +427,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      badge.textContent = `Ahorra $${formatNumber(Math.round(saved))}`;
+      const htmlLang = document.documentElement.lang || "";
+const isEnglish = htmlLang.startsWith("en");
+
+      badge.textContent = `${isEnglish ? "Save" : "Ahorra"} $${formatNumber(Math.round(saved))}`;
       badge.style.display = "inline-flex";
     });
   }
@@ -437,8 +449,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     tokenLbls.forEach(lbl => {
-      lbl.textContent = (mode === "yearly") ? "tokens/año" : "tokens/mes";
-    });
+  lbl.textContent = mode === "yearly"
+    ? (isEnglish ? "tokens / year" : "tokens/año")
+    : (isEnglish ? "tokens / month" : "tokens/mes");
+});
   }
 
   function setBilling(mode, animate = true) {
@@ -453,8 +467,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // /mes o /año
-    periodEls.forEach(p => (p.textContent = mode === "yearly" ? "año" : "mes"));
-
+    periodEls.forEach(p => {
+  p.textContent = mode === "yearly" ? "/ year" : "/ month";
+});
     // tokens (mensual vs anual +15%)
     setTokens(mode);
 
