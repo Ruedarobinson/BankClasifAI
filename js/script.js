@@ -524,6 +524,36 @@ if (ctaPlaceholder) {
 }
 
 
+/* ============================
+   BANNER DINÁMICO POR IDIOMA
+============================ */
+const ctaSecurity = document.getElementById("banner-security");
+
+if (ctaSecurity) {
+  // 1. Detectar idioma: Primero mira localStorage, si no, mira el atributo lang de <html>
+  const currentLang = localStorage.getItem("language") || document.documentElement.lang || "es";
+
+  // 2. Definir qué archivo cargar
+  // Si el idioma es "en", carga banner-en.html, de lo contrario banner.html (español)
+  const fileName = (currentLang === "en") ? "security-banner-EN.html" : "security-banner-ES.html";
+
+  // 3. Cargar el componente
+  fetch(`/components/${fileName}`)
+    .then(r => {
+      if (!r.ok) throw new Error("Archivo no encontrado");
+      return r.text();
+    })
+    .then(html => {
+      ctaSecurity.innerHTML = html;
+    })
+    .catch(err => console.error("Error cargando el banner:", err));
+}
+
+
+
+
+
+
 
 
 

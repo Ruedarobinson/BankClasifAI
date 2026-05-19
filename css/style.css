@@ -6543,3 +6543,145 @@ details[open] summary::after {
     max-width: 360px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   ROLES + AUDITORÍA + SEGURIDAD
+========================================================= */
+
+
+
+
+.security-grid {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 34px;
+}
+
+.security-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-22);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.security-card:hover {
+ transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(255, 38, 137, 0.18);
+  border-color: var(--color-logo);
+}
+
+.security-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 24px;
+  border-radius: var(--r-16);
+  background: var();
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-1);
+  font-size: 20px;
+}
+
+.security-card h3 {
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.security-card p {
+  font-size: 15px;
+  font-weight: 280;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* TABLET */
+@media (max-width: 992px) {
+  .security-section {
+    padding: 80px 20px;
+  }
+
+  .security-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .security-card {
+    padding: 30px;
+  }
+
+  .security-card h3 {
+    font-size: ;
+  }
+
+  .security-card p {
+    font-size: ;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+  .security-section {
+    padding: 60px 16px;
+  }
+
+  .security-header {
+    margin-bottom: 40px;
+  }
+
+  .security-badge {
+    font-size: 12px;
+    padding: 7px 14px;
+    letter-spacing: 0.08em;
+  }
+
+  .security-header h2 {
+    font-size: 28px;
+  }
+
+  .security-header p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .security-card {
+    padding: 24px;
+    border-radius: var(--r-18);
+  }
+
+  .security-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+
+  .security-card h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+
+  .security-card p {
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+}
