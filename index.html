@@ -77,12 +77,92 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "BankClasifAI",
-  "url": "https://bankclasifai.com/",
-  "logo": "https://bankclasifai.com/img/logo.png",
-  "sameAs": [
-    "https://www.linkedin.com/company/TU_PAGINA"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bankclasifai.com/#organization",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "logo": "https://bankclasifai.com/img/logo.png",
+      "description": "BankClasifAI es una plataforma impulsada por inteligencia artificial para clasificar transacciones bancarias, analizar estados de cuenta y organizar información financiera."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bankclasifai.com/#website",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": "https://bankclasifai.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://bankclasifai.com/#software",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "inLanguage": "es",
+      "applicationCategory": "FinanceApplication",
+      "applicationSubCategory": "Software de análisis de estados bancarios",
+      "operatingSystem": "Web",
+      "description": "BankClasifAI es un software web con inteligencia artificial que ayuda a clasificar transacciones bancarias, analizar estados de cuenta y organizar datos financieros de forma rápida y eficiente.",
+      "publisher": {
+        "@id": "https://bankclasifai.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://bankclasifai.com/#faq",
+      "inLanguage": "es",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es BankClasifAI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI es una plataforma impulsada por inteligencia artificial que ayuda a clasificar transacciones bancarias, analizar estados de cuenta y organizar información financiera."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo funciona BankClasifAI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI utiliza inteligencia artificial para leer, organizar, clasificar y analizar transacciones financieras provenientes de estados de cuenta bancarios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Para quién es BankClasifAI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI está diseñado para usuarios, negocios, contadores, equipos financieros y profesionales que necesitan clasificar estados bancarios y organizar datos financieros de manera más rápida."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿BankClasifAI funciona en línea?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. BankClasifAI es una aplicación web financiera que se puede utilizar en línea desde el navegador."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿BankClasifAI ayuda a analizar estados de cuenta bancarios?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. BankClasifAI ayuda a analizar estados de cuenta bancarios clasificando transacciones y organizando la información financiera de forma más eficiente."
+          }
+        }
+      ]
+    }
   ]
 }
 </script>

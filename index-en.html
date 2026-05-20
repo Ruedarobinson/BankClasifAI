@@ -82,7 +82,95 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="preload" href="/components/header-en.html" as="fetch" crossorigin>
 <link rel="preload" href="/components/footer-en.html" as="fetch" crossorigin>
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bankclasifai.com/#organization",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "logo": "https://bankclasifai.com/img/logo.png",
+      "description": "BankClasifAI is an AI-powered platform for bank statement classification and financial analysis."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bankclasifai.com/#website",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "publisher": {
+        "@id": "https://bankclasifai.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://bankclasifai.com/#software",
+      "name": "BankClasifAI",
+      "url": "https://bankclasifai.com/",
+      "applicationCategory": "FinanceApplication",
+      "applicationSubCategory": "Bank statement analysis software",
+      "operatingSystem": "Web",
+      "description": "AI-powered software for classifying bank transactions, analyzing bank statements, and helping users organize financial data.",
+      "publisher": {
+        "@id": "https://bankclasifai.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://bankclasifai.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is BankClasifAI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI is an AI-powered platform that helps classify bank transactions and analyze bank statements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does BankClasifAI work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI uses artificial intelligence to read, organize, classify, and analyze financial transactions from bank statements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is BankClasifAI for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BankClasifAI is designed for users, businesses, accountants, and financial teams that need faster bank statement classification and financial data organization."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is BankClasifAI a web application?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. BankClasifAI is a web-based financial application that can be accessed online."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can BankClasifAI help analyze bank statements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. BankClasifAI helps analyze bank statements by classifying transactions and organizing financial information more efficiently."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 
 </head>
