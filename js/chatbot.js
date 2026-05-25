@@ -289,17 +289,8 @@ const invalidVoiceText =
   /[\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF]/.test(cleanText);
 
 if (invalidVoiceText) {
-  addMsg(
-    "bot",
-    uiLang === "es"
-      ? "No pude entenderte. Intenta de nuevo."
-      : "I couldn't understand you. Please try again."
-  );
-
-  if (voiceMode) {
-    setTimeout(() => startListening(), 500);
-  }
-
+  console.log("[Voice] Invalid or silent transcription ignored.");
+  stopVoiceMode();
   return;
 }
 
