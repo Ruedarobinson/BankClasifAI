@@ -264,10 +264,15 @@ let currentStream;
 
     const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
 
-    if (audioBlob.size < 2000) {
-      if (voiceMode) startListening();
-      return;
-    }
+    if (audioBlob.size < 12000) {
+  console.log("[Voice] Audio too short or silent, ignored.");
+
+  if (voiceMode) {
+    setTimeout(() => startListening(), 500);
+  }
+
+  return;
+}
 
     const loadingNode = addMsg("bot", uiLang === "es" ? "Procesando tu voz..." : "Processing your voice...");
 
@@ -275,11 +280,20 @@ let currentStream;
       const text = await transcribeAudio(audioBlob);
       loadingNode.remove();
 
-      if (!text || text.trim().length < 2) {
+      const cleanText = (text || "").trim();
+
+const invalidVoiceText =
+  !cleanText ||
+  cleanText.length < 4 ||
+  /^[^\wáéíóúñü]+$/i.test(cleanText) ||
+  /[\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF]/.test(cleanText);
+
+if (invalidVoiceText) {
         addMsg("bot", uiLang === "es" ? "No pude entenderte. Intenta de nuevo." : "I couldn't understand you. Please try again.");
-        if (voiceMode) startListening();
-        return;
-      }
+        if (voiceMode) {
+  setTimeout(() => startListening(), 500);
+}
+return;
 
       elInput.value = text;
       await submitVoiceMessage(text);
