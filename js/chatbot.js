@@ -507,7 +507,7 @@ if (micBtn) {
         loadingNode.innerHTML = renderSimpleMarkdown(reply);
         history.push({ role: "assistant", content: reply });
         saveHistory();
-        await speakAI(reply);
+       // await speakAI(reply);
   
       } catch (err) {
         console.error("[Chatbot] Error:", err);
