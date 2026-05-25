@@ -264,7 +264,7 @@ let currentStream;
 
     const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
 
-    if (audioBlob.size < 12000) {
+    if (audioBlob.size < 25000) {
   console.log("[Voice] Audio too short or silent, ignored.");
 
   if (voiceMode) {
@@ -467,6 +467,30 @@ if (micBtn) {
 
       uiLang = guessLang(text);
       renderQuick();
+
+
+
+      const cleanText = (text || "").trim().toLowerCase();
+
+const noiseWords = [
+  "sorry",
+  "no se fue",
+  "mammalia",
+  "ok",
+  "okay",
+  "eh",
+  "um",
+  "uh"
+];
+
+if (
+  cleanText.length < 4 ||
+  noiseWords.includes(cleanText)
+) {
+  console.log("[Voice] Ignored noise/silence:", cleanText);
+  stopVoiceMode();
+  return;
+}
 
       addMsg("user", text);
       history.push({ role: "user", content: text });
