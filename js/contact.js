@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(200).send("OK");
@@ -12,7 +12,9 @@ export default async function handler(req, res) {
     }
 
     // 🔐 Turnstile
-    const token = req.body?.["cf-turnstile-response"];
+    const token =
+  req.body?.cf_turnstile_response ||
+  req.body?.["cf-turnstile-response"];
     if (!token) {
       return res.status(400).send(isEN ? "Missing anti-bot verification." : "Falta verificación anti-bot.");
     }

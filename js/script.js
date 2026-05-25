@@ -243,18 +243,21 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.textContent = t.sending;
 
     try {
-      const body = new URLSearchParams();
-      body.append("lang", lang);
-      body.append("name", nameInput.value.trim());
-      body.append("email", emailInput.value.trim());
-      body.append("message", messageInput.value.trim());
-      body.append("cf-turnstile-response", token);
+      const body = {
+  lang: lang,
+  name: nameInput.value.trim(),
+  email: emailInput.value.trim(),
+  message: messageInput.value.trim(),
+  cf_turnstile_response: token,
+};
 
-      const res = await fetch(form.action, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+const res = await fetch(form.action, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(body),
+});
 
       const text = await res.text();
       if (!res.ok) throw new Error(text || "Request failed");
