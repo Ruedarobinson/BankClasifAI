@@ -425,7 +425,7 @@ LIMITACIONES
 
 • BankClasifAI no proporciona asesoría contable, fiscal o legal profesional.
 • El usuario debe revisar y validar los resultados antes de utilizarlos para fines fiscales o contables.
-`;
+
 
 
 `.trim();
@@ -455,7 +455,7 @@ module.exports = async (req, res) => {
     }
 
     const input = [
-      { role: "system", content: `${ SYSTEM_PROMPT } \n\nContexto: \n${ KNOWLEDGE_BASE } ` },
+      { role: "system", content: `${SYSTEM_PROMPT} \n\nContexto: \n${KNOWLEDGE_BASE} ` },
       ...messages,
     ];
 
