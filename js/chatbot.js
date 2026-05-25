@@ -21,6 +21,15 @@
     const elQuick = document.getElementById("bc-chat-quick");
     const elForm = document.getElementById("bc-chat-form");
     const elInput = document.getElementById("bc-chat-input");
+    // ---------- microphone ----------
+    const micBtn = document.getElementById("bc-chat-mic");
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+
+
+
 
     // ⛔ Si el HTML aún no existe, no inicializa
     if (!fab || !panel || !closeBtn || !elMsgs || !elForm || !elInput) {
@@ -180,6 +189,109 @@
       return data.reply;
     }
 
+
+    // ---------- voice assistant ----------
+
+    async function transcribeAudio(audioBlob) {
+      const formData = new FormData();
+      formData.append("audio", audioBlob, "voice.webm");
+
+      const res = await fetch("/api/transcribe", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Transcription failed");
+
+      return data.text;
+    }
+
+    async function speakAI(text) {
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!res.ok) throw new Error("TTS failed");
+
+      const audioBlob = await res.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    }
+
+
+    if (micBtn) {
+      micBtn.addEventListener("click", async () => {
+        try {
+          if (!isRecording) {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            audioChunks = [];
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = (event) => {
+              if (event.data.size > 0) audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+              stream.getTracks().forEach(track => track.stop());
+
+              micBtn.classList.remove("recording");
+              micBtn.textContent = "၊||၊";// ---------- icono de hablar ----------
+              isRecording = false;
+
+              const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+              const loadingNode = addMsg("bot", "Procesando tu voz...");
+
+              try {
+                const text = await transcribeAudio(audioBlob);
+                loadingNode.remove();
+
+                if (!text) {
+                  addMsg("bot", "No pude entender el audio. Intenta de nuevo.");
+                  return;
+                }
+
+                elInput.value = text;
+                elForm.requestSubmit();
+              } catch (err) {
+                console.error("[Transcription] Error:", err);
+                loadingNode.innerHTML = renderSimpleMarkdown(
+                  "No pude convertir tu voz a texto. Intenta de nuevo."
+                );
+              }
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+
+            micBtn.classList.add("recording");
+            micBtn.textContent = "⏹️";
+          } else {
+            mediaRecorder.stop();
+          }
+        } catch (err) {
+          console.error("[Voice] Error:", err);
+
+          micBtn.classList.remove("recording");
+          micBtn.textContent = "၊||၊"; // ---------- icono de hablar ----------
+          isRecording = false;
+
+          addMsg("bot", "No pude acceder al micrófono. Verifica los permisos.");
+        }
+      });
+    }
+
+
+
+
+
+
+
+
     // ---------- SUBMIT ----------
     elForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -205,6 +317,7 @@
         loadingNode.innerHTML = renderSimpleMarkdown(reply);
         history.push({ role: "assistant", content: reply });
         saveHistory();
+        await speakAI(reply);
       } catch (err) {
         console.error("[Chatbot] Error:", err);
 
