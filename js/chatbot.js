@@ -184,18 +184,25 @@ let currentStream;
 
     // ---------- API ----------
     async function askAI(messages) {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages }),
-      });
+  const pageLanguage =
+    document.documentElement.lang === "en"
+      ? "English"
+      : "Spanish";
 
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.error || `Request failed (${res.status})`);
-      return data.reply;
-    }
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      messages,
+      language: pageLanguage
+    }),
+  });
 
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error || `Request failed (${res.status})`);
 
+  return data.reply;
+}
     // ---------- voice assistant ----------
 
     async function transcribeAudio(audioBlob) {
