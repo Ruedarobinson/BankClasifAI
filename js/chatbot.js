@@ -23,9 +23,15 @@
     const elInput = document.getElementById("bc-chat-input");
     // ---------- microphone ----------
     const micBtn = document.getElementById("bc-chat-mic");
-    let mediaRecorder;
-    let audioChunks = [];
-    let isRecording = false;
+   let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+let voiceMode = false;
+let silenceTimer = null;
+let audioContext;
+let analyser;
+let source;
+let currentStream;
 
 
 
@@ -208,82 +214,220 @@
     }
 
     async function speakAI(text) {
-      const res = await fetch("/api/tts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
+  const res = await fetch("/api/tts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
 
-      if (!res.ok) throw new Error("TTS failed");
+  if (!res.ok) throw new Error("TTS failed");
 
-      const audioBlob = await res.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      audio.play();
+  const audioBlob = await res.blob();
+  const audioUrl = URL.createObjectURL(audioBlob);
+  const audio = new Audio(audioUrl);
+
+  return new Promise((resolve) => {
+    audio.onended = resolve;
+    audio.onerror = resolve;
+    audio.play();
+  });
+}
+
+
+ async function startListening() {
+  if (!voiceMode || isRecording) return;
+
+  currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+  audioChunks = [];
+  mediaRecorder = new MediaRecorder(currentStream);
+
+  mediaRecorder.ondataavailable = (event) => {
+    if (event.data.size > 0) audioChunks.push(event.data);
+  };
+
+  mediaRecorder.onstop = async () => {
+    stopAudioAnalysis();
+
+    currentStream.getTracks().forEach(track => track.stop());
+
+    isRecording = false;
+    micBtn.classList.remove("recording");
+    micBtn.textContent = "⏳";
+
+    const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+    if (audioBlob.size < 2000) {
+      if (voiceMode) startListening();
+      return;
     }
 
+    const loadingNode = addMsg("bot", uiLang === "es" ? "Procesando tu voz..." : "Processing your voice...");
 
-    if (micBtn) {
-      micBtn.addEventListener("click", async () => {
-        try {
-          if (!isRecording) {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    try {
+      const text = await transcribeAudio(audioBlob);
+      loadingNode.remove();
 
-            audioChunks = [];
-            mediaRecorder = new MediaRecorder(stream);
+      if (!text || text.trim().length < 2) {
+        addMsg("bot", uiLang === "es" ? "No pude entenderte. Intenta de nuevo." : "I couldn't understand you. Please try again.");
+        if (voiceMode) startListening();
+        return;
+      }
 
-            mediaRecorder.ondataavailable = (event) => {
-              if (event.data.size > 0) audioChunks.push(event.data);
-            };
+      elInput.value = text;
+      await submitVoiceMessage(text);
 
-            mediaRecorder.onstop = async () => {
-              stream.getTracks().forEach(track => track.stop());
+      if (voiceMode) {
+        setTimeout(() => startListening(), 600);
+      }
 
-              micBtn.classList.remove("recording");
-              micBtn.textContent = "၊||၊";// ---------- icono de hablar ----------
-              isRecording = false;
+    } catch (err) {
+      console.error("[Voice Conversation] Error:", err);
+      loadingNode.innerHTML = renderSimpleMarkdown(
+        uiLang === "es"
+          ? "No pude convertir tu voz a texto. Intenta de nuevo."
+          : "I couldn't convert your voice to text. Please try again."
+      );
 
-              const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-              const loadingNode = addMsg("bot", "Procesando tu voz...");
+      if (voiceMode) {
+        setTimeout(() => startListening(), 1200);
+      }
+    }
+  };
 
-              try {
-                const text = await transcribeAudio(audioBlob);
-                loadingNode.remove();
+  mediaRecorder.start();
+  isRecording = true;
 
-                if (!text) {
-                  addMsg("bot", "No pude entender el audio. Intenta de nuevo.");
-                  return;
-                }
+  micBtn.classList.add("recording");
+  micBtn.textContent = "🔴";
 
-                elInput.value = text;
-                elForm.requestSubmit();
-              } catch (err) {
-                console.error("[Transcription] Error:", err);
-                loadingNode.innerHTML = renderSimpleMarkdown(
-                  "No pude convertir tu voz a texto. Intenta de nuevo."
-                );
-              }
-            };
+  startSilenceDetection(currentStream);
+}
 
-            mediaRecorder.start();
-            isRecording = true;
+function startSilenceDetection(stream) {
+  audioContext = new AudioContext();
+  analyser = audioContext.createAnalyser();
+  source = audioContext.createMediaStreamSource(stream);
 
-            micBtn.classList.add("recording");
-            micBtn.textContent = "⏹️";
-          } else {
+  source.connect(analyser);
+  analyser.fftSize = 2048;
+
+  const dataArray = new Uint8Array(analyser.fftSize);
+
+  function checkVolume() {
+    if (!isRecording || !voiceMode) return;
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    let sum = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+      const value = dataArray[i] - 128;
+      sum += value * value;
+    }
+
+    const volume = Math.sqrt(sum / dataArray.length);
+
+    if (volume < 6) {
+      if (!silenceTimer) {
+        silenceTimer = setTimeout(() => {
+          if (mediaRecorder && mediaRecorder.state === "recording") {
             mediaRecorder.stop();
           }
-        } catch (err) {
-          console.error("[Voice] Error:", err);
-
-          micBtn.classList.remove("recording");
-          micBtn.textContent = "၊||၊"; // ---------- icono de hablar ----------
-          isRecording = false;
-
-          addMsg("bot", "No pude acceder al micrófono. Verifica los permisos.");
-        }
-      });
+        }, 1800);
+      }
+    } else {
+      clearTimeout(silenceTimer);
+      silenceTimer = null;
     }
+
+    requestAnimationFrame(checkVolume);
+  }
+
+  checkVolume();
+}
+
+function stopAudioAnalysis() {
+  clearTimeout(silenceTimer);
+  silenceTimer = null;
+
+  if (audioContext) {
+    audioContext.close().catch(() => {});
+    audioContext = null;
+  }
+}
+
+async function submitVoiceMessage(text) {
+  hideQuickReplies();
+
+  uiLang = guessLang(text);
+  renderQuick();
+
+  addMsg("user", text);
+  history.push({ role: "user", content: text });
+  saveHistory();
+
+  elInput.value = "";
+
+  const loadingNode = addMsg("bot", "…");
+
+  try {
+    const clipped = history.slice(-MAX_HISTORY);
+    const reply = await askAI(clipped);
+
+    loadingNode.innerHTML = renderSimpleMarkdown(reply);
+
+    history.push({ role: "assistant", content: reply });
+    saveHistory();
+
+    await speakAI(reply);
+
+  } catch (err) {
+    console.error("[Voice Chat] Error:", err);
+
+    const msg =
+      uiLang === "es"
+        ? "Hubo un error conectando con la IA. Intenta de nuevo."
+        : "There was an error connecting to AI. Please try again.";
+
+    loadingNode.innerHTML = renderSimpleMarkdown(msg);
+  }
+}
+
+function stopVoiceMode() {
+  voiceMode = false;
+
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    mediaRecorder.stop();
+  }
+
+  stopAudioAnalysis();
+
+  micBtn.classList.remove("recording");
+  micBtn.textContent = "၊||၊";
+}
+
+if (micBtn) {
+  micBtn.addEventListener("click", async () => {
+    try {
+      if (!voiceMode) {
+        voiceMode = true;
+        micBtn.textContent = "🔴";
+        addMsg("bot", uiLang === "es" ? "Modo voz activado. Te escucho." : "Voice mode activated. I'm listening.");
+        await startListening();
+      } else {
+        stopVoiceMode();
+        addMsg("bot", uiLang === "es" ? "Modo voz desactivado." : "Voice mode off.");
+      }
+    } catch (err) {
+      console.error("[Voice Mode] Error:", err);
+      stopVoiceMode();
+      addMsg("bot", uiLang === "es"
+        ? "No pude acceder al micrófono. Verifica los permisos."
+        : "I couldn't access the microphone. Please check permissions."
+      );
+    }
+  });
+}
 
 
 
