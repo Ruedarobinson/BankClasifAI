@@ -32,6 +32,8 @@ module.exports = async (req, res) => {
             model: "gpt-4o-mini-tts",
             voice: "marin",
             input: text,
+            instructions:
+                "Speak in a warm, professional, friendly tone, like a real financial advisor. Natural pacing, clear pronunciation, not robotic.",
             format: "mp3",
         });
 
