@@ -1,4 +1,3 @@
-
 <!-- BankClasifAI Chatbot -->
 <button id="bc-chat-fab" aria-label="Open chat">💬</button>
 
@@ -12,10 +11,10 @@
       </div>
     </div>
 
-     <div class="bc-chat__actions">
-    <button id="bc-chat-expand" class="bc-chat__icon">⤢</button>
-    <button id="bc-chat-close" class="bc-chat__icon">✕</button>
-  </div>
+    <div class="bc-chat__actions">
+      <button id="bc-chat-expand" class="bc-chat__icon">⤢</button>
+      <button id="bc-chat-close" class="bc-chat__icon">✕</button>
+    </div>
   </div>
 
   <div id="bc-chat-messages" class="bc-chat__messages"></div>
@@ -23,15 +22,18 @@
   <div id="bc-chat-quick" class="bc-chat__quick"></div>
 
   <form id="bc-chat-form" class="bc-chat__form">
+    <div class="bc-mic-wrapper">
+      <button id="bc-chat-mic" class="bc-chat__mic" type="button">
+        ၊၊||၊
+      </button>
+
+      <div class="bc-mic-tooltip">
+        Activate Voice
+      </div>
+    </div>
     <input id="bc-chat-input" class="bc-chat__input" placeholder="Message..." autocomplete="off" />
     <button class="bc-chat__send" type="submit">➤</button>
   </form>
 
   <div class="bc-chat__footer">AI can make mistakes.Powered by BankClasifAI</div>
 </div>
-
-
-
-
-
-

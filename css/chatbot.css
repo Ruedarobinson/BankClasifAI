@@ -1,9 +1,7 @@
-
-
 /* ===============================
    BOTÓN FLOTANTE (FAB)
 ================================ */
-#bc-chat-fab{
+#bc-chat-fab {
   position: fixed;
   right: 22px;
   bottom: 22px;
@@ -15,14 +13,14 @@
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .35);
   z-index: 999999;
 }
 
 /* ===============================
    PANEL DEL CHAT
 ================================ */
-.bc-chat{
+.bc-chat {
   position: fixed;
   right: 22px;
   bottom: 92px;
@@ -33,7 +31,7 @@
   border-radius: 18px;
   background: var(--color-white);
   border: 1px solid var(--color-border);
-  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
   overflow: hidden;
 
   display: flex;
@@ -46,7 +44,7 @@
 
 
 
-.bc-chat__actions{
+.bc-chat__actions {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -54,7 +52,7 @@
 
 /* expandir */
 
-.bc-chat.expanded{
+.bc-chat.expanded {
   top: 20px;
   right: 20px;
   bottom: 20px;
@@ -68,7 +66,7 @@
 
 
 /* Cerrado */
-.bc-chat.closed{
+.bc-chat.closed {
   opacity: 0;
   visibility: hidden;
   transform: scale(.96);
@@ -76,7 +74,7 @@
 }
 
 /* Abierto */
-.bc-chat.open{
+.bc-chat.open {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
@@ -86,71 +84,74 @@
 /* ===============================
    HEADER
 ================================ */
-.bc-chat__header{
+.bc-chat__header {
   padding: 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   background: var(--color-logo);
   border-bottom: 1px solid var(--color-logo);
 }
 
-.bc-chat__brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.bc-chat__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.bc-chat__logo{
+.bc-chat__logo {
   width: 28px;
   height: 28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.bc-chat__logo img{
+
+.bc-chat__logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.bc-chat__title{
-  display:flex;
-  flex-direction:column;
-  line-height:1.1;
-  color:#fff;
+.bc-chat__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  color: #fff;
   font-size: 20px;
 }
-.bc-chat__subtitle{
-  font-size:12px;
-  opacity:.85;
+
+.bc-chat__subtitle {
+  font-size: 12px;
+  opacity: .85;
 }
 
-.bc-chat__icon{
+.bc-chat__icon {
   width: 30px;
   height: 30px;
   border-radius: 8px;
   border: none;
-   background: var(--brand-degradado);
+  background: var(--brand-degradado);
   color: var(--color-white);
 
   font-size: 24px;
   cursor: pointer;
 }
 
-.bc-chat__icon:hover{
- background: #fff;
+.bc-chat__icon:hover {
+  background: #fff;
   color: var(--color-logo);
 }
 
 /* ===============================
    MENSAJES
 ================================ */
-.bc-chat__messages{
+.bc-chat__messages {
   padding: 14px;
   flex: 1;
-  min-height: 0;        /* 🔥 CLAVE */
+  min-height: 0;
+  /* 🔥 CLAVE */
   overflow-y: auto;
 
   display: flex;
@@ -163,11 +164,12 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.bc-chat__messages::-webkit-scrollbar{
+
+.bc-chat__messages::-webkit-scrollbar {
   display: none;
 }
 
-.bc-msg{
+.bc-msg {
   max-width: 95%;
   padding: 12px 14px;
   border-radius: 14px;
@@ -178,14 +180,14 @@
 }
 
 /* Usuario */
-.bc-msg.user{
+.bc-msg.user {
   align-self: flex-end;
   background: #f2f4f8;
   color: var(--color-text);
 }
 
 /* Bot */
-.bc-msg.bot{
+.bc-msg.bot {
   align-self: flex-start;
   background: #ffffff;
   color: var(--color-text);
@@ -194,15 +196,15 @@
 /* ===============================
    QUICK REPLIES
 ================================ */
-.bc-chat__quick{
+.bc-chat__quick {
   padding: 0 14px 10px 14px;
-  display:flex;
-  gap:10px;
+  display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   background: #fff;
 }
 
-.bc-chip{
+.bc-chip {
   padding: 14px 16px;
   border-radius: 999px;
   font-size: 14px;
@@ -212,23 +214,24 @@
   cursor: pointer;
   transition: background .15s ease;
 }
-.bc-chip:hover{
+
+.bc-chip:hover {
   background: #f2f4f8;
 }
 
 /* ===============================
    INPUT
 ================================ */
-.bc-chat__form{
+.bc-chat__form {
   padding: 12px 14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border-top: 1px solid var(--color-border);
   background: #fff;
 }
 
-.bc-chat__input{
+.bc-chat__input {
   flex: 1;
   padding: 12px 14px;
   border-radius: 999px;
@@ -239,17 +242,17 @@
   outline: none;
 }
 
-.bc-chat__input:hover{
- border:  1px solid var(--border-rosado);
+.bc-chat__input:hover {
+  border: 1px solid var(--border-rosado);
 }
 
-.bc-chat__input::placeholder{
+.bc-chat__input::placeholder {
   color: var(--color-muted);
 }
 
-.bc-chat__send{
-  width: 30px;
-  height: 30px;
+.bc-chat__send {
+  width: 35px;
+  height: 35px;
   border-radius: 999px;
   border: none;
   background: var(--color-logo);
@@ -258,14 +261,99 @@
   font-weight: bold;
   cursor: pointer;
 }
-.bc-chat__send:hover{
+
+.bc-chat__send:hover {
   background: var(--brand-degradado);
+}
+
+.bc-mic-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.bc-chat__mic {
+  width: 30px;
+  height: 30px;
+  border: solid 1px var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f3f3f3;
+  color: #150115;
+  font-size: 16px;
+
+  transition: all .25s ease;
+}
+
+.bc-chat__mic:hover {
+  background: var(--brand-degradado);
+  transform: scale(1.05);
+  border: none;
+  color: #fff;
+  font-size: 19px;
+}
+
+.bc-mic-tooltip {
+  position: absolute;
+
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+
+  background: rgba(8, 8, 8, 0.95);
+  color: #fff;
+
+  padding: 4px 6px;
+  border-radius: 8px;
+
+  font-size: 8px;
+  font-weight: 400;
+
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all .25s ease;
+
+  border: 1px solid rgba(255, 255, 255, .15);
+
+  pointer-events: none;
+
+  z-index: 9999;
+}
+
+.bc-mic-tooltip::after {
+  content: "";
+
+  position: absolute;
+
+  top: 100%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-width: 6px;
+  border-style: solid;
+
+  border-color: rgba(8, 8, 8, 0.95) transparent transparent transparent;
+}
+
+.bc-mic-wrapper:hover .bc-mic-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ===============================
    FOOTER
 ================================ */
-.bc-chat__footer{
+.bc-chat__footer {
   align-items: center;
   text-align: center;
   padding: 8px 14px 12px 14px;
@@ -279,20 +367,21 @@
 ================================ */
 
 /* Tablets */
-@media (max-width: 768px){
-  .bc-chat{
+@media (max-width: 768px) {
+  .bc-chat {
     right: 14px;
     bottom: 86px;
   }
-  #bc-chat-fab{
+
+  #bc-chat-fab {
     right: 14px;
     bottom: 14px;
   }
 }
 
 /* Mobile */
-@media (max-width: 480px){
-  .bc-chat{
+@media (max-width: 480px) {
+  .bc-chat {
     left: 12px;
     right: 12px;
     bottom: 12px;
@@ -302,15 +391,15 @@
     border-radius: 16px;
   }
 
-  #bc-chat-fab{
+  #bc-chat-fab {
     right: 12px;
     bottom: 12px;
   }
 }
 
 /* Mobile pequeño → fullscreen */
-@media (max-width: 380px){
-  .bc-chat{
+@media (max-width: 380px) {
+  .bc-chat {
     left: 0;
     right: 0;
     bottom: 0;
@@ -324,62 +413,62 @@
    COLITA ABAJO EN LA ESQUINA
 ================================ */
 
-.bc-msg{
+.bc-msg {
   position: relative;
-  padding-bottom: 14px; /* espacio para la colita */
+  padding-bottom: 14px;
+  /* espacio para la colita */
 }
 
 /* ===== BOT (abajo-izquierda) ===== */
-.bc-msg.bot::after{
-  content:"";
-  position:absolute;
-  bottom:-8px;
-  left:12px;
-  width:0;
-  height:0;
-  border-left:8px solid transparent;
-  border-right:8px solid transparent;
-  border-top:8px solid #ffffff; /* fondo bot */
+.bc-msg.bot::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 12px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #ffffff;
+  /* fondo bot */
 }
 
-.bc-msg.bot::before{
-  content:"";
-  position:absolute;
-  bottom:-9px;
-  left:11px;
-  width:0;
-  height:0;
-  border-left:9px solid transparent;
-  border-right:9px solid transparent;
-  border-top:9px solid var(--color-border); /* borde */
+.bc-msg.bot::before {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 11px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid var(--color-border);
+  /* borde */
 }
 
 /* ===== USER (abajo-derecha) ===== */
-.bc-msg.user::after{
-  content:"";
-  position:absolute;
-  bottom:-8px;
-  right:12px;
-  width:0;
-  height:0;
-  border-left:8px solid transparent;
-  border-right:8px solid transparent;
-  border-top:8px solid #f2f4f8; /* fondo user */
+.bc-msg.user::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 12px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #f2f4f8;
+  /* fondo user */
 }
 
-.bc-msg.user::before{
-  content:"";
-  position:absolute;
-  bottom:-9px;
-  right:11px;
-  width:0;
-  height:0;
-  border-left:9px solid transparent;
-  border-right:9px solid transparent;
-  border-top:9px solid var(--color-border); /* borde */
+.bc-msg.user::before {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  right: 11px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid var(--color-border);
+  /* borde */
 }
-
-
-
-
-
