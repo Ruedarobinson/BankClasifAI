@@ -289,18 +289,26 @@ const invalidVoiceText =
   /[\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF]/.test(cleanText);
 
 if (invalidVoiceText) {
-        addMsg("bot", uiLang === "es" ? "No pude entenderte. Intenta de nuevo." : "I couldn't understand you. Please try again.");
-        if (voiceMode) {
-  setTimeout(() => startListening(), 500);
+  addMsg(
+    "bot",
+    uiLang === "es"
+      ? "No pude entenderte. Intenta de nuevo."
+      : "I couldn't understand you. Please try again."
+  );
+
+  if (voiceMode) {
+    setTimeout(() => startListening(), 500);
+  }
+
+  return;
 }
-return;
 
-      elInput.value = text;
-      await submitVoiceMessage(text);
+elInput.value = text;
+await submitVoiceMessage(text);
 
-      if (voiceMode) {
-        setTimeout(() => startListening(), 600);
-      }
+if (voiceMode) {
+  setTimeout(() => startListening(), 600);
+}
 
     } catch (err) {
       console.error("[Voice Conversation] Error:", err);
@@ -499,6 +507,11 @@ if (micBtn) {
   }
 
   window.initBankClasifAIChatbot = initBankClasifAIChatbot;
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initBankClasifAIChatbot);
+} else {
+  initBankClasifAIChatbot();
+}
+
 })();
-
-
