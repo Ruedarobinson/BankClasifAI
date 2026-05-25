@@ -379,6 +379,28 @@ function stopAudioAnalysis() {
 async function submitVoiceMessage(text) {
   hideQuickReplies();
 
+  const cleanText = (text || "").trim().toLowerCase();
+
+  const noiseWords = [
+    "sorry",
+    "no se fue",
+    "mammalia",
+    "ok",
+    "okay",
+    "eh",
+    "um",
+    "uh"
+  ];
+
+  if (
+    cleanText.length < 4 ||
+    noiseWords.includes(cleanText)
+  ) {
+    console.log("[Voice] Ignored noise/silence:", cleanText);
+    stopVoiceMode();
+    return;
+  }
+
   uiLang = guessLang(text);
   renderQuick();
 
@@ -470,27 +492,7 @@ if (micBtn) {
 
 
 
-      const cleanText = (text || "").trim().toLowerCase();
-
-const noiseWords = [
-  "sorry",
-  "no se fue",
-  "mammalia",
-  "ok",
-  "okay",
-  "eh",
-  "um",
-  "uh"
-];
-
-if (
-  cleanText.length < 4 ||
-  noiseWords.includes(cleanText)
-) {
-  console.log("[Voice] Ignored noise/silence:", cleanText);
-  stopVoiceMode();
-  return;
-}
+      
 
       addMsg("user", text);
       history.push({ role: "user", content: text });
