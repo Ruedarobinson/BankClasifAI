@@ -28,16 +28,46 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: "Text is required" });
         }
 
-        const audio = await client.audio.speech.create({
+        const mp3 = await client.audio.speech.create({
             model: "gpt-4o-mini-tts",
-            voice: "marin",
+            voice: "nova",
             input: text,
-            instructions:
-                "Speak in a warm, professional, friendly tone, like a real financial advisor. Natural pacing, clear pronunciation, not robotic.",
-            format: "mp3",
+            instructions: `
+                Habla como una asesora virtual profesional de BankClasifai,
+                cálida, amable y conversacional.
+            `,
         });
 
-        const buffer = Buffer.from(await audio.arrayBuffer());
+        const ttsInstructions = `
+            Habla como una asesora virtual profesional de BankClasifai.
+
+            Tono:
+            - Amable
+            - Cercano
+            - Natural
+            - Seguro
+            - Conversacional
+
+            Velocidad:
+            - Moderadamente lenta
+            - Pronunciación clara
+
+            Evita:
+            - Sonar robótica
+            - Leer listas muy rápido
+            - Hablar como un sistema automático
+
+            Haz pausas naturales entre ideas.
+        `;
+
+        const speech = await client.audio.speech.create({
+            model: "gpt-4o-mini-tts",
+            voice: "nova",
+            input: text,
+            instructions: ttsInstructions
+        });
+
+        const buffer = Buffer.from(await speech.arrayBuffer());
 
         res.setHeader("Content-Type", "audio/mpeg");
         return res.status(200).send(buffer);

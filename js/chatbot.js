@@ -264,14 +264,30 @@ let currentStream;
 
     const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
 
-    if (audioBlob.size < 25000) {
-  console.log("[Voice] Audio too short or silent, ignored.");
+ if (audioBlob.size < 25000) {
+  console.log("[Voice] Silence detected.");
 
-  if (voiceMode) {
-    setTimeout(() => startListening(), 500);
-  }
+  addMsg(
+    "bot",
+    uiLang === "es"
+      ? "¿Sigues ahí?"
+      : "Are you still there?"
+  );
+
+  setTimeout(() => {
+    if (voiceMode && !isRecording) {
+      stopVoiceMode();
+      addMsg(
+        "bot",
+        uiLang === "es"
+          ? "Modo voz desactivado por inactividad."
+          : "Voice mode turned off due to inactivity."
+      );
+    }
+  }, 5000);
 
   return;
+
 }
 
     const loadingNode = addMsg("bot", uiLang === "es" ? "Procesando tu voz..." : "Processing your voice...");
@@ -309,9 +325,7 @@ if (voiceMode) {
           : "I couldn't convert your voice to text. Please try again."
       );
 
-      if (voiceMode) {
-        setTimeout(() => startListening(), 1200);
-      }
+      stopVoiceMode();
     }
   };
 
@@ -353,7 +367,7 @@ function startSilenceDetection(stream) {
           if (mediaRecorder && mediaRecorder.state === "recording") {
             mediaRecorder.stop();
           }
-        }, 1800);
+        }, 7000);
       }
     } else {
       clearTimeout(silenceTimer);
